@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget{
-  const Home({super.key});
+class Board extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
@@ -9,9 +8,9 @@ class Home extends StatelessWidget{
     return const Scaffold(
       body: Center(
         child: Column(
-          children: [
-            Text('Game of the Generals'),
-        ]
+            children: [
+              Text('Game of the Generals'),
+            ]
         ),
       ),
     );
