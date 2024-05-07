@@ -1,4 +1,4 @@
-import 'package:gog/backend/Piece.dart';
+import 'package:gog/backend/piece.dart';
 
 class Arbiter {
   // made static since we don't need to create multiple instances of this class
