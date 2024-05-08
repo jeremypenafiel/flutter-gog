@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gog/ui/BoardScreen/board_tile.dart';
 import 'package:gog/ui/BoardScreen/piece_ui.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,7 @@ class _BoardUIState extends State<BoardUI> {
                 bool hasPiece = board.board[index] != 0;
                 bool isPossibleMove = possibleMoves?.contains(index) == true;
                 Color? tileColor;
+
                 tileColor = index % 2 == 0 ? lightSquareColor: darkSquareColor;
                 if(hasPiece && index == selectedTileIndex || isPossibleMove){
                   tileColor = highlightColor;
@@ -55,10 +57,11 @@ class _BoardUIState extends State<BoardUI> {
                         selectedTileIndex = index;
                       });
                     } ,
-                   child: Container(
-                     color: tileColor,
+                   child: BoardTile(
                      // Piece is rendered here
-                     child:  hasPiece? const PieceUI() :Text(index.toString(), style: TextStyle(fontSize: 10),),
+                     index: index,
+                     tileColor: tileColor,
+                     child:  hasPiece? PieceUI(possibleMoves: possibleMoves,) :Text(index.toString(), style: TextStyle(fontSize: 10),),
                    ),
                 );
             }
