@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gog/backend/board.dart';
+import 'package:gog/backend/game_controller.dart';
+import 'package:gog/ui/BoardScreen/board_screen.dart';
+import 'package:gog/ui/BoardScreen/board_ui.dart';
 import 'package:gog/ui/HomeScreen/home.dart';
+import 'package:provider/provider.dart';
 
 
 void main() {
@@ -17,6 +22,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const Home(),
+        '/board': (context) => ChangeNotifierProvider(create: (context) => Board(), child: const BoardScreen(),)
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

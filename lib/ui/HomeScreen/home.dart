@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget{
@@ -6,12 +7,20 @@ class Home extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-    return const Scaffold(
+    return  Scaffold(
       body: Center(
         child: Column(
           children: [
-            Text('Game of the Generals'),
-        ]
+            GestureDetector(
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [ Text('Game of the Generals', style: TextStyle(fontSize: 50),)]),
+              onTap: (){
+                Navigator.pushNamed(context, '/board');
+              },
+            )
+          ],
         ),
       ),
     );
