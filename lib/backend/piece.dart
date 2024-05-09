@@ -36,11 +36,4 @@
   static int pieceType(int piece) {
     return piece & typeMask;
   }
-
-
-
-
-}
-
-class public {
 }
