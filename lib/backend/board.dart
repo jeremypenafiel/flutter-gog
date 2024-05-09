@@ -7,13 +7,16 @@ import 'package:gog/backend/piece.dart';
 class Board extends ChangeNotifier {
 
   Board(){
-    board[0] = Piece.white | Piece.flag;
+    board[0] = Piece.black | Piece.flag;
   }
 
   final int maxSquareNum = 72;
   static const int _maxRanks = 8;
   static const int _maxFiles = 9;
   final List<int> moveOffsets = [-_maxFiles, _maxFiles, -1, 1];
+
+  int? selectedTileIndex;
+  List<int> possibleMoves = List.empty();
 
   List<int> board = List<int>.filled(72, 0);
 
@@ -44,8 +47,9 @@ class Board extends ChangeNotifier {
     return (rankDifference - fileDifference).abs() == 1;
   }
 
-  List<int> getPossibleMoves(int startSquare){
-    List<int> possibleMoves = [];
+  List<int>
+  getPossibleMoves(int startSquare){
+    possibleMoves = [];
     for(int offset in moveOffsets){
       int targetSquare = startSquare + offset;
       if(targetSquare >= 0 && targetSquare < maxSquareNum){
@@ -61,7 +65,26 @@ class Board extends ChangeNotifier {
   void movePiece(int targetSquare, int startSquare){
     board[targetSquare] = board[startSquare];
     board[startSquare] = 0;
+    selectedTileIndex = null;
+    possibleMoves = List.empty();
     notifyListeners();
+  }
+
+  set setSelectedTileIndex(int index){
+    selectedTileIndex = index;
+    notifyListeners();
+  }
+
+  get getSelectedTileIndex{
+    return selectedTileIndex;
+  }
+
+  bool isPossibleMove(int index){
+    return possibleMoves.contains(index);
+  }
+
+  bool isSelectedTile(int index){
+    return selectedTileIndex == index;
   }
 
 

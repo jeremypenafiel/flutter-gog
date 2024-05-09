@@ -1,32 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../backend/board.dart';
+import '../../backend/piece.dart';
 
 class PieceUI extends StatelessWidget{
-  final List<int>? possibleMoves;
-  const PieceUI({super.key, required this.possibleMoves});
+  final int startSquare;
+  final int pieceType;
+  const PieceUI({super.key, required this.startSquare, required this.pieceType});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Draggable<List<int>>(
-      data: possibleMoves,
-      childWhenDragging: Container(),
-      feedback: Container(
-          width: 50,
-          height: 50,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.red,
-          )
-      ),
-      child: Container(
-        width: 50,
-        height: 50,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.red,
-        )
-      ),
+    Color pieceColor = Piece.isColor(pieceType, Piece.white)? Colors.white: Colors.black;
+    return Consumer<Board>(
+        builder: (BuildContext context, Board board, Widget? child) {
+          return GestureDetector(
+            onTap: () {
+              board.setSelectedTileIndex = startSquare;
+              board.getPossibleMoves(startSquare);
+              },
 
+            child: Draggable<int>(
+              onDragStarted: (){
+                board.setSelectedTileIndex = startSquare;
+                board.getPossibleMoves(startSquare);
+              },
+              data: startSquare,
+              childWhenDragging: Container(),
+              feedback: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: pieceColor,
+                  )
+              ),
+              child: Container(
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: pieceColor,
+                  )
+              ),
+
+            ),
+          );
+        }
     );
   }
 
