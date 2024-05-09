@@ -1,30 +1,141 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget{
-  const Home({super.key});
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter App Homepage',
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: Text('Home Page'),
+      // ),
+      body: Stack(
+        children: [
+          // Background image
+          Positioned.fill(
+            child: Image.asset(
+              'assets/background.jpg', // Replace 'assets/background.jpg' with your image path
+              fit: BoxFit.cover,
+            ),
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: 
+                  Image.asset('assets/Title.png',
+                  ),
+                ),
+                
+                SizedBox(height: 20),
+
+                Container(
+                  child: Text(
+                    'EDIWOW ANG KADIPOTA MO GID'
+                    ),
+                ),
+
+                SizedBox(height: 50),
+
+                RoundedButton(
+                  onPressed: () {
+                    // Action for button 1
+                  },
+                  text: 'PLAY',
+                ),
+                SizedBox(height: 20),
+                RoundedButton(
+                  onPressed: () {
+                    // Action for button 2
+                  },
+                  text: 'SETTINGS',
+                ),
+                SizedBox(height: 20),
+                RoundedButton(
+                  onPressed: () {
+                    // Action for button 3
+                  },
+                  text: 'GUIDE',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RoundedButton extends StatefulWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const RoundedButton({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  _RoundedButtonState createState() => _RoundedButtonState();
+}
+
+class _RoundedButtonState extends State<RoundedButton> {
+  bool _isTapped = false;
 
   @override
   Widget build(BuildContext context) {
-
-    return  Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            GestureDetector(
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [ Text('Game of the Generals', style: TextStyle(fontSize: 50),)]),
-              onTap: (){
-                Navigator.pushNamed(context, '/board');
-              },
-            )
-          ],
+    return GestureDetector(
+      onTapDown: (_) {
+        setState(() {
+          _isTapped = true;
+        });
+      },
+      onTapUp: (_) {
+        setState(() {
+          _isTapped = false;
+        });
+        widget.onPressed();
+      },
+      onTapCancel: () {
+        setState(() {
+          _isTapped = false;
+        });
+      },
+      child: Container(
+        width: 184,
+        height: 62,
+        decoration: BoxDecoration(
+          color: _isTapped ? Colors.orange : Colors.white,
+          borderRadius: BorderRadius.circular(2),
+          border: Border.all(
+            color: _isTapped ? Colors.orange : Colors.white,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            widget.text,
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 20,
+              color: _isTapped ? Colors.white : Colors.black,
+            ),
+          ),
         ),
       ),
     );
   }
-
-
 }
