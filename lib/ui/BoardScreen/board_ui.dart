@@ -31,8 +31,7 @@ class _BoardUIState extends State<BoardUI> {
                  BoardTile(
                    // Piece is rendered here
                    index: index,
-                   child:  hasPiece? PieceUI(startSquare: index, pieceType: board.board[index],) :Text(index.toString(), style: TextStyle(fontSize: 10),),
-                 );
+                   child:  hasPiece? PieceUI(startSquare: index, pieceType: board.board[index],) : null,);
             }
           )
         );

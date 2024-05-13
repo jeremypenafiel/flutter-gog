@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../backend/board.dart';
 import '../../backend/piece.dart';
+
+const Map pieceMap = {Piece.white|Piece.col: 'assets/pieces/colonel(1).png'};
 
 class PieceUI extends StatelessWidget{
   final int startSquare;
@@ -31,16 +32,18 @@ class PieceUI extends StatelessWidget{
                   width: 100,
                   height: 100,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: pieceColor,
+                    image:  DecorationImage(
+                      image:AssetImage(pieceMap[pieceType]),
+                    ),
                   )
               ),
               child: Container(
                   width: 10,
                   height: 10,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: pieceColor,
+                    image:  DecorationImage(
+                      image:AssetImage(pieceMap[pieceType]),
+                    ),
                   )
               ),
 
