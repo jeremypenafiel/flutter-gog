@@ -3,7 +3,12 @@ import 'package:provider/provider.dart';
 import '../../backend/board.dart';
 import '../../backend/piece.dart';
 
-const Map pieceMap = {Piece.white|Piece.col: 'assets/pieces/colonel(1).png'};
+const Map pieceMap = {
+  Piece.white|Piece.col: 'assets/White Pieces/white_colonel.png',
+  Piece.white|Piece.captain: 'assets/White Pieces/white_captain.png',
+  Piece.black|Piece.col: 'assets/Black Pieces/black_colonel.png',
+  Piece.black|Piece.captain: 'assets/Black Pieces/black_captain.png',
+                    };
 
 class PieceUI extends StatelessWidget{
   final int startSquare;

@@ -8,6 +8,7 @@ class Board extends ChangeNotifier {
 
   Board(){
     board[0] = Piece.white | Piece.col;
+    board[71] = Piece.black | Piece.captain;
   }
 
   final int maxSquareNum = 72;
