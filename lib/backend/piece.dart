@@ -17,13 +17,13 @@
   static const int twoStarGen = 2048;
 
   static const int threeStarGen = 4096;
-  static const int fourStarGen = 8192;
-  static const int fiveStarGen = 16384;
-  static const int white = 32768;
-  static const int black = 65536;
+  static const int fourStarGen = 8192; // 0010 0000 0000 0000
+  static const int fiveStarGen = 16384; // 0100 0000 0000 0000
+  static const int white = 32768;  //  1000 0000 0000 0000
+  static const int black = 65536;  // 0001 0000 0000 0000 0000
 
-  static int typeMask = int.parse("0111 1111 1111 1111", radix: 2);
-  static int colorMask = int.parse("0001 1000 0000 0000 0000", radix: 2);
+  static int typeMask = 32767;  // 0111 1111 1111 1111
+  static int colorMask = 98304; // 0001 1000 0000 0000 0000
 
 
   static bool isColor(int piece, int color) {
@@ -34,6 +34,8 @@
   }
 
   static int pieceType(int piece) {
+    print(piece);
+    print(typeMask);
     return piece & typeMask;
   }
 }

@@ -1,0 +1,18 @@
+Monitor semaphore{
+    int i;
+    void wait(){
+        while(i <= 0);
+        i--;
+    }
+
+    void signal(){
+        i++;
+
+    }
+
+
+    void init(){
+        i = i;
+    }
+
+}

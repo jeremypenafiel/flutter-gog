@@ -11,7 +11,28 @@ class Arbiter {
 
   Arbiter._internal();
 
-  Piece checkMove(Piece initiatingPiece, Piece targetPiece) {
-    return initiatingPiece;
+  int checkMove(int initiatingPiece, int targetPiece) {
+    var initiatingPieceRank = Piece.pieceType(initiatingPiece);
+    var targetPieceRank = Piece.pieceType(targetPiece);
+
+    if (targetPieceRank ==  initiatingPieceRank){
+      return targetPieceRank == Piece.flag? initiatingPiece: Piece.none;
+    }
+
+    // check if either piece is a spy and other piece is a private
+    if (initiatingPieceRank == Piece.spy && (targetPieceRank == Piece.private)){
+      return targetPiece;
+    }else if (targetPieceRank == Piece.spy && (initiatingPieceRank == Piece.private)){
+      return initiatingPiece;
+    }
+
+    if(initiatingPieceRank == Piece.spy && targetPieceRank != Piece.private){
+      return initiatingPiece;
+    }else if(targetPieceRank == Piece.spy && initiatingPieceRank != Piece.private){
+      return targetPiece;
+    }
+
+    var returnPiece = targetPieceRank > initiatingPieceRank ? targetPiece : initiatingPiece;
+    return returnPiece;
   }
 }

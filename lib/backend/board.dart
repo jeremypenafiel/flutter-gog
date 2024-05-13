@@ -2,22 +2,32 @@ import 'dart:io';
 
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:gog/backend/arbiter.dart';
 import 'package:gog/backend/piece.dart';
 
 class Board extends ChangeNotifier {
 
   Board(){
-    board[0] = Piece.white | Piece.col;
-    board[71] = Piece.black | Piece.captain;
+    board[0] = Piece.white | Piece.spy;
+    board[1] = Piece.black | Piece.private;
+
+    board[9] = Piece.white | Piece.private;
+    board[10] = Piece.black | Piece.spy;
+
+    board[18] = Piece.white | Piece.captain;
+    board[19] = Piece.black | Piece.captain;
   }
 
+  int turn = 0;
   final int maxSquareNum = 72;
   static const int _maxRanks = 8;
   static const int _maxFiles = 9;
   final List<int> moveOffsets = [-_maxFiles, _maxFiles, -1, 1];
 
   int? selectedTileIndex;
-  List<int> possibleMoves = List.empty();
+  List<int> possibleMoves = List.empty(growable: true);
+
+   List<int> possibleTakeMoves = List.empty(growable: true);
 
   List<int> board = List<int>.filled(72, 0);
 
@@ -48,32 +58,52 @@ class Board extends ChangeNotifier {
     return (rankDifference - fileDifference).abs() == 1;
   }
 
-  List<int>
-  getPossibleMoves(int startSquare){
+  void
+  calculatePossibleMoves(int startSquare){
     possibleMoves = [];
+    possibleTakeMoves = [];
     for(int offset in moveOffsets){
       int targetSquare = startSquare + offset;
-      if(targetSquare >= 0 && targetSquare < maxSquareNum){
-        if(isValidMove(targetSquare, startSquare)){
-          possibleMoves.add(targetSquare);
-        }
+
+      if(targetSquare < 0 || targetSquare >= maxSquareNum){
+        continue;
+      }
+
+      if(!isValidMove(targetSquare, startSquare)) {
+        continue;
+      }
+
+
+     if(!Piece.isColor(board[targetSquare], Piece.color(board[startSquare])) && board[targetSquare] != Piece.none){
+       possibleTakeMoves.add(targetSquare);
+      }
+      if (board[targetSquare] == Piece.none) {
+        possibleMoves.add(targetSquare);
       }
     }
-    return possibleMoves;
+    possibleTakeMoves = possibleTakeMoves;
+    possibleMoves = possibleMoves;
 
   }
 
   void movePiece(int targetSquare, int startSquare){
+    print("ah lente");
     board[targetSquare] = board[startSquare];
     board[startSquare] = 0;
     selectedTileIndex = null;
-    possibleMoves = List.empty();
+    possibleMoves = List.empty(growable: true);
+    possibleTakeMoves = List.empty(growable: true);
+    turn = (turn + 1) % 2;
     notifyListeners();
   }
 
   set setSelectedTileIndex(int index){
     selectedTileIndex = index;
     notifyListeners();
+  }
+
+  get getTurn{
+    return turn;
   }
 
   get getSelectedTileIndex{
@@ -84,8 +114,36 @@ class Board extends ChangeNotifier {
     return possibleMoves.contains(index);
   }
 
+  bool isPossibleTakeMove(int index){
+    return possibleTakeMoves.contains(index);
+  }
+
   bool isSelectedTile(int index){
     return selectedTileIndex == index;
+  }
+
+  void takePiece(int targetPieceIndex, int initiatingPieceIndex) {
+
+    board[targetPieceIndex] = Arbiter().checkMove(board[initiatingPieceIndex], board[targetPieceIndex]);
+    board[initiatingPieceIndex] = 0;
+    selectedTileIndex = null;
+    possibleMoves = List.empty(growable: true);
+    possibleTakeMoves = List.empty(growable: true);
+    turn = (turn + 1) % 2;
+    notifyListeners();
+  }
+
+  void onPieceSelected(int startSquare){
+    setSelectedTileIndex = startSquare;
+    calculatePossibleMoves(startSquare);
+  }
+
+  get getPossibleTakeMoves {
+    return possibleTakeMoves;
+  }
+
+  get getPossibleMoves{
+    return possibleMoves;
   }
 
 
