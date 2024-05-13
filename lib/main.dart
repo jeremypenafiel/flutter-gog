@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       initialRoute: '/',
       routes: {
-        '/': (context) => const Home(),
+        '/': (context) => HomePage(),
         '/board': (context) => ChangeNotifierProvider(create: (context) => Board(), child: const BoardScreen(),)
       },
       theme: ThemeData(

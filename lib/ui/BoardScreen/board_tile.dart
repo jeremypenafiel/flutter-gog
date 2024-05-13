@@ -9,7 +9,7 @@ const Color highlightColor = Colors.yellowAccent;
 
 class BoardTile extends StatefulWidget{
   final int index;
-  final Widget child;
+  final Widget? child;
   const BoardTile({super.key, required this.index, required this.child});
 
   @override

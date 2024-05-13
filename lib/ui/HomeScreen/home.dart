@@ -1,19 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter App Homepage',
-      home: HomePage(),
-    );
-  }
-}
-
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -53,6 +39,7 @@ class HomePage extends StatelessWidget {
                 RoundedButton(
                   onPressed: () {
                     // Action for button 1
+                    Navigator.pushNamed(context, '/board');
                   },
                   text: 'PLAY',
                 ),
