@@ -1,130 +1,135 @@
 import 'package:flutter/material.dart';
-import 'package:gog/main.dart';
-import 'package:gog/ui/PopUpScreen/settings.dart';
-
-/// Flutter code sample for [Dialog].
-
-void main() => runApp( Settings());
+import 'package:shared_preferences/shared_preferences.dart';
 
 
-class Settings extends StatefulWidget{
-  const Settings({super.key});
-
+class SettingsPopup extends StatefulWidget {
   @override
-    State<Settings> createState() => _SettingsDialog();
-
-
-
-
+  _SettingsPopupState createState() => _SettingsPopupState();
 }
 
-
-class _SettingsDialog extends State<Settings> {
-   double bgm_val =50;
-   double sfx_val =50;
-
-   void updatevalues(double bgmval, double sfxval){
-    setState(() {
-      bgm_val=bgmval;
-      sfx_val=sfxval;
-    });
-
-
-   }
+class _SettingsPopupState extends State<SettingsPopup> {
+  double _soundEffectsVolume = 50.0;
+  double _musicVolume = 50.0;
+  String _selectedFont = 'Font 1';
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Dialog Sample')),
-        body:  Center(
-          child: Column
-          (mainAxisAlignment: MainAxisAlignment.center,
-          children: 
-          
-            [SettingsContent(updatevalues),
-             Text("bgm value: ${bgm_val.toString()}"),
-             Text("sfx value: ${sfx_val.toString()}")                          
-            ]
-          ),
-        ),
-      ),
-    );
+  void initState() {
+    super.initState();
+    _loadSettings();
   }
-}
 
+  Future<void> _loadSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _soundEffectsVolume = prefs.getDouble('soundEffectsVolume') ?? 50.0;
+      _musicVolume = prefs.getDouble('musicVolume') ?? 50.0;
+      _selectedFont = prefs.getString('selectedFont') ?? 'Font 1';
+    });
+  }
 
+  Future<void> _saveSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('soundEffectsVolume', _soundEffectsVolume);
+    await prefs.setDouble('musicVolume', _musicVolume);
+    await prefs.setString('selectedFont', _selectedFont);
+  }
 
-class SettingsContent extends StatefulWidget{
-  final Function update;
-  const SettingsContent(this.update, {super.key});
-
-  @override
-    State<SettingsContent> createState() => _SettingsContent();
-
-
-
-}
-
-
-class _SettingsContent extends State<SettingsContent> {
-   double bgm_val =_SettingsDialog().bgm_val;
-   double sfx_val =_SettingsDialog().sfx_val;
-
-
-
+  void _resetSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('soundEffectsVolume', 50.0);
+    await prefs.setDouble('musicVolume', 50.0);
+    await prefs.setString('selectedFont', 'Font 1');
+    _loadSettings();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () => showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => Dialog(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
+    return AlertDialog(
+      title: Text('Settings'),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text('Choose Font:'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                const Text('Settings'),
-                const SizedBox(height: 15),
-                Slider(
-                  value: bgm_val, 
-                  min: 0,
-                  max: 100,
-                  divisions: 100,
-                  label: bgm_val.toStringAsFixed(0),  
-                  onChanged: (double value){
-                    setState(() {
-                      bgm_val=value;
-                      widget.update(bgm_val,sfx_val);
-                  });
-                  } ),
-                const SizedBox(height: 15),
-                Slider(
-                  value: sfx_val, 
-                  max: 100,  
-                  onChanged: (double value){
-                    setState(() {
-                      sfx_val=value;
-                      widget.update(bgm_val,sfx_val);
-                  });
-                  }),
-                const SizedBox(height: 15),
-                TextButton(
+                ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    setState(() {
+                      _selectedFont = 'Font 1';
+                    });
+                    _saveSettings();
                   },
-                  child: const Text('Close'),
+                  child: Text('Font 1'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _selectedFont = 'Font 2';
+                    });
+                    _saveSettings();
+                  },
+                  child: Text('Font 2'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _selectedFont = 'Font 3';
+                    });
+                    _saveSettings();
+                  },
+                  child: Text('Font 3'),
                 ),
               ],
             ),
-          ),
+            SizedBox(height: 20),
+            Text('Sound Effects Volume'),
+            Slider(
+              value: _soundEffectsVolume,
+              min: 0,
+              max: 100,
+              divisions: 10,
+              label: _soundEffectsVolume.round().toString(),
+              onChanged: (double value) {
+                setState(() {
+                  _soundEffectsVolume = value;
+                });
+                _saveSettings();
+              },
+            ),
+            Text('Music Volume'),
+            Slider(
+              value: _musicVolume,
+              min: 0,
+              max: 100,
+              divisions: 10,
+              label: _musicVolume.round().toString(),
+              onChanged: (double value) {
+                setState(() {
+                  _musicVolume = value;
+                });
+                _saveSettings();
+              },
+            ),
+            TextButton(
+              onPressed: () {
+                _resetSettings();
+              },
+              child: Text('Reset to Default'),
+            ),
+          ],
         ),
       ),
-      child: const Text('Show Dialog'),
+      actions: <Widget>[
+        TextButton(
+          child: Text('Close'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
     );
   }
 }
-
 

@@ -5,6 +5,7 @@ import 'package:gog/ui/BoardScreen/board_screen.dart';
 import 'package:gog/ui/BoardScreen/board_ui.dart';
 import 'package:gog/ui/BoardScreen/prematch_board_ui.dart';
 import 'package:gog/ui/HomeScreen/home.dart';
+import 'package:gog/ui/PopUpScreen/settings.dart';
 import 'package:provider/provider.dart';
 
 import 'backend/prematch_board.dart';
@@ -27,6 +28,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => HomePage(),
         '/board': (context) => ChangeNotifierProvider(create: (context) => Board(), child: const BoardScreen()),
         '/prematch_board': (context) => ChangeNotifierProvider(create: (context) => PrematchBoard(), child: const PrematchBoardUI()),
+        '/board': (context) => ChangeNotifierProvider(create: (context) => Board(), child: const BoardScreen(),),
+        '/settings': (context) => SettingsPopup(),
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gog/ui/PopUpScreen/settings.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -47,6 +48,14 @@ class HomePage extends StatelessWidget {
                 RoundedButton(
                   onPressed: () {
                     // Action for button 2
+                    // 
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return SettingsPopup();
+                      },
+                    );
+
                   },
                   text: 'SETTINGS',
                 ),

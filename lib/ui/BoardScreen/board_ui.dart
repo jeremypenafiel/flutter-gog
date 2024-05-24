@@ -21,6 +21,7 @@ class _BoardUIState extends State<BoardUI> {
   Widget build(BuildContext context) {
 
       return GridView.count(
+        physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 9,
         children:
           List.generate(72, (index) {
