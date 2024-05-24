@@ -4,6 +4,7 @@ import 'package:gog/backend/game_controller.dart';
 import 'package:gog/ui/BoardScreen/board_screen.dart';
 import 'package:gog/ui/BoardScreen/board_ui.dart';
 import 'package:gog/ui/HomeScreen/home.dart';
+import 'package:gog/ui/PopUpScreen/settings.dart';
 import 'package:provider/provider.dart';
 
 
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),
-        '/board': (context) => ChangeNotifierProvider(create: (context) => Board(), child: const BoardScreen(),)
+        '/board': (context) => ChangeNotifierProvider(create: (context) => Board(), child: const BoardScreen(),),
+        '/settings': (context) => SettingsPopup(),
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
