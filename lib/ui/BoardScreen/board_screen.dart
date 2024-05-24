@@ -11,14 +11,21 @@ class BoardScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Generals'),
       ),
-      body: const Column(
+      body: Column(
         children: [
-          Expanded(
-            flex: 5, // 40% of the screen
-            child: BoardUI(),
+          Flexible(
+            flex: 5,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SizedBox(
+                  height: constraints.maxHeight,
+                  child: const BoardUI(),
+                );
+              },
+            ),
           ),
-          Expanded(
-            flex: 5, // 60% of the screen
+          const Flexible(
+            flex: 6,
             child: BoardScreenBottomNavBar(),
           ),
         ],

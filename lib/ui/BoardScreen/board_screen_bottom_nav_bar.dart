@@ -7,7 +7,6 @@ class BoardScreenBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Additional content can go here
         Expanded(
           child: Container(
             color: Colors.grey[200],
