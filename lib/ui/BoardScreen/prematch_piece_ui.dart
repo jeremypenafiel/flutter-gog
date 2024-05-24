@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../backend/board.dart';
 import '../../backend/piece.dart';
+import '../../backend/prematch_board.dart';
 
 const Map pieceMap = {
   Piece.white|Piece.firstLt: 'assets/White Pieces/white_1st_lieut.png',
   Piece.white|Piece.oneStarGen: 'assets/White Pieces/white_1star_general.png',
 
-Piece.white|Piece.secondLt: 'assets/White Pieces/white_2nd_lieut.png',
+  Piece.white|Piece.secondLt: 'assets/White Pieces/white_2nd_lieut.png',
   Piece.white|Piece.twoStarGen: 'assets/White Pieces/white_2star_general.png',
   Piece.white|Piece.threeStarGen: 'assets/White Pieces/white_3star_general.png',
   Piece.white|Piece.fourStarGen: 'assets/White Pieces/white_4star_general.png',
@@ -24,7 +25,7 @@ Piece.white|Piece.secondLt: 'assets/White Pieces/white_2nd_lieut.png',
 
   Piece.black|Piece.firstLt: 'assets/Black Pieces/black_1st_lieut.png',
   Piece.black|Piece.secondLt: 'assets/Black Pieces/black_2nd_lieut.png',
-Piece.black|Piece.twoStarGen: 'assets/Black Pieces/black_2star_general.png',
+  Piece.black|Piece.twoStarGen: 'assets/Black Pieces/black_2star_general.png',
   Piece.black|Piece.threeStarGen: 'assets/Black Pieces/black_3star_general.png',
   Piece.black|Piece.fourStarGen: 'assets/Black Pieces/black_4star_general.png',
   Piece.black|Piece.fiveStarGen: 'assets/Black Pieces/black_5star_general.png',
@@ -41,33 +42,25 @@ Piece.black|Piece.twoStarGen: 'assets/Black Pieces/black_2star_general.png',
   Piece.black|Piece.spy: 'assets/Black Pieces/black_spy.png',
 };
 
-class PieceUI extends StatelessWidget{
+
+class PrematchPieceUI extends StatelessWidget{
   final int startSquare;
   final int pieceType;
-  const PieceUI({super.key, required this.startSquare, required this.pieceType});
+  const PrematchPieceUI({super.key, required this.startSquare, required this.pieceType});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Board>(
-        builder: (BuildContext context, Board board, Widget? child) {
-          bool isWhiteTurn = board.getTurn == 0 && Piece.isColor(pieceType, Piece.white);
-          bool isBlackTurn = board.getTurn == 1 && Piece.isColor(pieceType, Piece.black);
+    return Consumer<PrematchBoard>(
+        builder: (BuildContext context, PrematchBoard prematchBoard, Widget? child) {
+          bool isWhiteTurn = prematchBoard.getTurn == 0 && Piece.isColor(pieceType, Piece.white);
+          bool isBlackTurn = prematchBoard.getTurn == 1 && Piece.isColor(pieceType, Piece.black);
           int tileFace = isWhiteTurn || isBlackTurn ? pieceType: Piece.color(pieceType);
-          print(tileFace);
-          try{
-            if (pieceMap[tileFace] == null) {
-              throw Exception('Piece not found');
-            }
-          } catch (e) {
-            print(tileFace);
-          }
-          var image = pieceMap[tileFace];
-          var onTileSelected = isWhiteTurn || isBlackTurn ? board.onPieceSelected: null;
-          return AbsorbPointer(
-            absorbing: !isWhiteTurn && !isBlackTurn,
+          var onTileSelected = isWhiteTurn || isBlackTurn ? prematchBoard.onPieceSelected: null;
+          return IgnorePointer(
+            ignoring: prematchBoard.getSelectedTileIndex() != null && prematchBoard.getSelectedTileIndex() != startSquare,
             child: GestureDetector(
               onTap: () {
-                onTileSelected?.call(startSquare);
+                prematchBoard.onPieceSelected(startSquare);
               },
 
               child: Draggable<int>(
@@ -88,7 +81,7 @@ class PieceUI extends StatelessWidget{
                     height: 10,
                     decoration: BoxDecoration(
                       image:  DecorationImage(
-                        image:AssetImage(image),
+                        image:AssetImage(pieceMap[tileFace]),
                       ),
                     )
                 ),

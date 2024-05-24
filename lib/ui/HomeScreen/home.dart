@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
                 RoundedButton(
                   onPressed: () {
                     // Action for button 1
-                    Navigator.pushNamed(context, '/board');
+                    Navigator.pushNamed(context, '/prematch_board');
                   },
                   text: 'PLAY',
                 ),
