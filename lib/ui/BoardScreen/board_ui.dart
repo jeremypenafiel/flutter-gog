@@ -19,23 +19,26 @@ class _BoardUIState extends State<BoardUI> {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Consumer<Board>(
-        builder: (BuildContext context, Board board, Widget? child) {
-          return GridView.count(
-            crossAxisCount: 9,
-            children:
-              List.generate(72, (index) {
+
+      return GridView.count(
+        crossAxisCount: 9,
+        children:
+          List.generate(72, (index) {
+            return Consumer<Board>(
+              builder: (BuildContext context, Board board, Widget? child) {
                 bool hasPiece = board.board[index] != 0;
-               return
-                 BoardTile(
-                   // Piece is rendered here
-                   index: index,
-                   child:  hasPiece? PieceUI(startSquare: index, pieceType: board.board[index],) : null,);
-            }
+                return
+                  BoardTile( // Piece is rendered here
+                    index: index,
+                    child: hasPiece
+                        ? PieceUI(
+                      startSquare: index, pieceType: board.board[index],)
+                        : null,
+                  );
+              }
+            );
+          }
           )
-        );
-        },
       );
   }
 }

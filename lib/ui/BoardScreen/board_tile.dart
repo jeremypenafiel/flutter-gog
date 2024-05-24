@@ -44,7 +44,6 @@ class _BoardTileState extends State<BoardTile> {
             }else if(isPossibleTakeMove){
               board.takePiece(widget.index, board.getSelectedTileIndex);
             }
-
           },
           child: DragTarget <int> (
             onWillAcceptWithDetails: (details){
