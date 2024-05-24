@@ -16,6 +16,9 @@ class Board extends ChangeNotifier {
 
     board[18] = Piece.white | Piece.captain;
     board[19] = Piece.black | Piece.captain;
+    board[20] = Piece.white| Piece.flag;
+    board[21] = Piece.black | Piece.flag;
+
   }
 
   int turn = 0;
