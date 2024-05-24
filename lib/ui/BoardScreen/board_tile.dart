@@ -6,6 +6,7 @@ import '../../backend/board.dart';
 const Color darkSquareColor = Colors.brown;
 const Color lightSquareColor = Colors.white;
 const Color highlightColor = Colors.yellowAccent;
+const Color takeSquareColor = Colors.red;
 
 class BoardTile extends StatefulWidget{
   final int index;
@@ -26,34 +27,38 @@ class _BoardTileState extends State<BoardTile> {
       builder: (BuildContext context, Board board, Widget? child) {
 
         bool isPossibleMove = board.isPossibleMove(widget.index);
+        bool isPossibleTakeMove = board.isPossibleTakeMove(widget.index);
+
         tileColor = widget.index % 2 == 0 ? lightSquareColor: darkSquareColor;
 
         if(isPossibleMove || board.isSelectedTile(widget.index)) {
           tileColor = highlightColor;
+        }else if(isPossibleTakeMove){
+          tileColor = takeSquareColor;
         }
 
         return GestureDetector(
           onTap: (){
             if(isPossibleMove) {
               board.movePiece(widget.index, board.getSelectedTileIndex);
+            }else if(isPossibleTakeMove){
+              board.takePiece(widget.index, board.getSelectedTileIndex);
             }
+
           },
           child: DragTarget <int> (
             onWillAcceptWithDetails: (details){
               //details.data is ang data gina pass sa piece aka ang startSquare sang piece
-              if(board.getPossibleMoves(details.data).contains(widget.index) == true){
+              if(isPossibleMove|| isPossibleTakeMove){
                 return true;
               }
-              print(details.data);
               return false;
             },
             onAcceptWithDetails: (details){
-              if(board.getPossibleMoves(details.data).contains(widget.index) == true){
-                setState(() {
-                  print("Move piece to ${widget.index}");
-                  board.movePiece(widget.index, details.data);
-                });
-                accepted = true;
+              if(isPossibleMove){
+                board.movePiece(widget.index, details.data);
+              }else if(isPossibleTakeMove){
+                board.takePiece(widget.index, details.data);
               }
             },
             builder: (BuildContext context, List<Object?> candidateData, List<dynamic> rejectedData) {
