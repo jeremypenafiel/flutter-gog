@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => HomePage(),
         '/board': (context) => ChangeNotifierProvider(create: (context) => Board(), child: const BoardScreen()),
         '/prematch_board': (context) => ChangeNotifierProvider(create: (context) => PrematchBoard(), child: const PrematchBoardUI()),
-        '/board': (context) => ChangeNotifierProvider(create: (context) => Board(), child: const BoardScreen(),),
+        
         '/settings': (context) => SettingsPopup(),
       },
       theme: ThemeData(
