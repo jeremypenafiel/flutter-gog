@@ -23,6 +23,7 @@ class _BoardUIState extends State<BoardUI> {
       Consumer<Board>(
         builder: (BuildContext context, Board board, Widget? child) {
           return GridView.count(
+            physics: NeverScrollableScrollPhysics(),
             crossAxisCount: 9,
             children:
               List.generate(72, (index) {
