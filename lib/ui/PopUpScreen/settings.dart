@@ -44,101 +44,92 @@ class _SettingsPopupState extends State<SettingsPopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: Image.asset(
-            'assets/background.jpg', // Replace 'assets/background.jpg' with the path to your background image
-            fit: BoxFit.cover,
-          ),
-        ),
-        AlertDialog(
-          title: Text('Settings'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+    return AlertDialog(
+      title: Text('Settings'),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text('Choose Font:'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Text('Choose Font:'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _selectedFont = 'Font 1';
-                        });
-                        _saveSettings();
-                      },
-                      child: Text('Font 1'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _selectedFont = 'Font 2';
-                        });
-                        _saveSettings();
-                      },
-                      child: Text('Font 2'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _selectedFont = 'Font 3';
-                        });
-                        _saveSettings();
-                      },
-                      child: Text('Font 3'),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Text('Sound Effects Volume'),
-                Slider(
-                  value: _soundEffectsVolume,
-                  min: 0,
-                  max: 100,
-                  divisions: 10,
-                  label: _soundEffectsVolume.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      _soundEffectsVolume = value;
-                    });
-                    _saveSettings();
-                  },
-                ),
-                Text('Music Volume'),
-                Slider(
-                  value: _musicVolume,
-                  min: 0,
-                  max: 100,
-                  divisions: 10,
-                  label: _musicVolume.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      _musicVolume = value;
-                    });
-                    _saveSettings();
-                  },
-                ),
-                TextButton(
+                ElevatedButton(
                   onPressed: () {
-                    _resetSettings();
+                    setState(() {
+                      _selectedFont = 'Font 1';
+                    });
+                    _saveSettings();
                   },
-                  child: Text('Reset to Default'),
+                  child: Text('Font 1'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _selectedFont = 'Font 2';
+                    });
+                    _saveSettings();
+                  },
+                  child: Text('Font 2'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _selectedFont = 'Font 3';
+                    });
+                    _saveSettings();
+                  },
+                  child: Text('Font 3'),
                 ),
               ],
             ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Close'),
-              onPressed: () {
-                Navigator.of(context).pop();
+            SizedBox(height: 20),
+            Text('Sound Effects Volume'),
+            Slider(
+              value: _soundEffectsVolume,
+              min: 0,
+              max: 100,
+              divisions: 10,
+              label: _soundEffectsVolume.round().toString(),
+              onChanged: (double value) {
+                setState(() {
+                  _soundEffectsVolume = value;
+                });
+                _saveSettings();
               },
             ),
+            Text('Music Volume'),
+            Slider(
+              value: _musicVolume,
+              min: 0,
+              max: 100,
+              divisions: 10,
+              label: _musicVolume.round().toString(),
+              onChanged: (double value) {
+                setState(() {
+                  _musicVolume = value;
+                });
+                _saveSettings();
+              },
+            ),
+            TextButton(
+              onPressed: () {
+                _resetSettings();
+              },
+              child: Text('Reset to Default'),
+            ),
           ],
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: Text('Close'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
       ],
     );
   }
 }
+
