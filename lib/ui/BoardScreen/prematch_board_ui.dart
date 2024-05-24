@@ -25,14 +25,14 @@ class _PrematchBoardUIState extends State<PrematchBoardUI> {
           List.generate(36, (index) {
             return Consumer<PrematchBoard>(
               builder: (BuildContext context, PrematchBoard board, Widget? child) {
-                bool hasPiece = board.prematchBoard[index] != 0;
+                bool hasPiece = board.whitePrematchBoard[index] != 0;
                 return
                   PrematchBoardTile( // Piece is rendered here
                     index: index,
                     child: hasPiece
                         ? PrematchPieceUI(
                       startSquare: index,
-                      pieceType: board.prematchBoard[index],)
+                      pieceType: board.whitePrematchBoard[index],)
                         : null,
                     // child: Text('$index', style: TextStyle(fontSize: 10),),
                   );

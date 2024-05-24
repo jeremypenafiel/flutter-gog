@@ -25,7 +25,10 @@ class _PrematchBoardTileState extends State<PrematchBoardTile>{
     return Consumer<PrematchBoard>(
       builder: (BuildContext context, PrematchBoard prematchBoard, Widget? child) {
         Color tileColor = widget.index % 2 == 0 && prematchBoard.isWhiteTurn? lightSquareColor: darkSquareColor;
-        bool isPlaceableTile = widget.index >= 9;
+        if(widget.index == prematchBoard.selectedTileIndex){
+          tileColor = highlightColor;
+        }
+        bool isPlaceableTile = widget.index >= 9 && prematchBoard.getSelectedTileIndex() != null;
         Widget tileContainer  = Container(
           color: tileColor,
           child: widget.child,

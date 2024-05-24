@@ -8,98 +8,101 @@ import 'board.dart';
 class PrematchBoard extends ChangeNotifier{
 
   PrematchBoard(){
-    pieceColor = turn == 0 ? Piece.white: Piece.black;
-    int j = 0;
-    prematchBoard[0] = Piece.white | Piece.flag;
-    prematchBoard[1] = Piece.white | Piece.spy;
-    prematchBoard[2] = Piece.white | Piece.spy;
-
-    for(int i = 0; i < maxSquareNum; i++){
-      bool innerSquare = i % 9 != 0 && i % 9 != 8 && i ~/ 9 != 0 ;
-
-      /*
-      if (innerSquare){
-        List<int> pieceList = pieceMap.values.toList();
-        if(i >= 21){
-          continue;
-        }
-        prematchBoard[i] = pieceList[j];
-        j++;*/
-
-
-
-    }
-
-
+    initBoard(whitePrematchBoard);
   }
   int? selectedTileIndex;
   int turn = 0;
-  List<int> prematchBoard = List<int>.filled(36, 0);
+  List<int> whitePrematchBoard = List<int>.filled(36, 0);
+  List<int> blackPrematchBoard = List<int>.filled(36, 0);
+  List<int> finalBoard = List<int>.filled(72, 0);
+
   final int maxSquareNum = 36;
 
   final List<int> moveOffsets = [-9, 9, -1, 1];
   bool isWhiteTurn = true;
   late int pieceColor;
 
-  final Map<int, int> pieceMap = {
-    Piece.flag: 1,
-    Piece.private: 6,
-    Piece.spy: 2,
-    Piece.sergeant: 1,
-    Piece.secondLt: 1,
-    Piece.firstLt: 1,
-    Piece.captain: 1,
-    Piece.major: 1,
-    Piece.ltCol: 1,
-
-    Piece.col: 1,
-    Piece.oneStarGen: 1,
-    Piece.twoStarGen: 1,
-    Piece.threeStarGen: 1,
-    Piece.fourStarGen: 1,
-    Piece.fiveStarGen: 1,
-  };
 
 
+final List<int> pieceList = [
+  Piece.flag,
+  Piece.private,
+  Piece.private,
+  Piece.private,
+  Piece.private,
+  Piece.private,
+  Piece.private,
+Piece.spy,
+  Piece.spy,
+Piece.sergeant,
+Piece.secondLt,
+Piece.firstLt,
+Piece.captain,
+Piece.major,
+Piece.ltCol,
+Piece.col,
+Piece.oneStarGen,
+Piece.twoStarGen,
+Piece.threeStarGen,
+Piece.fourStarGen,
+Piece.fiveStarGen,
+];
 
-  final int flag = 1;
-  final int private = 6;
-    final int spy = 2;
-    final int sergeant = 1;
 
-    final int secondLt= 1;
-    final int firstLt = 1;
-    final int captain = 1;
-    final int major = 1;
-
-    final int ltCol = 1;
-    final int col = 1;
-    final int oneStarGen = 1;
-    final int twoStarGen = 1;
-
-    final int threeStarGen = 1;
-    final int fourStarGen = 1; // 0010 0000 0000 0000
-    final int fiveStarGen = 1; //
-
+  get getBoard => finalBoard;
   get getTurn => turn;
-  //get getSelectedTileIndex => selectedTileIndex;
+  set setTurn(int turn){
+    this.turn = turn;
+    notifyListeners();
+  }
+
   int? getSelectedTileIndex(){
     return selectedTileIndex;
   }
   void onPieceSelected(int startSquare){
-    selectedTileIndex = startSquare;
-  }
-
-  void movePiece(int targetSquare){
     if(selectedTileIndex == null){
+      selectedTileIndex = startSquare;
+      notifyListeners();
       return;
     }
 
-    var temp = prematchBoard[targetSquare];
-    prematchBoard[targetSquare] = prematchBoard[selectedTileIndex!];
-    prematchBoard[selectedTileIndex!] = temp;
+    if(selectedTileIndex == startSquare){
+      selectedTileIndex = null;
+    }
+    notifyListeners();
+
+  }
+
+  void movePiece(int targetSquare){
+    var temp = whitePrematchBoard[targetSquare];
+    whitePrematchBoard[targetSquare] = whitePrematchBoard[selectedTileIndex!];
+    whitePrematchBoard[selectedTileIndex!] = temp;
     selectedTileIndex = null;
     notifyListeners();
+  }
+
+  void mergeBoards(){
+    blackPrematchBoard = blackPrematchBoard.reversed.toList();
+    finalBoard = whitePrematchBoard + blackPrematchBoard;
+  }
+
+  void initBoard(List<int> board){
+    pieceColor = turn == 0 ? Piece.white: Piece.black;
+    int j = 0;
+
+    for(int i = 10; i < maxSquareNum; i++) {
+      bool innerSquare = i % 9 != 8 && i % 9 != 0;
+
+
+      if (innerSquare) {
+        if(j >= 21){
+          continue;
+        }
+        board[i] = pieceColor | pieceList[j];
+        j++;
+
+      }
+    }
   }
 
 }
