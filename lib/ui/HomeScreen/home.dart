@@ -47,6 +47,7 @@ class HomePage extends StatelessWidget {
                 RoundedButton(
                   onPressed: () {
                     // Action for button 2
+                    Navigator.pushNamed(context, '/settings');
                   },
                   text: 'SETTINGS',
                 ),
