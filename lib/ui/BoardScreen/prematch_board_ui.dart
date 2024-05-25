@@ -30,13 +30,13 @@ class _PrematchBoardUIState extends State<PrematchBoardUI> {
               return Consumer<PrematchBoard>(
                 builder:
                     (BuildContext context, PrematchBoard board, Widget? child) {
-                  bool hasPiece = board.whitePrematchBoard[index] != 0;
+                  bool hasPiece = board.tentativeBoard[index] != 0;
                   return PrematchBoardTile(
                     index: index,
                     child: hasPiece
                         ? PrematchPieceUI(
                             startSquare: index,
-                            pieceType: board.whitePrematchBoard[index],
+                            pieceType: board.tentativeBoard[index],
                           )
                         : null,
                   );

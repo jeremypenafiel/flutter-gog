@@ -90,12 +90,7 @@ class _BoardScreenState extends State<BoardScreen> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(18, 0, 18, 0),
-                    child: _selectedIndex == 0
-                        ? ChangeNotifierProvider(
-                            create: (context) => PrematchBoard(),
-                            child: PrematchBoardUI(),
-                          )
-                        : BoardUI(),
+                    child: board,
                   ),
                 ),
                 Padding(
@@ -103,6 +98,7 @@ class _BoardScreenState extends State<BoardScreen> {
                   child: BoardScreenButtons(
                     onReadyPressed: () {
                       //TODO: Handle ready button
+                      gameController.onReady();
                     },
                     onExitPressed: () {
                       Navigator.popUntil(context, ModalRoute.withName('/'));

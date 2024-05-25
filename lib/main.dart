@@ -30,32 +30,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<FontProvider>(
-      builder: (BuildContext context, FontProvider fontProvider, Widget? child) {
-      return MaterialApp(
-        title: 'Flutter Demo',
-        initialRoute: '/',
-        routes: {
-          '/': (context) => HomePage(),
-          '/board': (context) =>
-              MultiProvider(providers: [
-                ChangeNotifierProvider(create: (context) => gameController),
-                ChangeNotifierProvider(
-                    create: (context) => gameController?.board),
-                ChangeNotifierProvider(
-                    create: (context) => gameController?.prematchBoard),
-              ],
-                  child: const BoardScreen()),
-          '/prematch_board': (context) =>
-              ChangeNotifierProvider(create: (context) => PrematchBoard(),
-                  child: const PrematchBoardUI()),
+        builder: (BuildContext context, FontProvider fontProvider,
+            Widget? child) {
+          return MaterialApp(
+              title: 'Flutter Demo',
+              initialRoute: '/',
+              routes: {
+                '/': (context) => HomePage(),
+                '/board': (context) =>
+                    MultiProvider(providers: [
+                      ChangeNotifierProvider(
+                          create: (context) => gameController),
+                      ChangeNotifierProvider(
+                          create: (context) => gameController?.board),
+                      ChangeNotifierProvider(
+                          create: (context) => gameController?.prematchBoard),
+                    ],
+                        child: const BoardScreen()),
+                '/prematch_board': (context) =>
+                    ChangeNotifierProvider(create: (context) => PrematchBoard(),
+                        child: const PrematchBoardUI()),
 
-          '/settings': (context) => SettingsPopup(),
-        },
-          theme: ThemeData(
-            textTheme: GoogleFonts.getTextTheme(fontProvider.selectedFont),
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ));
+                '/settings': (context) => SettingsPopup(),
+              },
+              theme: ThemeData(
+                textTheme: GoogleFonts.getTextTheme(fontProvider.selectedFont),
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                useMaterial3: true,
+              ));
         }
     );
   }
+}
