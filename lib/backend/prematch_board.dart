@@ -15,10 +15,7 @@ class PrematchBoard extends ChangeNotifier{
   List<int> whitePrematchBoard = List<int>.filled(36, 0);
   List<int> blackPrematchBoard = List<int>.filled(36, 0);
   List<int> finalBoard = List<int>.filled(72, 0);
-
   final int maxSquareNum = 36;
-
-  final List<int> moveOffsets = [-9, 9, -1, 1];
   bool isWhiteTurn = true;
   late int pieceColor;
 
@@ -32,7 +29,7 @@ final List<int> pieceList = [
   Piece.private,
   Piece.private,
   Piece.private,
-Piece.spy,
+  Piece.spy,
   Piece.spy,
 Piece.sergeant,
 Piece.secondLt,
@@ -42,10 +39,10 @@ Piece.major,
 Piece.ltCol,
 Piece.col,
 Piece.oneStarGen,
-Piece.twoStarGen,
-Piece.threeStarGen,
-Piece.fourStarGen,
-Piece.fiveStarGen,
+  Piece.twoStarGen,
+  Piece.threeStarGen,
+  Piece.fourStarGen,
+  Piece.fiveStarGen,
 ];
 
 
