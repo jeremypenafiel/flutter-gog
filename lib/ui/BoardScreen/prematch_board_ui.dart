@@ -19,27 +19,50 @@ class PrematchBoardUI extends StatefulWidget {
 class _PrematchBoardUIState extends State<PrematchBoardUI> {
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-        crossAxisCount: 9,
-        children:
-          List.generate(36, (index) {
-            return Consumer<PrematchBoard>(
-              builder: (BuildContext context, PrematchBoard board, Widget? child) {
-                bool hasPiece = board.whitePrematchBoard[index] != 0;
-                return
+    return Column(
+      children: [
+        Expanded(
+          child: GridView.count(
+            crossAxisCount: 9,
+            children: List.generate(36, (index) {
+              return Consumer<PrematchBoard>(
+                builder: (BuildContext context, PrematchBoard board, Widget? child) {
+                  bool hasPiece = board.whitePrematchBoard[index] != 0;
+                  return
                   PrematchBoardTile( // Piece is rendered here
                     index: index,
                     child: hasPiece
                         ? PrematchPieceUI(
-                      startSquare: index,
-                      pieceType: board.whitePrematchBoard[index],)
+                            startSquare: index,
+                            pieceType: board.whitePrematchBoard[index],
+                          )
                         : null,
                     // child: Text('$index', style: TextStyle(fontSize: 10),),
                   );
-              }
-            );
-          }
-          )
-      );
+                }
+              );
+            },
+          ),
+        ),
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              // TODO: Transfer to next state/player
+            },
+            child: Text('Ready'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.popUntil(context, ModalRoute.withName('/'));
+            },
+            child: Text('Exit'),
+          ),
+        ],
+      ),
+    ],
+    );
   }
 }
