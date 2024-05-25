@@ -22,7 +22,7 @@ class _PrematchBoardUIState extends State<PrematchBoardUI> {
       children: [
         SingleChildScrollView(
             child: GridView.count(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: 9,
               shrinkWrap: true,
               children: List.generate(36, (index) {
@@ -43,25 +43,6 @@ class _PrematchBoardUIState extends State<PrematchBoardUI> {
               }),
             ),
           ),
-        //),
-        // Add buttons below the board
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                // TODO: Transfer to next state/player
-              },
-              child: Text('Ready'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.popUntil(context, ModalRoute.withName('/'));
-              },
-              child: Text('Exit'),
-            ),
-          ],
-        ),
       ],
     );
   }
