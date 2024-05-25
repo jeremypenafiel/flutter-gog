@@ -39,6 +39,8 @@ class _PopupState extends State<Popup> {
     setState(() {
       _soundEffectsVolume = prefs.getDouble('soundEffectsVolume') ?? 50.0;
       _musicVolume = prefs.getDouble('musicVolume') ?? 50.0;
+      audioManager.setBackgroundVolume(_musicVolume);
+      audioManager.setSoundEffectsVolume(_soundEffectsVolume);
     });
   }
 
