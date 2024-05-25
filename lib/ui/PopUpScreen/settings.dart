@@ -4,13 +4,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gog/backend/font_provider.dart';
 
 class SettingsPopup extends StatefulWidget {
+  final int popup;
+
+  const SettingsPopup (
+    {Key? key,
+    required this.popup
+    }):super(key:key);
+
   @override
-  _SettingsPopupState createState() => _SettingsPopupState();
+  _SettingsPopupState createState() => _SettingsPopupState(popup: popup);
 }
 
 class _SettingsPopupState extends State<SettingsPopup> {
   double _soundEffectsVolume = 50.0;
   double _musicVolume = 50.0;
+  final int popup;
+  _SettingsPopupState (
+    {Key? key,
+    required this.popup
+    });
 
   @override
   void initState() {
@@ -43,14 +55,17 @@ class _SettingsPopupState extends State<SettingsPopup> {
   @override
   Widget build(BuildContext context) {
     final fontProvider = Provider.of<FontProvider>(context);
-    return AlertDialog(
-      title: Text('Settings'),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text('Choose Font:'),
-            Row(
+    final String _popupName;
+    final List<Widget> list=[];
+    final Widget _forActions;
+
+    switch(popup){
+
+      //settings
+      case 1:
+        _popupName="Settings";
+        list.add(Text('Choose Font:'));
+        list.add( Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 ElevatedButton(
@@ -75,10 +90,10 @@ class _SettingsPopupState extends State<SettingsPopup> {
                   child: Text('Oswald'),
                 ),
               ],
-            ),
-            SizedBox(height: 20),
-            Text('Sound Effects Volume'),
-            Slider(
+            ));
+        list.add(SizedBox(height: 20));
+        list.add(Text('Sound Effects Volume'));
+        list.add(Slider(
               value: _soundEffectsVolume,
               min: 0,
               max: 100,
@@ -90,9 +105,9 @@ class _SettingsPopupState extends State<SettingsPopup> {
                 });
                 _saveSettings();
               },
-            ),
-            Text('Music Volume'),
-            Slider(
+            ));
+        list.add( Text('Music Volume'));
+        list.add(Slider(
               value: _musicVolume,
               min: 0,
               max: 100,
@@ -104,24 +119,45 @@ class _SettingsPopupState extends State<SettingsPopup> {
                 });
                 _saveSettings();
               },
-            ),
-            TextButton(
+            ));
+        list.add(TextButton(
               onPressed: () {
                 _resetSettings();
               },
               child: Text('Reset to Default'),
-            ),
-          ],
-        ),
-      ),
-      actions: <Widget>[
-        TextButton(
+            ),);
+        _forActions=TextButton(
           child: Text('Close'),
           onPressed: () {
             Navigator.of(context).pop();
-          },
+          });
+      
+      //On finish game
+      case 2:
+        _popupName="Victory";
+        _forActions=Text("");
+
+      //no assigned value
+      default:
+        _popupName="Error";
+        _forActions=Text("");
+        
+    }
+    
+    return AlertDialog(
+      title: Center(child: Text('$_popupName')),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: list
         ),
+      ),
+      actions: <Widget>[
+       _forActions
       ],
-    );
+    
+      );
   }
 }
+
+

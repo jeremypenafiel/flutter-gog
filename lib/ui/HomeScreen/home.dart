@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return SettingsPopup();
+                        return SettingsPopup(popup: 1,);
                       },
                     );
 
