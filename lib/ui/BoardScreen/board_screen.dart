@@ -9,6 +9,7 @@ import 'package:gog/backend/prematch_board.dart';
 import 'package:gog/ui/BoardScreen/board_screen_buttons.dart';
 import 'package:provider/provider.dart';
 
+
 class BoardScreen extends StatefulWidget {
   const BoardScreen({super.key});
 

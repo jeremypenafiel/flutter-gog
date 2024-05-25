@@ -7,6 +7,8 @@ import 'backend/board.dart';
 import 'ui/BoardScreen/board_screen.dart';
 import 'backend/prematch_board.dart';
 import 'ui/BoardScreen/prematch_board_ui.dart';
+import 'backend/audio_manager.dart';
+
 
 void main() {
   runApp(
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<FontProvider>(
       builder: (context, fontProvider, child) {
+        AudioManager().playBackgroundMusic('assets/Sounds/home_bg_music.mp3');
         return MaterialApp(
           title: 'Flutter Demo',
           initialRoute: '/',
