@@ -15,44 +15,60 @@ class BoardScreen extends StatefulWidget {
 }
 
 class _BoardScreenState extends State<BoardScreen> {
-  int _selectedIndex = 0;
+  final int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: null,
-      body: Column(
+      body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25, 40, 18, 0),
-            child:Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Positioned.fill(
+            child: Image.asset(
+              'assets/background.jpg',
+              fit: BoxFit.cover,
+            )
+          ),
+          Positioned.fill(
+            child: Container(
+              color: Colors.black.withOpacity(0.3),
+            )
+          ),
+          Column(
+            
             children: [
-              SizedBox(
-                height: 30,
-                child: Image.asset('assets/Title.png'),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(25, 40, 18, 0),
+                child:Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: 30,
+                    child: Image.asset('assets/Title.png'),
+                  ),
+                  const Icon(Icons.settings)
+                ]
+              ) ,
               ),
-              Icon(Icons.settings)
-            ]
+              
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(18, 0, 18, 0),
+                  child: _selectedIndex == 0
+                  ? ChangeNotifierProvider(
+                      create: (context) => PrematchBoard(),
+                      child:PrematchBoardUI(),
+                    )
+                    : BoardUI(),
+                ),
+              ),
+              const Expanded(
+                child: BoardScreenBottomNavBar(),
+              ),
+            ],
           ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(18, 0, 18, 0),
-              child: _selectedIndex == 0
-              ? ChangeNotifierProvider(
-                  create: (context) => PrematchBoard(),
-                  child:PrematchBoardUI(),
-                  //add two buttons here
-                )
-                : BoardUI(),
-            ),
-          ),
-          const Expanded(
-            child: BoardScreenBottomNavBar(),
-          ),
-        ],
-      ),
+        ]
+      ) 
     );
   }
 }
