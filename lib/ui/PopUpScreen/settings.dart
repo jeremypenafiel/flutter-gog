@@ -110,7 +110,7 @@ class _PopupState extends State<Popup> {
                 setState(() {
                   _soundEffectsVolume = value;
                 });
-                audioManager.setSoundEffectsVolume(_soundEffectsVolume);
+                audioManager.setSoundEffectsVolume(_soundEffectsVolume/100);
                 _saveSettings();
               },
             ));
@@ -126,7 +126,7 @@ class _PopupState extends State<Popup> {
                   _musicVolume = value;
                   
                 });
-                audioManager.setBackgroundVolume(_musicVolume);
+                audioManager.setBackgroundVolume(_musicVolume/100);
                 _saveSettings();
               },
             ));
