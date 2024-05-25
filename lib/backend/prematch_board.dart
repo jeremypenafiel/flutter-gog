@@ -52,11 +52,6 @@ final List<int> pieceList = [
     initBoard(blackPrematchBoard);
   }
 
-  set prematchPhaseSetter(int phase){
-    prematchPhase = phase;
-    notifyListeners();
-  }
-
   int? getSelectedTileIndex(){
     return selectedTileIndex;
   }

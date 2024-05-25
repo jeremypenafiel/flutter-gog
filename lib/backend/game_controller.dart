@@ -8,6 +8,7 @@ import 'package:gog/backend/prematch_board.dart';
 enum GameState{
   whitePrematch,
   blackPrematch,
+  purgatory,
 
   inGame,
   postGame
@@ -54,6 +55,7 @@ class GameController extends ChangeNotifier{
         //gameState = GameState.whitePrematch;
         //prematchBoard.whiteSetup();
         break;
+      case GameState.purgatory:
         // TODO: Handle this case.
     }
       print("gameState: $gameState");
