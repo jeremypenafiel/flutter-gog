@@ -24,22 +24,11 @@ class BoardScreen extends StatefulWidget {
 
 class _BoardScreenState extends State<BoardScreen> {
   final int _selectedIndex = 0;
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    final gameController = Provider.of<GameController>(context, listen: false);
-    gameController.connect(Board(), PrematchBoard());
-
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    gameController?.board.dispose();
-    gameController?.prematchBoard.dispose();
+    gameController?.startPrematch();
 
   }
 
@@ -49,16 +38,14 @@ class _BoardScreenState extends State<BoardScreen> {
     if(gameController.prematchBoard == null){
 
     }
-    gameController.startPrematch();
-    final prematchBoard = gameController.prematchBoard;
 
     var board = ValueListenableBuilder<GameState>(
         valueListenable: gameController.gameState,
         builder: (context, gameState, child) {
           print("hello, state is $gameState");
-          return gameState != GameState.inGame
-              ? ChangeNotifierProvider(
-                  create: (context) => prematchBoard,
+          return gameState == GameState.whitePrematch || gameState == GameState.blackPrematch
+              ? ChangeNotifierProvider.value(
+                  value: gameController.prematchBoard,
                   child: PrematchBoardUI(),
                   //add two buttons here
                 )

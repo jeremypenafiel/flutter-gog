@@ -7,6 +7,7 @@ import 'board.dart';
 
 class PrematchBoard extends ChangeNotifier{
 
+
   PrematchBoard(){
     //initBoard(whitePrematchBoard);
   }
@@ -50,11 +51,6 @@ final List<int> pieceList = [
   void changeTurn(){
     turn = turn == 0 ? 1: 0;
     initBoard(blackPrematchBoard);
-  }
-
-  set prematchPhaseSetter(int phase){
-    prematchPhase = phase;
-    notifyListeners();
   }
 
   int? getSelectedTileIndex(){
