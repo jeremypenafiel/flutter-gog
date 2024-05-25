@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return SettingsPopup(popup: 1,);
+                        return Popup(popup: 2,);
                       },
                     );
 
@@ -63,6 +63,12 @@ class HomePage extends StatelessWidget {
                 RoundedButton(
                   onPressed: () {
                     // Action for button 3
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Popup(popup: 3,);
+                      },
+                      );
                   },
                   text: 'GUIDE',
                 ),
