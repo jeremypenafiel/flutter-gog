@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gog/backend/audio_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gog/backend/font_provider.dart';
@@ -21,6 +22,7 @@ class _PopupState extends State<Popup> {
   double _soundEffectsVolume = 50.0;
   double _musicVolume = 50.0;
   final int popup;
+  final AudioManager audioManager = AudioManager();
   _PopupState (
     {Key? key,
     required this.popup
@@ -60,6 +62,7 @@ class _PopupState extends State<Popup> {
     final String _popupName;
     final List<Widget> list=[];
     final List<Widget> _forActions=[];
+    
 
     switch(popup){
 
@@ -105,6 +108,7 @@ class _PopupState extends State<Popup> {
                 setState(() {
                   _soundEffectsVolume = value;
                 });
+                audioManager.setSoundEffectsVolume(_soundEffectsVolume);
                 _saveSettings();
               },
             ));
@@ -118,7 +122,9 @@ class _PopupState extends State<Popup> {
               onChanged: (double value) {
                 setState(() {
                   _musicVolume = value;
+                  
                 });
+                audioManager.setBackgroundVolume(_musicVolume);
                 _saveSettings();
               },
             ));

@@ -24,4 +24,12 @@ class AudioManager {
   Future<void> playSfx(String filePath) async {
     await _sfxPlayer.play(AssetSource(filePath));
   }
+
+   Future<void> setBackgroundVolume(double volume) async {
+    await _backgroundPlayer.setVolume(volume);
+  }
+
+  Future<void> setSoundEffectsVolume(double volume) async {
+    await _sfxPlayer.setVolume(volume);
+  }
 }
