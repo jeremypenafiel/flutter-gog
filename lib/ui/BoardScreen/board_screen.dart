@@ -39,24 +39,6 @@ class _BoardScreenState extends State<BoardScreen> {
                   create: (BuildContext context) => gameController.board,
                   child: BoardUI());
         });
-    /*
-    var board = Selector<GameController, GameState>(
-      selector: (context, gameController) => gameController.gameState,
-      builder: (context, gameState, child) {
-        print("hello, state is $gameState");
-        return
-        gameController.gameState != GameState.inGame
-            ? ChangeNotifierProvider(
-          create: (context) => prematchBoard,
-          child: PrematchBoardUI(),
-          //add two buttons here
-        )
-            : ChangeNotifierProvider(
-            create: (BuildContext context) => gameController.board,
-            child: BoardUI());
-      },
-    );
-    */
 
     return Scaffold(
         appBar: null,
