@@ -59,12 +59,14 @@ class _BoardScreenState extends State<BoardScreen> {
                   child: _selectedIndex == 0
                   ? ChangeNotifierProvider(
                       create: (context) => PrematchBoard(),
-                      child:PrematchBoardUI(),
+                      child: PrematchBoardUI(),
                     )
                     : BoardUI(),
                 ),
               ),
-              BoardScreenButtons(
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: BoardScreenButtons(
                 onReadyPressed: () {
                   //TODO: Handle ready button
                 },
@@ -72,10 +74,10 @@ class _BoardScreenState extends State<BoardScreen> {
                   Navigator.popUntil(context, ModalRoute.withName('/'));
                 },
               ),
-              Expanded(
-                child: BoardScreenBottomNavBar(),
               ),
-              
+              const Expanded(
+                child: BoardScreenBottomNavBar(),
+              ),  
             ],
           ),
           ),

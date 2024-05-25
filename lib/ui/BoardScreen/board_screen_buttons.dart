@@ -17,11 +17,31 @@ class BoardScreenButtons extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: onReadyPressed,
-          child: Text('Ready'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.orange, // Set button background color to orange
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8), // Set border radius
+              side: const BorderSide(color: Colors.white), // Set border color
+            ),
+          ),
+          child: const Text(
+            'Ready',
+            style: TextStyle(color: Colors.white), // Set text color to white
+          ),
         ),
         ElevatedButton(
           onPressed: onExitPressed,
-          child: Text('Exit'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.grey, // Set button background color to grey
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8), // Set border radius
+              side: const BorderSide(color: Colors.white), // Set border color
+            ),
+          ),
+          child: const Text(
+            'Exit',
+            style: TextStyle(color: Colors.white), // Set text color to white
+          ),
         ),
       ],
     );
