@@ -14,15 +14,15 @@ enum GameState{
 }
 
 class GameController extends ChangeNotifier{
-  Board board;
-  PrematchBoard prematchBoard;
+  late Board board;
+  late PrematchBoard prematchBoard;
   var gameState = ValueNotifier<GameState>(GameState.whitePrematch);
 
-  GameController({required this.board, required this.prematchBoard});
+  GameController();
 
   void connect(Board board, PrematchBoard prematchBoard){
-    board = board;
-    prematchBoard = prematchBoard;
+    this.board = board;
+    this.prematchBoard = prematchBoard;
   }
 
 

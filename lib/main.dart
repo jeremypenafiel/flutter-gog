@@ -15,10 +15,13 @@ import 'ui/BoardScreen/prematch_board_ui.dart';
 
 GameController? gameController;
 void main() {
-  gameController = GameController(board: Board(),prematchBoard:  PrematchBoard());
+  gameController = GameController();
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => FontProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => FontProvider()),
+        ChangeNotifierProvider(create: (context) => gameController),
+      ],
       child: const MyApp(),
     ),
   );
@@ -37,20 +40,7 @@ class MyApp extends StatelessWidget {
               initialRoute: '/',
               routes: {
                 '/': (context) => HomePage(),
-                '/board': (context) =>
-                    MultiProvider(providers: [
-                      ChangeNotifierProvider(
-                          create: (context) => gameController),
-                      ChangeNotifierProvider(
-                          create: (context) => gameController?.board),
-                      ChangeNotifierProvider(
-                          create: (context) => gameController?.prematchBoard),
-                    ],
-                        child: const BoardScreen()),
-                '/prematch_board': (context) =>
-                    ChangeNotifierProvider(create: (context) => PrematchBoard(),
-                        child: const PrematchBoardUI()),
-
+                '/board': (context) => const BoardScreen(),
                 '/settings': (context) => SettingsPopup(),
               },
               theme: ThemeData(
