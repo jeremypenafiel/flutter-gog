@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gog/ui/PopUpScreen/settings.dart';
+import 'package:gog/backend/audio_manager.dart';
+
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AudioManager().playBackgroundMusic('Sounds/home-bg-music.mp3');
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Home Page'),
-      // ),
       body: Stack(
         children: [
-          // Background image
           Positioned.fill(
             child: Image.asset(
-              'assets/background.jpg', // Replace 'assets/background.jpg' with your image path
+              'assets/background.jpg', 
               fit: BoxFit.cover,
             ),
           ),
@@ -22,24 +21,16 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  child: 
-                  Image.asset('assets/Title.png',
-                  ),
+                  child: Image.asset('assets/Title.png'),
                 ),
-                
                 SizedBox(height: 20),
-
                 Container(
-                  child: Text(
-                    'EDIWOW ANG KADIPOTA MO GID'
-                    ),
+                  child: Text('EDIWOW ANG KADIPOTA MO GID'),
                 ),
-
                 SizedBox(height: 50),
-
                 RoundedButton(
                   onPressed: () {
-                    // Action for button 1
+                    AudioManager().playSfx('Sounds/sfx-button.wav');
                     Navigator.pushNamed(context, '/board');
                   },
                   text: 'PLAY',
@@ -47,21 +38,20 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 20),
                 RoundedButton(
                   onPressed: () {
-                    // Action for button 2
-                    // 
+                    AudioManager().playSfx('Sounds/sfx-button.wav');
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return Popup(popup: 1);
                       },
                     );
-
                   },
                   text: 'SETTINGS',
                 ),
                 SizedBox(height: 20),
                 RoundedButton(
                   onPressed: () {
+
                     // Action for button 3
                     showDialog(
                       context: context,
@@ -69,6 +59,8 @@ class HomePage extends StatelessWidget {
                         return Popup(popup: 3);
                       },
                       );
+                    AudioManager().playSfx('Sounds/sfx-button.wav');
+
                   },
                   text: 'GUIDE',
                 ),

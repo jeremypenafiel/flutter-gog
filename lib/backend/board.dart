@@ -1,39 +1,39 @@
-import 'dart:io';
-
-import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gog/backend/arbiter.dart';
 import 'package:gog/backend/piece.dart';
 
 class Board extends ChangeNotifier {
 
-  Board(){
-    board[0] = Piece.white | Piece.spy;
-    board[1] = Piece.black | Piece.private;
+  Board();
 
-    board[9] = Piece.white | Piece.private;
-    board[10] = Piece.black | Piece.spy;
-
-    board[18] = Piece.white | Piece.captain;
-    board[19] = Piece.black | Piece.captain;
-    board[20] = Piece.white| Piece.flag;
-    board[21] = Piece.black | Piece.flag;
-
+  void setBoard(List<int> newBoard){
+    board = newBoard;
+    notifyListeners();
   }
 
   int turn = 0;
   final int maxSquareNum = 72;
-  static const int _maxRanks = 8;
   static const int _maxFiles = 9;
   final List<int> moveOffsets = [-_maxFiles, _maxFiles, -1, 1];
 
   int? selectedTileIndex;
   List<int> possibleMoves = List.empty(growable: true);
 
-   List<int> possibleTakeMoves = List.empty(growable: true);
+  List<int> possibleTakeMoves = List.empty(growable: true);
 
   List<int> board = List<int>.filled(72, 0);
+  List<int> tempBoard = List<int>.filled(72, 0);
 
+
+  void concealPieces() {
+    tempBoard = board;
+
+    for(int i = 0; i < board.length; i++){
+      if(board[i] != Piece.none){
+        board[i] = Piece.none;
+      }
+    }
+  }
 
   void revealPieces(int pieceColor){
     for(int i = 0; i < board.length; i++){
@@ -90,7 +90,6 @@ class Board extends ChangeNotifier {
   }
 
   void movePiece(int targetSquare, int startSquare){
-    print("ah lente");
     board[targetSquare] = board[startSquare];
     board[startSquare] = 0;
     selectedTileIndex = null;
