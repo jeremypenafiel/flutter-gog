@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gog/backend/board.dart';
 import 'package:gog/backend/game_controller.dart';
@@ -10,9 +11,13 @@ import 'package:provider/provider.dart';
 
 import 'backend/prematch_board.dart';
 
-
+GameController? gameController;
 void main() {
+  gameController = GameController(board: Board(),prematchBoard:  PrematchBoard());
+
+
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -26,7 +31,12 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),
-        '/board': (context) => ChangeNotifierProvider(create: (context) => Board(), child: const BoardScreen()),
+        '/board': (context) => MultiProvider(providers: [
+          ChangeNotifierProvider(create: (context) => gameController),
+          ChangeNotifierProvider(create: (context) => gameController?.board),
+          ChangeNotifierProvider(create: (context) => gameController?.prematchBoard),
+        ],
+        child: const BoardScreen()),
         '/prematch_board': (context) => ChangeNotifierProvider(create: (context) => PrematchBoard(), child: const PrematchBoardUI()),
         
         '/settings': (context) => SettingsPopup(),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gog/backend/game_controller.dart';
 import 'package:gog/ui/BoardScreen/board_tile.dart';
 import 'package:gog/ui/BoardScreen/piece_ui.dart';
 import 'package:gog/ui/BoardScreen/prematch_board_tile.dart';
@@ -51,7 +52,7 @@ class _PrematchBoardUIState extends State<PrematchBoardUI> {
           ElevatedButton(
             onPressed: () {
               // TODO: Transfer to next state/player
-              Provider.of<PrematchBoard>(context, listen: false).changeTurn();
+              Provider.of<GameController>(context, listen: false).onReady();
             },
             child: Text('Ready'),
           ),
@@ -62,7 +63,7 @@ class _PrematchBoardUIState extends State<PrematchBoardUI> {
             child: Text('Exit'),
           ),
           ElevatedButton(onPressed: (){
-            Provider.of<PrematchBoard>(context, listen: false).prematchPhaseSetter(0);
+            //Provider.of<PrematchBoard>(context, listen: false).prematchPhaseSetter(0);
           },
               child: Text("Start"))
         ],

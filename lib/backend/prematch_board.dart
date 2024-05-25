@@ -8,7 +8,7 @@ import 'board.dart';
 class PrematchBoard extends ChangeNotifier{
 
   PrematchBoard(){
-    initBoard(whitePrematchBoard);
+    //initBoard(whitePrematchBoard);
   }
   int? selectedTileIndex;
   int turn = 0;
@@ -84,7 +84,12 @@ final List<int> pieceList = [
 
   void mergeBoards(){
     blackPrematchBoard = blackPrematchBoard.reversed.toList();
-    finalBoard = whitePrematchBoard + blackPrematchBoard;
+    finalBoard =  blackPrematchBoard + whitePrematchBoard ;
+  }
+
+  void whiteSetup(){
+    initBoard(whitePrematchBoard);
+    notifyListeners();
   }
 
   void initBoard(List<int> board){
@@ -106,6 +111,11 @@ final List<int> pieceList = [
       tentativeBoard = board;
       notifyListeners();
     }
+  }
+
+  void blackSetup() {
+    initBoard(blackPrematchBoard);
+    notifyListeners();
   }
 
 }
