@@ -53,7 +53,7 @@ class _BoardScreenState extends State<BoardScreen> {
         valueListenable: gameController.gameState,
         builder: (context, gameState, child) {
           print("hello, state is $gameState");
-          return gameState != GameState.inGame
+          return gameState != GameState.whiteTurn && gameState != GameState.blackTurn
               ? ChangeNotifierProvider(
                   create: (context) => prematchBoard,
                   child: PrematchBoardUI(),

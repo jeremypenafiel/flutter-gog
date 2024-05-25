@@ -33,14 +33,12 @@ class Board extends ChangeNotifier {
         board[i] = Piece.none;
       }
     }
+    notifyListeners();
   }
 
   void revealPieces(int pieceColor){
-    for(int i = 0; i < board.length; i++){
-      if(board[i] == pieceColor){
-        board[i] = 0;
-      }
-    }
+    board = tempBoard;
+    notifyListeners();
   }
 
   Piece revealPiece(Piece piece){

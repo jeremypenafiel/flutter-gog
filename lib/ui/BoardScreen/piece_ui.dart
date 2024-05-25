@@ -63,8 +63,8 @@ class PieceUI extends StatelessWidget{
           }
           var image = pieceMap[tileFace];
           var onTileSelected = isWhiteTurn || isBlackTurn ? board.onPieceSelected: null;
-          return AbsorbPointer(
-            absorbing: !isWhiteTurn && !isBlackTurn,
+          return IgnorePointer(
+            ignoring: !isWhiteTurn && !isBlackTurn,
             child: GestureDetector(
               onTap: () {
                 onTileSelected?.call(startSquare);
