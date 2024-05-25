@@ -3,8 +3,9 @@ import 'package:gog/backend/arbiter.dart';
 import 'package:gog/backend/piece.dart';
 
 class Board extends ChangeNotifier {
+  VoidCallback setGameState;
 
-  Board();
+  Board({required this.setGameState});
 
   void setBoard(List<int> newBoard){
     board = newBoard;
@@ -30,14 +31,16 @@ class Board extends ChangeNotifier {
 
     for(int i = 0; i < board.length; i++){
       if(board[i] != Piece.none){
-        board[i] = Piece.none;
+        board[i] = Piece.color(board[i]);
       }
     }
+    print(board);
     notifyListeners();
   }
 
   void revealPieces(int pieceColor){
-    board = tempBoard;
+    print(board);
+    this.board = this.tempBoard;
     notifyListeners();
   }
 
@@ -93,7 +96,9 @@ class Board extends ChangeNotifier {
     selectedTileIndex = null;
     possibleMoves = List.empty(growable: true);
     possibleTakeMoves = List.empty(growable: true);
-    turn = (turn + 1) % 2;
+    setGameState();
+    //concealPieces();
+    // turn = (turn + 1) % 2;
     notifyListeners();
   }
 
@@ -129,7 +134,8 @@ class Board extends ChangeNotifier {
     selectedTileIndex = null;
     possibleMoves = List.empty(growable: true);
     possibleTakeMoves = List.empty(growable: true);
-    turn = (turn + 1) % 2;
+    setGameState();
+    //turn = (turn + 1) % 2;
     notifyListeners();
   }
 
@@ -145,6 +151,8 @@ class Board extends ChangeNotifier {
   get getPossibleMoves{
     return possibleMoves;
   }
+
+
 
 
 

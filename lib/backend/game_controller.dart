@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gog/backend/board.dart';
+import 'package:gog/backend/piece.dart';
 // import change notifier
 
 import 'package:gog/backend/prematch_board.dart';
@@ -49,27 +50,25 @@ class GameController extends ChangeNotifier{
         print(board.board);
         break;
       case GameState.postGame:
-        //gameState = GameState.whitePrematch;
-        //prematchBoard.whiteSetup();
         break;
       case GameState.purgatory:
         gameState.value = turn == 0 ? GameState.blackTurn : GameState.whiteTurn;
         turn = turn == 0 ? 1 : 0;
+        int pieceColor = gameState.value == GameState.whiteTurn ? Piece.white : Piece.black;
+        //board.revealPieces(pieceColor);
 
         break;
       case GameState.whiteTurn:
-        gameState.value = GameState.purgatory;
-        board.concealPieces();
-        break;
-        // TODO: Handle this case.
       case GameState.blackTurn:
-        gameState.value = GameState.purgatory;
-        board.concealPieces();
         break;
-        // TODO: Handle this case.
     }
       print("gameState: $gameState");
 
+  }
+
+  void setGameState(){
+    gameState.value = GameState.purgatory;
+    notifyListeners();
   }
 
 

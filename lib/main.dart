@@ -16,11 +16,17 @@ import 'ui/BoardScreen/prematch_board_ui.dart';
 GameController? gameController;
 void main() {
   gameController = GameController();
+  Board board = Board(setGameState: gameController!.setGameState);
+  PrematchBoard prematchBoard = PrematchBoard();
+  gameController!.connect(board, prematchBoard);
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => FontProvider()),
         ChangeNotifierProvider(create: (context) => gameController),
+        ChangeNotifierProvider(create: (context) => gameController!.board),
+        ChangeNotifierProvider(create: (context) => gameController!.prematchBoard),
       ],
       child: const MyApp(),
     ),

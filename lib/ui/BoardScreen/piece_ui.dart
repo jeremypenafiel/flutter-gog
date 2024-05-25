@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gog/backend/game_controller.dart';
 import 'package:provider/provider.dart';
 import '../../backend/board.dart';
 import '../../backend/piece.dart';
@@ -50,21 +51,22 @@ class PieceUI extends StatelessWidget{
   Widget build(BuildContext context) {
     return Consumer<Board>(
         builder: (BuildContext context, Board board, Widget? child) {
-          bool isWhiteTurn = board.getTurn == 0 && Piece.isColor(pieceType, Piece.white);
-          bool isBlackTurn = board.getTurn == 1 && Piece.isColor(pieceType, Piece.black);
-          int tileFace = isWhiteTurn || isBlackTurn ? pieceType: Piece.color(pieceType);
-          print(tileFace);
-          try{
-            if (pieceMap[tileFace] == null) {
-              throw Exception('Piece not found');
-            }
-          } catch (e) {
-            print(tileFace);
+
+          var gameController = Provider.of<GameController>(context);
+
+          bool isPieceTurn = false;
+          if(Piece.isColor(pieceType, Piece.white) && gameController.gameState.value == GameState.whiteTurn){
+            isPieceTurn = true;
+          }else if (Piece.isColor(pieceType, Piece.black) && gameController.gameState.value == GameState.blackTurn){
+            isPieceTurn = true;
           }
-          var image = pieceMap[tileFace];
-          var onTileSelected = isWhiteTurn || isBlackTurn ? board.onPieceSelected: null;
+          print(isPieceTurn);
+          int tileFace =  isPieceTurn? pieceType: Piece.color(pieceType);
+
+          var pieceImage = pieceMap[tileFace];
+          var onTileSelected = isPieceTurn? board.onPieceSelected: null;
           return IgnorePointer(
-            ignoring: !isWhiteTurn && !isBlackTurn,
+            ignoring: !isPieceTurn || gameController.gameState.value == GameState.purgatory,
             child: GestureDetector(
               onTap: () {
                 onTileSelected?.call(startSquare);
@@ -88,7 +90,7 @@ class PieceUI extends StatelessWidget{
                     height: 10,
                     decoration: BoxDecoration(
                       image:  DecorationImage(
-                        image:AssetImage(image),
+                        image:AssetImage(pieceImage),
                       ),
                     )
                 ),
@@ -98,6 +100,5 @@ class PieceUI extends StatelessWidget{
           );
         }
     );
+        }
   }
-
-}
