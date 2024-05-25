@@ -24,7 +24,7 @@ class ScoreWidget extends StatelessWidget {
             ),
           ),
         ],
-                                                                                                                                                                                                  ),
+      ),
     );
   }
 }

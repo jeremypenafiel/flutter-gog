@@ -18,42 +18,32 @@ class _PrematchBoardUIState extends State<PrematchBoardUI> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        // Add a container with a border
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.white,
-              width: 2.0,
+        SingleChildScrollView(
+            child: GridView.count(
+              physics: NeverScrollableScrollPhysics(),
+              crossAxisCount: 9,
+              shrinkWrap: true,
+              children: List.generate(36, (index) {
+                return Consumer<PrematchBoard>(
+                  builder: (BuildContext context, PrematchBoard board, Widget? child) {
+                    bool hasPiece = board.whitePrematchBoard[index] != 0;
+                    return PrematchBoardTile(
+                      index: index,
+                      child: hasPiece
+                          ? PrematchPieceUI(
+                              startSquare: index,
+                              pieceType: board.whitePrematchBoard[index],
+                            )
+                          : null,
+                    );
+                  },
+                );
+              }),
             ),
           ),
-          // Use Expanded to allow the GridView to expand within the available space
-          child: Expanded(
-            child: SingleChildScrollView(
-              child: GridView.count(
-                physics: NeverScrollableScrollPhysics(),
-                crossAxisCount: 9,
-                shrinkWrap: true,
-                children: List.generate(36, (index) {
-                  return Consumer<PrematchBoard>(
-                    builder: (BuildContext context, PrematchBoard board, Widget? child) {
-                      bool hasPiece = board.whitePrematchBoard[index] != 0;
-                      return PrematchBoardTile(
-                        index: index,
-                        child: hasPiece
-                            ? PrematchPieceUI(
-                                startSquare: index,
-                                pieceType: board.whitePrematchBoard[index],
-                              )
-                            : null,
-                      );
-                    },
-                  );
-                }),
-              ),
-            ),
-          ),
-        ),
+        //),
         // Add buttons below the board
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

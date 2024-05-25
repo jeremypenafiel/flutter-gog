@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gog/ui/BoardScreen/prematch_board_ui.dart';
@@ -35,7 +36,6 @@ class _BoardScreenState extends State<BoardScreen> {
             )
           ),
           Column(
-            
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(25, 40, 18, 0),
@@ -62,7 +62,7 @@ class _BoardScreenState extends State<BoardScreen> {
                     : BoardUI(),
                 ),
               ),
-              const Expanded(
+              Expanded(
                 child: BoardScreenBottomNavBar(),
               ),
             ],
