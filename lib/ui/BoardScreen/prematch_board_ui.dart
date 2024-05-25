@@ -27,14 +27,14 @@ class _PrematchBoardUIState extends State<PrematchBoardUI> {
             children: List.generate(36, (index) {
               return Consumer<PrematchBoard>(
                 builder: (BuildContext context, PrematchBoard board, Widget? child) {
-                  bool hasPiece = board.whitePrematchBoard[index] != 0;
+                  bool hasPiece = board.tentativeBoard[index] != 0;
                   return
                   PrematchBoardTile( // Piece is rendered here
                     index: index,
                     child: hasPiece
                         ? PrematchPieceUI(
                             startSquare: index,
-                            pieceType: board.whitePrematchBoard[index],
+                            pieceType: board.tentativeBoard[index],
                           )
                         : null,
                     // child: Text('$index', style: TextStyle(fontSize: 10),),
@@ -51,6 +51,7 @@ class _PrematchBoardUIState extends State<PrematchBoardUI> {
           ElevatedButton(
             onPressed: () {
               // TODO: Transfer to next state/player
+              Provider.of<PrematchBoard>(context, listen: false).changeTurn();
             },
             child: Text('Ready'),
           ),
@@ -60,6 +61,10 @@ class _PrematchBoardUIState extends State<PrematchBoardUI> {
             },
             child: Text('Exit'),
           ),
+          ElevatedButton(onPressed: (){
+            Provider.of<PrematchBoard>(context, listen: false).prematchPhaseSetter(0);
+          },
+              child: Text("Start"))
         ],
       ),
     ],
