@@ -6,7 +6,7 @@ import 'package:gog/backend/audio_manager.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    AudioManager().playBackgroundMusic('Sounds/home_bg_music.mp3');
+    AudioManager().playBackgroundMusic('Sounds/home-bg-music.mp3');
     return Scaffold(
       body: Stack(
         children: [
@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 50),
                 RoundedButton(
                   onPressed: () {
-                    AudioManager().playSfx('assets/Sounds/sfx_button.wav');
+                    AudioManager().playSfx('Sounds/sfx-button.wav');
                     Navigator.pushNamed(context, '/board');
                   },
                   text: 'PLAY',
@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 20),
                 RoundedButton(
                   onPressed: () {
-                    AudioManager().playSfx('assets/Sounds/sfx_button.wav');
+                    AudioManager().playSfx('Sounds/sfx-button.wav');
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 20),
                 RoundedButton(
                   onPressed: () {
-                    AudioManager().playSfx('assets/Sounds/sfx_button.wav');
+                    AudioManager().playSfx('Sounds/sfx-button.wav');
                   },
                   text: 'GUIDE',
                 ),

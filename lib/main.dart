@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<FontProvider>(
       builder: (context, fontProvider, child) {
-        AudioManager().playBackgroundMusic('assets/Sounds/home_bg_music.mp3');
+        AudioManager().playBackgroundMusic('Sounds/home-bg-music.mp3');
         return MaterialApp(
           title: 'Flutter Demo',
           initialRoute: '/',

@@ -8,6 +8,7 @@ import 'package:gog/ui/BoardScreen/prematch_board_tile.dart';
 import 'package:gog/backend/prematch_board.dart';
 import 'package:gog/ui/BoardScreen/board_screen_buttons.dart';
 import 'package:provider/provider.dart';
+import 'package:gog/backend/audio_manager.dart';
 
 
 class BoardScreen extends StatefulWidget {
@@ -22,6 +23,7 @@ class _BoardScreenState extends State<BoardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AudioManager().playBackgroundMusic('Sounds/game-bg-music.mp3');
     return Scaffold(
       appBar: null,
       body: Stack(
