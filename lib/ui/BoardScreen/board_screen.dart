@@ -11,6 +11,8 @@ import 'package:gog/ui/BoardScreen/board_screen_buttons.dart';
 import 'package:provider/provider.dart';
 
 import '../../backend/board.dart';
+import 'package:gog/backend/audio_manager.dart';
+
 
 class BoardScreen extends StatefulWidget {
   const BoardScreen({super.key});
@@ -64,6 +66,7 @@ class _BoardScreenState extends State<BoardScreen> {
                   child: BoardUI());
         });
 
+    AudioManager().playBackgroundMusic('Sounds/game-bg-music.mp3');
     return Scaffold(
         appBar: null,
         body: Stack(children: [
