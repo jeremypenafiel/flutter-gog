@@ -6,7 +6,6 @@ import 'package:gog/ui/BoardScreen/piece_ui.dart';
 import 'package:gog/ui/BoardScreen/prematch_board_tile.dart';
 import 'package:gog/ui/BoardScreen/prematch_piece_ui.dart';
 import 'package:provider/provider.dart';
-
 import '../../backend/prematch_board.dart';
 
 class PrematchBoardUI extends StatefulWidget {
@@ -14,61 +13,39 @@ class PrematchBoardUI extends StatefulWidget {
 
   @override
   State<PrematchBoardUI> createState() => _PrematchBoardUIState();
-
 }
 
 class _PrematchBoardUIState extends State<PrematchBoardUI> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Expanded(
+        SingleChildScrollView(
           child: GridView.count(
+            physics: const NeverScrollableScrollPhysics(),
             crossAxisCount: 9,
+            shrinkWrap: true,
             children: List.generate(36, (index) {
               return Consumer<PrematchBoard>(
-                builder: (BuildContext context, PrematchBoard board, Widget? child) {
-                  bool hasPiece = board.tentativeBoard[index] != 0;
-                  return
-                  PrematchBoardTile( // Piece is rendered here
+                builder:
+                    (BuildContext context, PrematchBoard board, Widget? child) {
+                  bool hasPiece = board.whitePrematchBoard[index] != 0;
+                  return PrematchBoardTile(
                     index: index,
                     child: hasPiece
                         ? PrematchPieceUI(
                             startSquare: index,
-                            pieceType: board.tentativeBoard[index],
+                            pieceType: board.whitePrematchBoard[index],
                           )
                         : null,
-                    // child: Text('$index', style: TextStyle(fontSize: 10),),
                   );
-                }
+                },
               );
-            },
+            }),
           ),
         ),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              // TODO: Transfer to next state/player
-              Provider.of<GameController>(context, listen: false).onReady();
-            },
-            child: Text('Ready'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.popUntil(context, ModalRoute.withName('/'));
-            },
-            child: Text('Exit'),
-          ),
-          ElevatedButton(onPressed: (){
-            //Provider.of<PrematchBoard>(context, listen: false).prematchPhaseSetter(0);
-          },
-              child: Text("Start"))
-        ],
-      ),
-    ],
+      ],
     );
   }
 }
