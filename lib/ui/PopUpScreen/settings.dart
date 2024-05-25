@@ -1,16 +1,30 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gog/backend/font_provider.dart';
 
-class SettingsPopup extends StatefulWidget {
+class Popup extends StatefulWidget {
+  final int popup;
+
+  const Popup (
+    {Key? key,
+    required this.popup
+    }):super(key:key);
+
   @override
-  _SettingsPopupState createState() => _SettingsPopupState();
+  _PopupState createState() => _PopupState(popup: popup);
 }
 
-class _SettingsPopupState extends State<SettingsPopup> {
+class _PopupState extends State<Popup> {
   double _soundEffectsVolume = 50.0;
   double _musicVolume = 50.0;
+  final int popup;
+  _PopupState (
+    {Key? key,
+    required this.popup
+    });
 
   @override
   void initState() {
@@ -43,14 +57,17 @@ class _SettingsPopupState extends State<SettingsPopup> {
   @override
   Widget build(BuildContext context) {
     final fontProvider = Provider.of<FontProvider>(context);
-    return AlertDialog(
-      title: Text('Settings'),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text('Choose Font:'),
-            Row(
+    final String _popupName;
+    final List<Widget> list=[];
+    final List<Widget> _forActions=[];
+
+    switch(popup){
+
+      //settings
+      case 1:
+        _popupName="Settings";
+        list.add(Text('Choose Font:'));
+        list.add( Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 ElevatedButton(
@@ -75,10 +92,10 @@ class _SettingsPopupState extends State<SettingsPopup> {
                   child: Text('Oswald'),
                 ),
               ],
-            ),
-            SizedBox(height: 20),
-            Text('Sound Effects Volume'),
-            Slider(
+            ));
+        list.add(SizedBox(height: 20));
+        list.add(Text('Sound Effects Volume'));
+        list.add(Slider(
               value: _soundEffectsVolume,
               min: 0,
               max: 100,
@@ -90,9 +107,9 @@ class _SettingsPopupState extends State<SettingsPopup> {
                 });
                 _saveSettings();
               },
-            ),
-            Text('Music Volume'),
-            Slider(
+            ));
+        list.add( Text('Music Volume'));
+        list.add(Slider(
               value: _musicVolume,
               min: 0,
               max: 100,
@@ -104,24 +121,92 @@ class _SettingsPopupState extends State<SettingsPopup> {
                 });
                 _saveSettings();
               },
-            ),
-            TextButton(
+            ));
+        list.add(TextButton(
               onPressed: () {
                 _resetSettings();
               },
               child: Text('Reset to Default'),
-            ),
-          ],
-        ),
-      ),
-      actions: <Widget>[
-        TextButton(
+            ),);
+        _forActions.add(TextButton(
           child: Text('Close'),
           onPressed: () {
             Navigator.of(context).pop();
-          },
+          }));
+      
+      //On finish game
+      case 2:
+        _popupName="Victory";
+        _forActions.add(Row(
+          children: [
+            TextButton(style: TextButton.styleFrom(backgroundColor: Color.fromARGB(255, 250, 133, 9)), child: Text('New Game'),
+              onPressed: () {
+              Navigator.pushNamed(context, '/board');
+              }),
+            Expanded(child: SizedBox(width: 20,)),
+            TextButton(style: TextButton.styleFrom(backgroundColor: Color.fromARGB(255, 187, 1, 1)), child: Text('Exit Game  '),
+              onPressed: () {
+              Navigator.pushNamed(context, '/');
+          })
+          ],));
+        
+
+      //Guide
+      case 3:
+        _popupName="Guide";
+        list.add(Text("Pieces"));
+        list.add(Text("Each player has a set of 21 pieces and represents as soldiers with hierarchy of ranks"));
+        list.add(Text("Movement"));
+        list.add(Text("Each player can move only one piece per turn and each piece can move one square, either forward, backward or sideways."));
+        list.add(Text("Challenge"));
+        list.add(Text("Each piece can challenge an opposing piece directly adjacent in front, behind or side of it. A challenge is initiated by placing the piece on the adjacent square where an opposing piece is located. Regardless of which piece initiated the challenge, the rank of the pieces determines which piece is to be removed from the board."));
+        list.add(Text("Pieces Rank/Hierarchy"));
+        list.add(Container(color: Colors.grey,
+          child: Column(children: [
+            Row(children: [Image.asset("assets/White Pieces/white_5star_general.png"),Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_4star_general.png"),Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_3star_general.png"),Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_2star_general.png"),Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_1star_general.png"),Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_colonel.png"),Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_lt_colonel.png"),Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_major.png"),Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_captain.png"),Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_1st_lieut.png"),Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_2nd_lieut.png"),Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_sergeant.png"),Expanded(child: Text("Eliminates only the Private and the Flag."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_private.png"),Expanded(child: Text("Eliminates only the Spy."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_spy.png"),Expanded(child: Text("Eliminates any piece except the Private."))],),
+            Row(children: [Image.asset("assets/White Pieces/white_flag.png"),Expanded(child: Text("Can not eliminate any piece. Losing this piece is instant loss and making it reach the other end of the board is instant win."))],),
+            
+            ],),
+        ));
+        _forActions.add(TextButton(
+          child: Text('Close'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          }));
+
+      //no assigned value
+      default:
+        _popupName="Error";
+        _forActions.add(Text(""));
+        
+    }
+    
+    return AlertDialog(
+      title: Center(child: Text('$_popupName')),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: list
         ),
-      ],
-    );
+      ),
+      actions: _forActions
+      
+    
+      );
   }
 }
+
+

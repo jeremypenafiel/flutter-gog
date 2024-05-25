@@ -9,6 +9,7 @@ import 'package:gog/ui/BoardScreen/board_screen_bottom_nav_bar.dart';
 import 'package:gog/backend/prematch_board.dart';
 import 'package:gog/ui/BoardScreen/board_screen_buttons.dart';
 import 'package:provider/provider.dart';
+import 'package:gog/ui/PopUpScreen/settings.dart';
 
 import '../../backend/board.dart';
 import 'package:gog/backend/audio_manager.dart';
@@ -87,14 +88,27 @@ class _BoardScreenState extends State<BoardScreen> {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 18),
-                  child: Row(children: [
-                    SizedBox(
-                      height: 30,
-                      child: Image.asset('assets/Title.png'),
-                    ),
-                    Spacer(),
-                    const Icon(Icons.settings)
-                  ]),
+
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        height: 30,
+                        child: Image.asset('assets/Title.png'),
+                      ),
+                      Spacer(),
+                      IconButton(icon: Icon(Icons.settings), 
+                      onPressed:() {
+                        showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Popup(popup: 1);
+                      },
+                      );
+                      }
+                      )
+                    ]
+                  ) ,
+
                 ),
                 Expanded(
                   child: Padding(

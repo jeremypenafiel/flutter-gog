@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return SettingsPopup();
+                        return Popup(popup: 1);
                       },
                     );
                   },
@@ -51,7 +51,16 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 20),
                 RoundedButton(
                   onPressed: () {
+
+                    // Action for button 3
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Popup(popup: 3);
+                      },
+                      );
                     AudioManager().playSfx('Sounds/sfx-button.wav');
+
                   },
                   text: 'GUIDE',
                 ),
