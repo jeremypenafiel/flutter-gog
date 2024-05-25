@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:gog/backend/font_provider.dart';
 
 class SettingsPopup extends StatefulWidget {
   @override
@@ -10,7 +11,6 @@ class SettingsPopup extends StatefulWidget {
 class _SettingsPopupState extends State<SettingsPopup> {
   double _soundEffectsVolume = 50.0;
   double _musicVolume = 50.0;
-  String _selectedFont = 'Font 1';
 
   @override
   void initState() {
@@ -23,7 +23,6 @@ class _SettingsPopupState extends State<SettingsPopup> {
     setState(() {
       _soundEffectsVolume = prefs.getDouble('soundEffectsVolume') ?? 50.0;
       _musicVolume = prefs.getDouble('musicVolume') ?? 50.0;
-      _selectedFont = prefs.getString('selectedFont') ?? 'Font 1';
     });
   }
 
@@ -31,19 +30,19 @@ class _SettingsPopupState extends State<SettingsPopup> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('soundEffectsVolume', _soundEffectsVolume);
     await prefs.setDouble('musicVolume', _musicVolume);
-    await prefs.setString('selectedFont', _selectedFont);
   }
 
   void _resetSettings() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('soundEffectsVolume', 50.0);
     await prefs.setDouble('musicVolume', 50.0);
-    await prefs.setString('selectedFont', 'Font 1');
+    Provider.of<FontProvider>(context, listen: false).setSelectedFont('Roboto');
     _loadSettings();
   }
 
   @override
   Widget build(BuildContext context) {
+    final fontProvider = Provider.of<FontProvider>(context);
     return AlertDialog(
       title: Text('Settings'),
       content: SingleChildScrollView(
@@ -56,30 +55,24 @@ class _SettingsPopupState extends State<SettingsPopup> {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      _selectedFont = 'Font 1';
-                    });
+                    fontProvider.setSelectedFont('Roboto');
                     _saveSettings();
                   },
-                  child: Text('Font 1'),
+                  child: Text('Roboto'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      _selectedFont = 'Font 2';
-                    });
+                    fontProvider.setSelectedFont('Lobster');
                     _saveSettings();
                   },
-                  child: Text('Font 2'),
+                  child: Text('Lobster'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      _selectedFont = 'Font 3';
-                    });
+                    fontProvider.setSelectedFont('Oswald');
                     _saveSettings();
                   },
-                  child: Text('Font 3'),
+                  child: Text('Oswald'),
                 ),
               ],
             ),
@@ -132,4 +125,3 @@ class _SettingsPopupState extends State<SettingsPopup> {
     );
   }
 }
-
