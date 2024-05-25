@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
               routes: {
                 '/': (context) => HomePage(),
                 '/board': (context) => const BoardScreen(),
-                '/settings': (context) => SettingsPopup(),
+                '/settings': (context) => Popup(popup: 1),
               },
               theme: ThemeData(
                 textTheme: GoogleFonts.getTextTheme(fontProvider.selectedFont),
