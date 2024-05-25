@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return Popup(popup: 2,);
+                        return Popup(popup: 1);
                       },
                     );
 
@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return Popup(popup: 3,);
+                        return Popup(popup: 3);
                       },
                       );
                   },

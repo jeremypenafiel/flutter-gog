@@ -8,6 +8,7 @@ import 'package:gog/ui/BoardScreen/prematch_board_tile.dart';
 import 'package:gog/backend/prematch_board.dart';
 import 'package:gog/ui/BoardScreen/board_screen_buttons.dart';
 import 'package:provider/provider.dart';
+import 'package:gog/ui/PopUpScreen/settings.dart';
 
 class BoardScreen extends StatefulWidget {
   const BoardScreen({super.key});
@@ -49,7 +50,16 @@ class _BoardScreenState extends State<BoardScreen> {
                         child: Image.asset('assets/Title.png'),
                       ),
                       Spacer(),
-                      const Icon(Icons.settings)
+                      IconButton(icon: Icon(Icons.settings), 
+                      onPressed:() {
+                        showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Popup(popup: 1,);
+                      },
+                      );
+                      }
+                      )
                     ]
                   ) ,
                 ),
