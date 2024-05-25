@@ -24,12 +24,12 @@ class _BoardScreenState extends State<BoardScreen> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(18, 34, 18, 0),
+            padding: const EdgeInsets.fromLTRB(25, 40, 18, 0),
             child:Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                height: 50,
+                height: 30,
                 child: Image.asset('assets/Title.png'),
               ),
               Icon(Icons.settings)
