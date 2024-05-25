@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gog/backend/game_controller.dart';
 import 'package:gog/ui/BoardScreen/board_tile.dart';
 import 'package:gog/ui/BoardScreen/piece_ui.dart';
 import 'package:gog/ui/BoardScreen/prematch_board_tile.dart';
@@ -21,28 +22,29 @@ class _PrematchBoardUIState extends State<PrematchBoardUI> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         SingleChildScrollView(
-            child: GridView.count(
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 9,
-              shrinkWrap: true,
-              children: List.generate(36, (index) {
-                return Consumer<PrematchBoard>(
-                  builder: (BuildContext context, PrematchBoard board, Widget? child) {
-                    bool hasPiece = board.whitePrematchBoard[index] != 0;
-                    return PrematchBoardTile(
-                      index: index,
-                      child: hasPiece
-                          ? PrematchPieceUI(
-                              startSquare: index,
-                              pieceType: board.whitePrematchBoard[index],
-                            )
-                          : null,
-                    );
-                  },
-                );
-              }),
-            ),
+          child: GridView.count(
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 9,
+            shrinkWrap: true,
+            children: List.generate(36, (index) {
+              return Consumer<PrematchBoard>(
+                builder:
+                    (BuildContext context, PrematchBoard board, Widget? child) {
+                  bool hasPiece = board.tentativeBoard[index] != 0;
+                  return PrematchBoardTile(
+                    index: index,
+                    child: hasPiece
+                        ? PrematchPieceUI(
+                            startSquare: index,
+                            pieceType: board.tentativeBoard[index],
+                          )
+                        : null,
+                  );
+                },
+              );
+            }),
           ),
+        ),
       ],
     );
   }

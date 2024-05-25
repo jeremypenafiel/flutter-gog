@@ -19,7 +19,7 @@ class _BoardUIState extends State<BoardUI> {
 
   @override
   Widget build(BuildContext context) {
-
+      print("boardUI build called");
       return GridView.count(
         physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 9,
