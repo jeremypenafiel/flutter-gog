@@ -34,7 +34,7 @@ const Map pieceMap = {
   Piece.black|Piece.col: 'assets/Black Pieces/black_colonel.png',
   Piece.black: 'assets/Black Pieces/black_down.png',
   Piece.black|Piece.flag: 'assets/Black Pieces/black_flag.png',
-  Piece.black|Piece.oneStarGen: 'assets/Black Pieces/black_1star_general.png',
+  Piece.black|Piece.oneStarGen: 'assets/Black Pieces/black_general.png',
   Piece.black|Piece.ltCol: 'assets/Black Pieces/black_lt_colonel.png',
   Piece.black|Piece.major: 'assets/Black Pieces/black_major.png',
   Piece.black|Piece.private: 'assets/Black Pieces/black_private.png',

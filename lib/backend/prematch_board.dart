@@ -8,21 +8,16 @@ import 'board.dart';
 class PrematchBoard extends ChangeNotifier{
 
   PrematchBoard(){
-    initBoard(whitePrematchBoard);
+    //initBoard(whitePrematchBoard);
   }
   int? selectedTileIndex;
   int turn = 0;
   List<int> whitePrematchBoard = List<int>.filled(36, 0);
   List<int> blackPrematchBoard = List<int>.filled(36, 0);
+  List<int> tentativeBoard = List<int>.filled(36, 0);
   List<int> finalBoard = List<int>.filled(72, 0);
-
   final int maxSquareNum = 36;
-
-  final List<int> moveOffsets = [-9, 9, -1, 1];
-  bool isWhiteTurn = true;
   late int pieceColor;
-
-
 
 final List<int> pieceList = [
   Piece.flag,
@@ -32,27 +27,33 @@ final List<int> pieceList = [
   Piece.private,
   Piece.private,
   Piece.private,
-Piece.spy,
   Piece.spy,
-Piece.sergeant,
-Piece.secondLt,
-Piece.firstLt,
-Piece.captain,
-Piece.major,
-Piece.ltCol,
-Piece.col,
-Piece.oneStarGen,
-Piece.twoStarGen,
-Piece.threeStarGen,
-Piece.fourStarGen,
-Piece.fiveStarGen,
+  Piece.spy,
+  Piece.sergeant,
+  Piece.secondLt,
+  Piece.firstLt,
+  Piece.captain,
+  Piece.major,
+  Piece.ltCol,
+  Piece.col,
+  Piece.oneStarGen,
+  Piece.twoStarGen,
+  Piece.threeStarGen,
+  Piece.fourStarGen,
+  Piece.fiveStarGen,
 ];
 
-
+  int prematchPhase = 1;
   get getBoard => finalBoard;
   get getTurn => turn;
-  set setTurn(int turn){
-    this.turn = turn;
+
+  void changeTurn(){
+    turn = turn == 0 ? 1: 0;
+    initBoard(blackPrematchBoard);
+  }
+
+  set prematchPhaseSetter(int phase){
+    prematchPhase = phase;
     notifyListeners();
   }
 
@@ -74,16 +75,21 @@ Piece.fiveStarGen,
   }
 
   void movePiece(int targetSquare){
-    var temp = whitePrematchBoard[targetSquare];
-    whitePrematchBoard[targetSquare] = whitePrematchBoard[selectedTileIndex!];
-    whitePrematchBoard[selectedTileIndex!] = temp;
+    var temp = tentativeBoard[targetSquare];
+    tentativeBoard[targetSquare] = tentativeBoard[selectedTileIndex!];
+    tentativeBoard[selectedTileIndex!] = temp;
     selectedTileIndex = null;
     notifyListeners();
   }
 
   void mergeBoards(){
     blackPrematchBoard = blackPrematchBoard.reversed.toList();
-    finalBoard = whitePrematchBoard + blackPrematchBoard;
+    finalBoard =  blackPrematchBoard + whitePrematchBoard ;
+  }
+
+  void whiteSetup(){
+    initBoard(whitePrematchBoard);
+    notifyListeners();
   }
 
   void initBoard(List<int> board){
@@ -93,7 +99,6 @@ Piece.fiveStarGen,
     for(int i = 10; i < maxSquareNum; i++) {
       bool innerSquare = i % 9 != 8 && i % 9 != 0;
 
-
       if (innerSquare) {
         if(j >= 21){
           continue;
@@ -102,7 +107,15 @@ Piece.fiveStarGen,
         j++;
 
       }
+
+      tentativeBoard = board;
+      notifyListeners();
     }
+  }
+
+  void blackSetup() {
+    initBoard(blackPrematchBoard);
+    notifyListeners();
   }
 
 }
