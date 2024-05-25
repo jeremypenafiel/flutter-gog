@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'scoreboard_ui.dart';
+import 'graveyard_ui.dart';
 
 class BoardScreenBottomNavBar extends StatefulWidget {
   const BoardScreenBottomNavBar({Key? key}) : super(key: key);
@@ -38,21 +39,6 @@ class _BoardScreenBottomNavBarState extends State<BoardScreenBottomNavBar> {
           },
         ),
       ],
-    );
-  }
-}
-
-class GraveyardWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Color.fromARGB(255, 38, 38, 38),
-      child: Center(
-        child: Text(
-          'AWTS PATAY SILA HAHAHAHAHAHAH',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
     );
   }
 }
