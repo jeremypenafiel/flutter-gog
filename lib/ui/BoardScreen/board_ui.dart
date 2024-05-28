@@ -31,10 +31,6 @@ class _BoardUIState extends State<BoardUI> {
                 return
                   BoardTile( // Piece is rendered here
                     index: index,
-                    child: hasPiece
-                        ? PieceUI(
-                      startSquare: index, pieceType: board.board[index],)
-                        : null,
                   );
               }
             );
