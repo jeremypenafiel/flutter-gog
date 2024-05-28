@@ -56,6 +56,7 @@ class PrematchPieceUI extends StatelessWidget{
           bool isBlackTurn = prematchBoard.getTurn == 1 && Piece.isColor(pieceType, Piece.black);
           int tileFace = isWhiteTurn || isBlackTurn ? pieceType: Piece.color(pieceType);
           var onTileSelected = isWhiteTurn || isBlackTurn ? prematchBoard.onPieceSelected: null;
+
           return IgnorePointer(
             ignoring: prematchBoard.getSelectedTileIndex() != null && prematchBoard.getSelectedTileIndex() != startSquare,
             child: GestureDetector(

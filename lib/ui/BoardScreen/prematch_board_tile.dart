@@ -25,20 +25,23 @@ class _PrematchBoardTileState extends State<PrematchBoardTile>{
     return Consumer<PrematchBoard>(
       builder: (BuildContext context, PrematchBoard prematchBoard, Widget? child) {
         bool hasPiece = prematchBoard.tentativeBoard[widget.index] != 0;
+        Color tileColor = widget.index % 2 == 0? lightSquareColor: darkSquareColor;
+        bool isPlaceableTile = widget.index >= 9 && prematchBoard.getSelectedTileIndex() != null;
+
         Widget? child = hasPiece ?  PrematchPieceUI(
                             startSquare: widget.index,
                             pieceType: prematchBoard.tentativeBoard[widget.index],
                           ) : null;
-        Color tileColor = widget.index % 2 == 0? lightSquareColor: darkSquareColor;
 
         if(widget.index == prematchBoard.selectedTileIndex){
           tileColor = highlightColor;
         }
-        bool isPlaceableTile = widget.index >= 9 && prematchBoard.getSelectedTileIndex() != null;
+
         Widget tileContainer  = Container(
           color: tileColor,
           child: child,
         );
+
         return GestureDetector(
           onTap: () => isPlaceableTile ? prematchBoard.movePiece(widget.index) : null,
           child: !isPlaceableTile ? tileContainer:  DragTarget <int> (
