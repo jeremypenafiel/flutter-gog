@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gog/backend/prematch_board.dart';
+import 'package:gog/ui/BoardScreen/prematch_piece_ui.dart';
 import 'package:provider/provider.dart';
 
 const Color darkSquareColor = Colors.brown;
@@ -10,8 +11,7 @@ const Color takeSquareColor = Colors.red;
 
 class PrematchBoardTile extends StatefulWidget {
   final int index;
-  final Widget? child;
-  const PrematchBoardTile({super.key, required this.index, required this.child});
+  const PrematchBoardTile({super.key, required this.index});
 
   @override
   State<PrematchBoardTile> createState() => _PrematchBoardTileState();
@@ -24,14 +24,20 @@ class _PrematchBoardTileState extends State<PrematchBoardTile>{
 
     return Consumer<PrematchBoard>(
       builder: (BuildContext context, PrematchBoard prematchBoard, Widget? child) {
+        bool hasPiece = prematchBoard.tentativeBoard[widget.index] != 0;
+        Widget? child = hasPiece ?  PrematchPieceUI(
+                            startSquare: widget.index,
+                            pieceType: prematchBoard.tentativeBoard[widget.index],
+                          ) : null;
         Color tileColor = widget.index % 2 == 0? lightSquareColor: darkSquareColor;
+
         if(widget.index == prematchBoard.selectedTileIndex){
           tileColor = highlightColor;
         }
         bool isPlaceableTile = widget.index >= 9 && prematchBoard.getSelectedTileIndex() != null;
         Widget tileContainer  = Container(
           color: tileColor,
-          child: widget.child,
+          child: child,
         );
         return GestureDetector(
           onTap: () => isPlaceableTile ? prematchBoard.movePiece(widget.index) : null,

@@ -18,17 +18,17 @@ import 'backend/audio_manager.dart';
 GameController? gameController;
 void main() {
   gameController = GameController();
-  Board board = Board(setGameState: gameController!.setGameState);
-  PrematchBoard prematchBoard = PrematchBoard();
-  gameController!.connect(board, prematchBoard);
+  // Board board = Board(setGameState: gameController!.setGameState);
+  // PrematchBoard prematchBoard = PrematchBoard();
+  // gameController!.connect(board, prematchBoard);
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => FontProvider()),
         ChangeNotifierProvider(create: (context) => gameController),
-        ChangeNotifierProvider(create: (context) => gameController!.board),
-        ChangeNotifierProvider(create: (context) => gameController!.prematchBoard),
+        // ChangeNotifierProvider(create: (context) => gameController!.board),
+        // ChangeNotifierProvider(create: (context) => gameController!.prematchBoard),
       ],
       child: const MyApp(),
     ),
@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
               title: 'Flutter Demo',
               initialRoute: '/',
               routes: {
+
                 '/': (context) => HomePage(),
                 '/board': (context) => const BoardScreen(),
                 '/settings': (context) => Popup(popup: 1),

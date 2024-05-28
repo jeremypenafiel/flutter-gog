@@ -24,11 +24,21 @@ class BoardScreen extends StatefulWidget {
 
 class _BoardScreenState extends State<BoardScreen> {
   final int _selectedIndex = 0;
+  late Board board;
+  late PrematchBoard prematchBoard;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    gameController?.startPrematch();
+    GameController gameController = Provider.of<GameController>(context, listen: false);
+    board = Board(setGameState: gameController.setGameState);
+    prematchBoard = PrematchBoard();
+    gameController.connect(board, prematchBoard);
+
+    gameController.resetBoard();
+    gameController.startPrematch();
+    print("start match");
 
   }
 
