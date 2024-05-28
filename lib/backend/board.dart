@@ -24,6 +24,8 @@ class Board extends ChangeNotifier {
 
   List<int> board = List<int>.filled(72, 0);
   List<int> tempBoard = List<int>.filled(72, 0);
+  List<int> whiteGraveyard = [];
+  List<int> blackGraveyard = [];
 
 
   void concealPieces() {
@@ -129,7 +131,7 @@ class Board extends ChangeNotifier {
 
   void takePiece(int targetPieceIndex, int initiatingPieceIndex) {
 
-    board[targetPieceIndex] = Arbiter().checkMove(board[initiatingPieceIndex], board[targetPieceIndex]);
+    board[targetPieceIndex] = Arbiter().checkMove(board[initiatingPieceIndex], board[targetPieceIndex], whiteGraveyard, blackGraveyard);
     board[initiatingPieceIndex] = 0;
     selectedTileIndex = null;
     possibleMoves = List.empty(growable: true);

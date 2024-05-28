@@ -60,7 +60,6 @@ class PieceUI extends StatelessWidget{
           }else if (Piece.isColor(pieceType, Piece.black) && gameController.gameState.value == GameState.blackTurn){
             isPieceTurn = true;
           }
-          print(isPieceTurn);
           int tileFace =  isPieceTurn? pieceType: Piece.color(pieceType);
 
           var pieceImage = pieceMap[tileFace];

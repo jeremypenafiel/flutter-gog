@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gog/backend/game_controller.dart';
+import 'package:provider/provider.dart';
 import 'scoreboard_ui.dart';
 import 'graveyard_ui.dart';
 
@@ -14,11 +16,13 @@ class _BoardScreenBottomNavBarState extends State<BoardScreenBottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+  var gameController =  Provider.of<GameController>(context, listen: false);
+  var graveyardWidget= ChangeNotifierProvider(create: (context) => gameController.board, child: const GraveyardWidget(),);
     return Column(
       children: [
         ScoreWidget(),
         Expanded(
-          child: _selectedIndex == 0 ? GraveyardWidget() : HierarchyWidget(),
+          child: _selectedIndex == 0 ? graveyardWidget : HierarchyWidget(),
         ),
         BottomNavigationBar(
           items: const [
