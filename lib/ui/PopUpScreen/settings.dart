@@ -71,25 +71,59 @@ class _PopupState extends State<Popup> {
       //settings
       case 1:
         _popupName="Settings";
-        list.add(Text('Choose Font:'));
+
+        list.add(Divider());
+        list.add(Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Font'
+            ),
+          )
+        );
+
         list.add( Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(80, 35),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    )
+                  ),
                   onPressed: () {
                     fontProvider.setSelectedFont('Roboto');
                     _saveSettings();
                   },
                   child: Text('Roboto'),
                 ),
+
+                SizedBox(width: 7,),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(80, 35),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    )
+                  ),
                   onPressed: () {
                     fontProvider.setSelectedFont('Lobster');
                     _saveSettings();
                   },
                   child: Text('Lobster'),
                 ),
+
+                SizedBox(width: 7,),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(80, 35),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    )
+                  ),
                   onPressed: () {
                     fontProvider.setSelectedFont('Oswald');
                     _saveSettings();
@@ -98,6 +132,7 @@ class _PopupState extends State<Popup> {
                 ),
               ],
             ));
+
         list.add(SizedBox(height: 20));
         list.add(Text('Sound Effects Volume'));
         list.add(Slider(
