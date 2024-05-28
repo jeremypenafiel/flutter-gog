@@ -11,28 +11,82 @@ class Arbiter {
 
   Arbiter._internal();
 
-  int checkMove(int initiatingPiece, int targetPiece) {
+  int checkMove(int initiatingPiece, int targetPiece, List<int> whiteGraveyard, List<int> blackGraveyard) {
     var initiatingPieceRank = Piece.pieceType(initiatingPiece);
     var targetPieceRank = Piece.pieceType(targetPiece);
 
+    int winningPiece;
+    int losingPiece;
+
     if (targetPieceRank ==  initiatingPieceRank){
+      if(Piece.isColor(initiatingPiece, Piece.white)){
+        whiteGraveyard.add(initiatingPiece);
+        blackGraveyard.add(targetPiece);
+      }else{
+        blackGraveyard.add(initiatingPiece);
+        whiteGraveyard.add(targetPiece);
+      }
       return targetPieceRank == Piece.flag? initiatingPiece: Piece.none;
     }
 
     // check if either piece is a spy and other piece is a private
     if (initiatingPieceRank == Piece.spy && (targetPieceRank == Piece.private)){
-      return targetPiece;
+      winningPiece = targetPiece;
+      losingPiece = initiatingPiece;
+      if(Piece.isColor(winningPiece, Piece.white)){
+        blackGraveyard.add(losingPiece);
+      }else{
+        whiteGraveyard.add(losingPiece);
+      }
+
+      return winningPiece;
     }else if (targetPieceRank == Piece.spy && (initiatingPieceRank == Piece.private)){
-      return initiatingPiece;
+       winningPiece = initiatingPiece;
+       losingPiece = targetPiece;
+        if(Piece.isColor(winningPiece, Piece.white)) {
+          blackGraveyard.add(losingPiece);
+        }else{
+          whiteGraveyard.add(losingPiece);
+        }
+        return winningPiece;
     }
+
+
+
 
     if(initiatingPieceRank == Piece.spy && targetPieceRank != Piece.private){
+      winningPiece =  initiatingPiece;
+      losingPiece = targetPiece;
+
+      if(Piece.isColor(winningPiece, Piece.white)) {
+        blackGraveyard.add(losingPiece);
+      }else{
+        whiteGraveyard.add(losingPiece);
+      }
+
       return initiatingPiece;
+
     }else if(targetPieceRank == Piece.spy && initiatingPieceRank != Piece.private){
+      winningPiece = targetPiece;
+      losingPiece = initiatingPiece;
+
+      if(Piece.isColor(winningPiece, Piece.white)){
+        blackGraveyard.add(losingPiece);
+      }else{
+        whiteGraveyard.add(losingPiece);
+      }
       return targetPiece;
     }
 
-    var returnPiece = targetPieceRank > initiatingPieceRank ? targetPiece : initiatingPiece;
-    return returnPiece;
+    winningPiece = targetPieceRank > initiatingPieceRank ? targetPiece : initiatingPiece;
+    losingPiece = targetPieceRank > initiatingPieceRank ? initiatingPiece : targetPiece;
+
+    if(Piece.isColor(winningPiece, Piece.white)){
+      blackGraveyard.add(losingPiece);
+    }else{
+      whiteGraveyard.add(losingPiece);
+    }
+
+    return winningPiece;
   }
 }

@@ -18,6 +18,8 @@ enum GameState{
 class GameController extends ChangeNotifier{
   late Board board;
   late PrematchBoard prematchBoard;
+
+
   int turn = 0; // turn = 0 means white turn, turn = 1 means black turn
   var gameState = ValueNotifier<GameState>(GameState.whitePrematch);
 
@@ -29,7 +31,6 @@ class GameController extends ChangeNotifier{
   }
 
   void resetBoard(){
-    print("objecthello");
     gameState.value = GameState.whitePrematch;
     gameState.notifyListeners();
     turn = 0;
