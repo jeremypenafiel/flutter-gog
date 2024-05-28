@@ -114,4 +114,9 @@ final List<int> pieceList = [
     notifyListeners();
   }
 
+  void resetTentativeBoard() {
+    tentativeBoard = List<int>.filled(36, 0);
+    notifyListeners();
+  }
+
 }

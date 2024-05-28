@@ -35,22 +35,9 @@ class _PrematchBoardUIState extends State<PrematchBoardUI> {
             crossAxisCount: 9,
             shrinkWrap: true,
             children: List.generate(36, (index) {
-              return Consumer<PrematchBoard>(
-                builder:
-                    (BuildContext context, PrematchBoard board, Widget? child) {
-                  bool hasPiece = board.tentativeBoard[index] != 0;
-                  return PrematchBoardTile(
-                    index: index,
-                    child: hasPiece
-                        ? PrematchPieceUI(
-                            startSquare: index,
-                            pieceType: board.tentativeBoard[index],
-                          )
-                        : null,
-                  );
-                },
-              );
-            }),
+              return PrematchBoardTile(index: index,);
+              },
+            ),
           ),
         ),
       ],
