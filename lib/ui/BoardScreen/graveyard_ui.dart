@@ -69,16 +69,36 @@ class GraveyardWidget extends StatelessWidget {
   }
 
   Widget _buildGraveyardColumn(BuildContext context, int playerNumber, bool isWhiteGraveyard) {
-
-
     return Consumer<Board>(builder: (context, Board board, child) {
-      return GridView.builder(
-      itemCount: isWhiteGraveyard? board.whiteGraveyard.length: board.blackGraveyard.length,
-      // placeholder lang pero gaincrement dapat so if wala pa deds, wala pa dapat display
-      itemBuilder: (context, index) {
-        return _buildGraveyardPiece(context,
-            playerNumber, isWhiteGraveyard? board.whiteGraveyard[index]: board.blackGraveyard[index]);
-      }, gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2), 
+      var graveyard = isWhiteGraveyard ? board.whiteGraveyard : board.blackGraveyard;
+
+      return ListView.builder(
+      itemCount: (graveyard.length / 2).ceil(),
+      itemBuilder: (context, index) {               // placeholder lang pero gaincrement dapat so if wala pa deds, wala pa dapat display
+        int firstPieceIndex = index * 2;
+        int secondPieceIndex = firstPieceIndex + 1;
+        
+        return Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: _buildGraveyardPiece(context, playerNumber, graveyard[firstPieceIndex]),
+                ),
+                Expanded(
+                  child: secondPieceIndex < graveyard.length
+                    ? _buildGraveyardPiece(context, playerNumber, graveyard[secondPieceIndex])
+                    : Container(),
+                ),
+              ],
+            ),
+            const Divider(
+              color: Colors.grey,
+              thickness: 1,
+            )
+          ]
+        );
+      }
     );
   });
   }
@@ -86,7 +106,7 @@ class GraveyardWidget extends StatelessWidget {
   Widget _buildGraveyardPiece(BuildContext context, int playerNumber, int pieceType) {
     var gameController = Provider.of<GameController>(context);
 
-    var pieceImage = ValueListenableBuilder(
+    return ValueListenableBuilder(
         valueListenable: gameController.gameState,
         builder: (BuildContext context, GameState gameState, Widget? child) {
           bool isPieceTurn = false;
@@ -99,13 +119,5 @@ class GraveyardWidget extends StatelessWidget {
           return Image.asset(pieceMap[tileFace]);
         }
     );
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.grey)),
-      ),
-      child: pieceImage,
-      );
-
   }
 }
