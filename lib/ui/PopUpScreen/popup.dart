@@ -254,6 +254,13 @@ class _PopupState extends State<Popup> {
             ),
             
             onPressed: () {
+              setState(() {
+                // Reset volume sliders and variables to default values
+                _musicVolume = 50; // Assuming default volume is 50%
+                _soundEffectsVolume = 50; // Assuming default volume is 50%
+              });
+              audioManager.setBackgroundVolume(_musicVolume / 100);
+              audioManager.setSoundEffectsVolume(_soundEffectsVolume / 100);
               _resetSettings();
             },
             child:  const Text(
