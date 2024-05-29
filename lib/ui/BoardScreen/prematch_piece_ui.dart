@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../backend/board.dart';
 import '../../backend/piece.dart';
 import '../../backend/prematch_board.dart';
 
@@ -57,14 +56,18 @@ class PrematchPieceUI extends StatelessWidget{
           int tileFace = isWhiteTurn || isBlackTurn ? pieceType: Piece.color(pieceType);
           var onTileSelected = isWhiteTurn || isBlackTurn ? prematchBoard.onPieceSelected: null;
 
+
           return IgnorePointer(
             ignoring: prematchBoard.getSelectedTileIndex() != null && prematchBoard.getSelectedTileIndex() != startSquare,
+
+
             child: GestureDetector(
               onTap: () {
                 prematchBoard.onPieceSelected(startSquare);
               },
 
               child: Draggable<int>(
+                dragAnchorStrategy: (_, __, ___) => const Offset(50, 50),
                 onDragStarted: () => onTileSelected?.call(startSquare),
                 data: startSquare,
                 childWhenDragging: Container(),
