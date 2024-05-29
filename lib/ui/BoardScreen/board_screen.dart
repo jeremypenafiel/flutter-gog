@@ -34,7 +34,6 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
     GameController gameController = Provider.of<GameController>(context, listen: false);
     board = Board(setGameState: gameController.setGameState, onWin: gameController.win);
     WidgetsBinding.instance.addObserver(this);
-
     prematchBoard = PrematchBoard();
     gameController.connect(board, prematchBoard);
 
