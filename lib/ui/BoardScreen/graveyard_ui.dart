@@ -70,13 +70,13 @@ class GraveyardWidget extends StatelessWidget {
 
   Widget _buildGraveyardColumn(BuildContext context, int playerNumber, bool isWhiteGraveyard) {
     return Consumer<Board>(builder: (context, Board board, child) {
-      return ListView.builder(
+      return GridView.builder(
       itemCount: isWhiteGraveyard? board.whiteGraveyard.length: board.blackGraveyard.length,
       // placeholder lang pero gaincrement dapat so if wala pa deds, wala pa dapat display
       itemBuilder: (context, index) {
         return _buildGraveyardPiece(
             playerNumber, isWhiteGraveyard? board.whiteGraveyard[index]: board.blackGraveyard[index]);
-      },
+      }, gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2), 
     );
   });
   }
