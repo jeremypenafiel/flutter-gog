@@ -21,6 +21,14 @@ class AudioManager {
     await _backgroundPlayer.stop();
   }
 
+  Future<void> resumeBackgroundMusic() async {
+    await _backgroundPlayer.resume();
+  }
+
+  Future<void> pauseBackgroundMusic() async {
+    await _backgroundPlayer.pause();
+  }
+
   Future<void> playSfx(String filePath) async {
     await _sfxPlayer.play(AssetSource(filePath));
   }

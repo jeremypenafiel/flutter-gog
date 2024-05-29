@@ -3,15 +3,29 @@ import 'package:gog/ui/PopUpScreen/popup.dart';
 import 'package:gog/backend/audio_manager.dart';
 import 'package:gog/backend/route_observer.dart';
 
-
 class HomePage extends StatefulWidget {
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
+class _HomePageState extends State<HomePage> with RouteAware, WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addObserver(this);
+    // Play background music when the home page is opened
+    AudioManager().playBackgroundMusic('Sounds/home-bg-music.mp3');
+  }
 
-class _HomePageState extends State<HomePage> with RouteAware {
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    routeObserver.unsubscribe(this);
+    // Stop background music when the home page is disposed
+    AudioManager().stopBackgroundMusic();
+    super.dispose();
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -22,26 +36,31 @@ class _HomePageState extends State<HomePage> with RouteAware {
   }
 
   @override
-  void dispose() {
-    routeObserver.unsubscribe(this);
-    super.dispose();
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      // Pause background music when the app is sent to the background
+      AudioManager().pauseBackgroundMusic();
+    } else if (state == AppLifecycleState.resumed) {
+      // Resume background music when the app is brought to the foreground
+      AudioManager().resumeBackgroundMusic();
+    }
   }
 
   @override
   void didPopNext() {
+    // Resume background music when returning to the home page from another route
     AudioManager().playBackgroundMusic('Sounds/home-bg-music.mp3');
   }
 
-  
   @override
   Widget build(BuildContext context) {
-    AudioManager().playBackgroundMusic('Sounds/home-bg-music.mp3');
     return Scaffold(
       body: Stack(
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/background.jpg', 
+              'assets/background.jpg',
               fit: BoxFit.cover,
             ),
           ),
@@ -80,16 +99,14 @@ class _HomePageState extends State<HomePage> with RouteAware {
                 SizedBox(height: 20),
                 RoundedButton(
                   onPressed: () {
-
                     // Action for button 3
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return Popup(popup: 3);
                       },
-                      );
+                    );
                     AudioManager().playSfx('Sounds/sfx-button.wav');
-
                   },
                   text: 'GUIDE',
                 ),
@@ -102,7 +119,7 @@ class _HomePageState extends State<HomePage> with RouteAware {
   }
 }
 
-class RoundedButton extends StatefulWidget {
+class RoundedButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
@@ -113,48 +130,26 @@ class RoundedButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _RoundedButtonState createState() => _RoundedButtonState();
-}
-
-class _RoundedButtonState extends State<RoundedButton> {
-  bool _isTapped = false;
-
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (_) {
-        setState(() {
-          _isTapped = true;
-        });
-      },
-      onTapUp: (_) {
-        setState(() {
-          _isTapped = false;
-        });
-        widget.onPressed();
-      },
-      onTapCancel: () {
-        setState(() {
-          _isTapped = false;
-        });
-      },
+      onTap: onPressed,
       child: Container(
         width: 184,
         height: 62,
         decoration: BoxDecoration(
-          color: _isTapped ? Colors.orange : Colors.white,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(2),
           border: Border.all(
-            color: _isTapped ? Colors.orange : Colors.white,
+            color: Colors.white,
           ),
         ),
         child: Center(
           child: Text(
-            widget.text,
+            text,
             style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 20,
-              color: _isTapped ? Colors.white : Colors.black,
+              color: Colors.black,
             ),
           ),
         ),

@@ -373,9 +373,11 @@ class _PopupState extends State<Popup> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(5)
-          )
-        ),
-      title: Center(child: Text(_popupName)),
+        )
+      ),
+      title: Center(
+        child: Text(_popupName)
+      ),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -385,7 +387,7 @@ class _PopupState extends State<Popup> {
       actions: _forActions
       
     
-      );
+    );
   }
 }
 

@@ -22,7 +22,7 @@ class BoardScreen extends StatefulWidget {
   _BoardScreenState createState() => _BoardScreenState();
 }
 
-class _BoardScreenState extends State<BoardScreen> {
+class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
   final int _selectedIndex = 0;
   late Board board;
   late PrematchBoard prematchBoard;
@@ -32,7 +32,12 @@ class _BoardScreenState extends State<BoardScreen> {
     // TODO: implement initState
     super.initState();
     GameController gameController = Provider.of<GameController>(context, listen: false);
+<<<<<<< Updated upstream
     board = Board(setGameState: gameController.setGameState, onWin: gameController.win);
+=======
+    board = Board(setGameState: gameController.setGameState);
+    WidgetsBinding.instance.addObserver(this);
+>>>>>>> Stashed changes
     prematchBoard = PrematchBoard();
     gameController.connect(board, prematchBoard);
 
@@ -40,10 +45,33 @@ class _BoardScreenState extends State<BoardScreen> {
     gameController.startPrematch();
     print("start match");
 
+    
+
     AudioManager().stopBackgroundMusic().then((_) {
       AudioManager().playBackgroundMusic('Sounds/game-bg-music.mp3');
     });
 
+  }
+
+  
+  @override
+  void dispose() {
+    // Remove the observer in dispose
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    // Check if the app is transitioning to paused state
+    if (state == AppLifecycleState.paused) {
+      // Pause audio playback
+      AudioManager().pauseBackgroundMusic();
+    } else if (state == AppLifecycleState.resumed) {
+      // Resume audio playback
+      AudioManager().resumeBackgroundMusic();
+    }
   }
 
   @override
