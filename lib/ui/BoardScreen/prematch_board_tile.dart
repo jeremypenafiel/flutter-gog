@@ -44,22 +44,15 @@ class _PrematchBoardTileState extends State<PrematchBoardTile>{
 
         return GestureDetector(
           onTap: () => isPlaceableTile ? prematchBoard.movePiece(widget.index) : null,
-          child: !isPlaceableTile ? tileContainer:  DragTarget <int> (
+          child:  DragTarget <int> (
             onWillAcceptWithDetails: (details){
-              return true;
-              //details.data is ang data gina pass sa piece aka ang startSquare sang piece
-              // if(isPossibleMove|| isPossibleTakeMove){
-              //   return true;
-              // }
-              // return false;
+              if(isPlaceableTile){ // will accept drag if valid tile
+                return true;
+              }
+              return false;
             },
             onAcceptWithDetails: (details){
               prematchBoard.movePiece(widget.index);
-              // if(isPossibleMove){
-              //   board.movePiece(widget.index, details.data);
-              // }else if(isPossibleTakeMove){
-              //   board.takePiece(widget.index, details.data);
-              // }
             },
             builder: (BuildContext context, List<Object?> candidateData, List<dynamic> rejectedData) {
               return tileContainer;
