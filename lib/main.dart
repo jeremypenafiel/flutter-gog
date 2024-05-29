@@ -11,6 +11,7 @@ import 'ui/BoardScreen/board_screen.dart';
 import 'backend/prematch_board.dart';
 import 'ui/BoardScreen/prematch_board_ui.dart';
 import 'backend/audio_manager.dart';
+import 'package:gog/backend/route_observer.dart';
 
 
 
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
               title: 'Flutter Demo',
               initialRoute: '/',
+              navigatorObservers: [routeObserver],
               routes: {
 
                 '/': (context) => HomePage(),

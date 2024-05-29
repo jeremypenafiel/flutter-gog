@@ -1,9 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:gog/ui/PopUpScreen/popup.dart';
 import 'package:gog/backend/audio_manager.dart';
+import 'package:gog/backend/route_observer.dart';
 
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+
+class _HomePageState extends State<HomePage> with RouteAware {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    ModalRoute? route = ModalRoute.of(context);
+    if (route is PageRoute) {
+      routeObserver.subscribe(this, route);
+    }
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    AudioManager().playBackgroundMusic('Sounds/home-bg-music.mp3');
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     AudioManager().playBackgroundMusic('Sounds/home-bg-music.mp3');

@@ -40,6 +40,10 @@ class _BoardScreenState extends State<BoardScreen> {
     gameController.startPrematch();
     print("start match");
 
+    AudioManager().stopBackgroundMusic().then((_) {
+      AudioManager().playBackgroundMusic('Sounds/game-bg-music.mp3');
+    });
+
   }
 
   @override
@@ -64,7 +68,6 @@ class _BoardScreenState extends State<BoardScreen> {
                   child: BoardUI());
         });
 
-    AudioManager().playBackgroundMusic('Sounds/game-bg-music.mp3');
     return Scaffold(
         appBar: null,
         body: Stack(children: [
