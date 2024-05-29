@@ -17,7 +17,8 @@ class _BoardScreenBottomNavBarState extends State<BoardScreenBottomNavBar> {
   @override
   Widget build(BuildContext context) {
   var gameController =  Provider.of<GameController>(context, listen: false);
-  var graveyardWidget= ChangeNotifierProvider(create: (context) => gameController.board, child: const GraveyardWidget(),);
+  var graveyardWidget= ChangeNotifierProvider.value(value: gameController.board,
+  child: const GraveyardWidget(),);
     return Column(
       children: [
         ScoreWidget(),
