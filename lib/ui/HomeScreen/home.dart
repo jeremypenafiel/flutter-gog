@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gog/ui/PopUpScreen/settings.dart';
+import 'package:gog/ui/PopUpScreen/popup.dart';
 import 'package:gog/backend/audio_manager.dart';
 
 

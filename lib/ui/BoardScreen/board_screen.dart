@@ -120,7 +120,8 @@ class _BoardScreenState extends State<BoardScreen> {
                       //TODO: Handle ready button
                       gameController.onReady();
                     },
-                    onExitPressed: () {
+                    onExitPressed: () async {
+                      await AudioManager().stopBackgroundMusic();
                       Navigator.popUntil(context, ModalRoute.withName('/'));
                     },
                   ),
