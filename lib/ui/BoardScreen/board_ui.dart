@@ -25,15 +25,15 @@ class _BoardUIState extends State<BoardUI> {
         crossAxisCount: 9,
         children:
           List.generate(72, (index) {
-           // return Consumer<Board>(
-              //builder: (BuildContext context, Board board, Widget? child) {
-               // bool hasPiece = board.board[index] != 0;
+            return Consumer<Board>(
+              builder: (BuildContext context, Board board, Widget? child) {
+                bool hasPiece = board.board[index] != 0;
                 return
                   BoardTile( // Piece is rendered here
                     index: index,
                   );
-              //}
-            //);
+              }
+            );
           }
           )
       );

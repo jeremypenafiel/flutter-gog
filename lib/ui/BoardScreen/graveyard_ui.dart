@@ -69,45 +69,25 @@ class GraveyardWidget extends StatelessWidget {
   }
 
   Widget _buildGraveyardColumn(BuildContext context, int playerNumber, bool isWhiteGraveyard) {
-    return Consumer<Board>(
-        builder: (context, Board board, child) {
+    return Consumer<Board>(builder: (context, Board board, child) {
       return ListView.builder(
       itemCount: isWhiteGraveyard? board.whiteGraveyard.length: board.blackGraveyard.length,
       // placeholder lang pero gaincrement dapat so if wala pa deds, wala pa dapat display
       itemBuilder: (context, index) {
-        return _buildGraveyardPiece(context,
+        return _buildGraveyardPiece(
             playerNumber, isWhiteGraveyard? board.whiteGraveyard[index]: board.blackGraveyard[index]);
       },
     );
   });
   }
 
-  Widget _buildGraveyardPiece(BuildContext context, int playerNumber, int pieceType) {
-    var gameController = Provider.of<GameController>(context, listen: false);
-
-    var pieceImage =
-    ValueListenableBuilder(
-        valueListenable: gameController.gameState,
-        builder:
-          (context, gameState, child){
-            bool isPieceTurn = false;
-            if(Piece.isColor(pieceType, Piece.white) && gameController.gameState.value == GameState.whiteTurn){
-              isPieceTurn = true;
-            }else if (Piece.isColor(pieceType, Piece.black) && gameController.gameState.value == GameState.blackTurn){
-              isPieceTurn = true;
-            }
-            return Image.asset(pieceMap[isPieceTurn? pieceType: Piece.color(pieceType)]);
-    }
-    );
-
-
-
+  Widget _buildGraveyardPiece(int playerNumber, int index) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       decoration: const BoxDecoration(
         border: Border(bottom: BorderSide(color: Colors.grey)),
       ),
-      child: pieceImage,
+      child: Image.asset(pieceMap[index]),
       );
 
   }
