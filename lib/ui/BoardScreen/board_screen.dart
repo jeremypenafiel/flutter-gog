@@ -32,12 +32,9 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
     // TODO: implement initState
     super.initState();
     GameController gameController = Provider.of<GameController>(context, listen: false);
-<<<<<<< Updated upstream
     board = Board(setGameState: gameController.setGameState, onWin: gameController.win);
-=======
-    board = Board(setGameState: gameController.setGameState);
     WidgetsBinding.instance.addObserver(this);
->>>>>>> Stashed changes
+
     prematchBoard = PrematchBoard();
     gameController.connect(board, prematchBoard);
 
