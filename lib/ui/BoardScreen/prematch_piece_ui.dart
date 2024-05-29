@@ -56,6 +56,8 @@ class PrematchPieceUI extends StatelessWidget{
           bool isBlackTurn = prematchBoard.getTurn == 1 && Piece.isColor(pieceType, Piece.black);
           int tileFace = isWhiteTurn || isBlackTurn ? pieceType: Piece.color(pieceType);
           var onTileSelected = isWhiteTurn || isBlackTurn ? prematchBoard.onPieceSelected: null;
+          var widgetWidth = 200.0;
+          var widgetHeight = 200.0;
 
           return IgnorePointer(
             ignoring: prematchBoard.getSelectedTileIndex() != null && prematchBoard.getSelectedTileIndex() != startSquare,
@@ -65,12 +67,13 @@ class PrematchPieceUI extends StatelessWidget{
               },
 
               child: Draggable<int>(
+                dragAnchorStrategy: (_, __, ___) =>  Offset(widgetWidth/2, widgetHeight/2),
                 onDragStarted: () => onTileSelected?.call(startSquare),
                 data: startSquare,
                 childWhenDragging: Container(),
                 feedback: Container(
-                    width: 100,
-                    height: 100,
+                    width: widgetWidth,
+                    height: widgetHeight,
                     decoration: BoxDecoration(
                       image:  DecorationImage(
                         image:AssetImage(pieceMap[pieceType]),
