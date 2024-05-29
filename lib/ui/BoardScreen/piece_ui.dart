@@ -72,7 +72,6 @@ class PieceUI extends StatelessWidget{
               },
 
               child: Draggable<int>(
-                dragAnchorStrategy: (_, __, ___) => const Offset(50, 50),
                 onDragStarted: () => onTileSelected?.call(startSquare),
                 data: startSquare,
                 childWhenDragging: Container(),
