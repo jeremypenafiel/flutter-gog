@@ -9,7 +9,7 @@ import 'package:gog/ui/BoardScreen/board_screen_bottom_nav_bar.dart';
 import 'package:gog/backend/prematch_board.dart';
 import 'package:gog/ui/BoardScreen/board_screen_buttons.dart';
 import 'package:provider/provider.dart';
-import 'package:gog/ui/PopUpScreen/settings.dart';
+import 'package:gog/ui/PopUpScreen/popup.dart';
 
 import '../../backend/board.dart';
 import 'package:gog/backend/audio_manager.dart';

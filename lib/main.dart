@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gog/ui/PopUpScreen/settings.dart';
+import 'package:gog/ui/PopUpScreen/popup.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gog/backend/font_provider.dart';
