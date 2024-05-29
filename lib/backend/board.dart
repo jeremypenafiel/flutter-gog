@@ -4,8 +4,9 @@ import 'package:gog/backend/piece.dart';
 
 class Board extends ChangeNotifier {
   VoidCallback setGameState;
+  Function onWin;
 
-  Board({required this.setGameState});
+  Board({required this.setGameState, required this.onWin});
 
   void setBoard(List<int> newBoard){
     board = newBoard;
@@ -93,11 +94,28 @@ class Board extends ChangeNotifier {
   }
 
   void movePiece(int targetSquare, int startSquare){
+    bool isWin = false;
+    if(Piece.pieceType(board[startSquare]) == Piece.flag){
+      if(Piece.isColor(board[startSquare], Piece.white) && targetSquare ~/ 9 == 0 ){
+        onWin(Piece.color(board[startSquare]));
+        isWin = true;
+      }else if(Piece.isColor(board[startSquare], Piece.black) && targetSquare ~/ 9 == 7){
+        onWin(Piece.color(board[startSquare]));
+        isWin = true;
+      }
+
+    }
     board[targetSquare] = board[startSquare];
     board[startSquare] = 0;
     selectedTileIndex = null;
     possibleMoves = List.empty(growable: true);
     possibleTakeMoves = List.empty(growable: true);
+    if(isWin){
+      notifyListeners();
+      return;
+    }
+
+
     setGameState();
     //concealPieces();
     // turn = (turn + 1) % 2;
@@ -130,14 +148,31 @@ class Board extends ChangeNotifier {
   }
 
   void takePiece(int targetPieceIndex, int initiatingPieceIndex) {
+    bool isWin = false;
+
+    if(Piece.pieceType(board[targetPieceIndex]) == Piece.flag || Piece.pieceType(board[initiatingPieceIndex]) == Piece.flag){
+      if(board[targetPieceIndex] == Piece.flag && board[initiatingPieceIndex] == Piece.flag){ // case when  flag takes a flag
+        onWin(Piece.color(board[initiatingPieceIndex]));
+      }else if(board[targetPieceIndex] == Piece.flag) { // case when piece taken is a flag
+        onWin(Piece.color(board[initiatingPieceIndex]));
+      }else{ // case when initiating Piece is a flag
+        onWin(Piece.color(board[targetPieceIndex]));
+      }
+      isWin = true;
+    }
+
 
     board[targetPieceIndex] = Arbiter().checkMove(board[initiatingPieceIndex], board[targetPieceIndex], whiteGraveyard, blackGraveyard);
     board[initiatingPieceIndex] = 0;
     selectedTileIndex = null;
     possibleMoves = List.empty(growable: true);
     possibleTakeMoves = List.empty(growable: true);
+
+    if(isWin){
+      notifyListeners();
+      return;
+    }
     setGameState();
-    //turn = (turn + 1) % 2;
     notifyListeners();
   }
 
@@ -152,6 +187,13 @@ class Board extends ChangeNotifier {
 
   get getPossibleMoves{
     return possibleMoves;
+  }
+
+  void resetBoard() {
+    board = List<int>.filled(72, 0);
+    whiteGraveyard = [];
+    blackGraveyard = [];
+    notifyListeners();
   }
 
 

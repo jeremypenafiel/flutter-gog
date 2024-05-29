@@ -32,7 +32,7 @@ class _BoardScreenState extends State<BoardScreen> {
     // TODO: implement initState
     super.initState();
     GameController gameController = Provider.of<GameController>(context, listen: false);
-    board = Board(setGameState: gameController.setGameState);
+    board = Board(setGameState: gameController.setGameState, onWin: gameController.win);
     prematchBoard = PrematchBoard();
     gameController.connect(board, prematchBoard);
 

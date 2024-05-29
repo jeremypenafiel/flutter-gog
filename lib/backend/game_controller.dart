@@ -18,6 +18,8 @@ enum GameState{
 class GameController extends ChangeNotifier{
   late Board board;
   late PrematchBoard prematchBoard;
+  int whitePlayerScore = 0;
+  int blackPlayerScore = 0;
 
 
   int turn = 0; // turn = 0 means white turn, turn = 1 means black turn
@@ -33,11 +35,10 @@ class GameController extends ChangeNotifier{
   void resetBoard(){
     gameState.value = GameState.whitePrematch;
     gameState.notifyListeners();
+    board.resetBoard();
     turn = 0;
     prematchBoard.resetTentativeBoard();
     prematchBoard.whiteSetup();
-
-
 }
 
 
@@ -81,6 +82,19 @@ class GameController extends ChangeNotifier{
   void setGameState(){
     gameState.value = GameState.purgatory;
     notifyListeners();
+  }
+
+  void win(int winningColor){
+    gameState.value = GameState.postGame;
+    if(winningColor == Piece.white){
+      whitePlayerScore++;
+    }else{
+      blackPlayerScore++;
+    }
+
+    print("WIN");
+    notifyListeners();
+
   }
 
 
