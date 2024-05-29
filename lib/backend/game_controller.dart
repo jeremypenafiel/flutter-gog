@@ -50,6 +50,7 @@ class GameController extends ChangeNotifier{
     switch (gameState.value){
       case GameState.whitePrematch:
         gameState.value = GameState.blackPrematch;
+        gameState.notifyListeners();
         prematchBoard.changeTurn();
         prematchBoard.blackSetup();
         break;
@@ -66,7 +67,7 @@ class GameController extends ChangeNotifier{
       case GameState.purgatory:
         gameState.value = turn == 0 ? GameState.blackTurn : GameState.whiteTurn;
         turn = turn == 0 ? 1 : 0;
-        int pieceColor = gameState.value == GameState.whiteTurn ? Piece.white : Piece.black;
+        gameState.notifyListeners();
         //board.revealPieces(pieceColor);
 
         break;

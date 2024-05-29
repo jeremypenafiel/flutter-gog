@@ -57,6 +57,7 @@ final List<int> pieceList = [
     return selectedTileIndex;
   }
   void onPieceSelected(int startSquare){
+    print("piece selected");
     if(selectedTileIndex == null){
       selectedTileIndex = startSquare;
       notifyListeners();
