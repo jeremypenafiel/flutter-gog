@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
 
                 '/': (context) => HomePage(),
                 '/board': (context) => const BoardScreen(),
-                '/settings': (context) => Popup(popup: 1),
+                '/prematch': (context) => const PrematchBoardUI(),
               },
               theme: ThemeData(
                 textTheme: GoogleFonts.getTextTheme(fontProvider.selectedFont),

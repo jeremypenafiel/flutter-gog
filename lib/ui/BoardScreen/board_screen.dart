@@ -26,12 +26,14 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
   final int _selectedIndex = 0;
   late Board board;
   late PrematchBoard prematchBoard;
+  late ValueNotifier<GameState> gameStateNotifier;
+  late GameController gameController;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    GameController gameController = Provider.of<GameController>(context, listen: false);
+    gameController = Provider.of<GameController>(context, listen: false);
     board = Board(setGameState: gameController.setGameState, onWin: gameController.win);
     WidgetsBinding.instance.addObserver(this);
     prematchBoard = PrematchBoard();
@@ -47,6 +49,9 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
       AudioManager().playBackgroundMusic('Sounds/board-bg-music.mp3');
     });
 
+
+    gameStateNotifier = gameController.gameState;
+    gameStateNotifier.addListener(_onGameStateChanged);
   }
 
   
@@ -70,6 +75,21 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
     }
   }
 
+void _onGameStateChanged() {
+    if (gameController.gameState.value == GameState.postGame) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Popup(popup: 2);
+            },
+          );
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final gameController = Provider.of<GameController>(context, listen: false);
@@ -81,6 +101,7 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
         valueListenable: gameController.gameState,
         builder: (context, gameState, child) {
           print("hello, state is $gameState");
+          
           return gameState == GameState.whitePrematch || gameState == GameState.blackPrematch
               ? ChangeNotifierProvider.value(
                   value: gameController.prematchBoard,
@@ -90,8 +111,15 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
               : ChangeNotifierProvider.value(
                   value: gameController.board,
                   child: BoardUI());
+                  
         });
 
+      
+    
+        
+          
+        
+        
     return Scaffold(
         appBar: null,
         body: Stack(children: [
