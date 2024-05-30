@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gog/backend/game_controller.dart';
+import 'package:outlined_text/outlined_text.dart';
 
 class PurgatoryUI extends StatelessWidget {
   final GameController gameController;
@@ -16,30 +17,21 @@ class PurgatoryUI extends StatelessWidget {
     return Center(
       child: Stack(
         children: [
-          // Outline text
-          Text(
-            '$turnText Player\'s Turn',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              foreground: Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = 3
-                ..color = outlineColor,
-            ),
-          ),
-          // Main text
-          Text(
-            '$turnText Player\'s Turn',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: textColor,
-            ),
-          ),
+            OutlinedText(
+              text: Text('$turnText Player\'s Turn', 
+                  style: TextStyle(
+                      color: textColor, 
+                      fontSize:30
+                  )
+              ),
+              strokes: [
+                  OutlinedTextStroke(
+                      color: outlineColor, 
+                      width: 5),
+              ],
+          )
         ],
-      )
-      ,
+      ),
     );
   }
 }
