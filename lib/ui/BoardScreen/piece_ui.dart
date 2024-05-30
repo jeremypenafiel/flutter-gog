@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gog/backend/audio_manager.dart';
 import 'package:gog/backend/game_controller.dart';
 import 'package:provider/provider.dart';
 import '../../backend/board.dart';
@@ -68,12 +69,18 @@ class PieceUI extends StatelessWidget{
             ignoring: !isPieceTurn || gameController.gameState.value == GameState.purgatory,
             child: GestureDetector(
               onTap: () {
+                AudioManager().playSfx('Sounds/piece-on-tap-sfx.mp3');
                 onTileSelected?.call(startSquare);
+                
               },
 
               child: Draggable<int>(
                 dragAnchorStrategy: (_, __, ___) => const Offset(50, 50),
-                onDragStarted: () => onTileSelected?.call(startSquare),
+                onDragStarted: () {
+                  AudioManager().playSfx('Sounds/piece-on-tap-sfx.mp3');
+                  onTileSelected?.call(startSquare);
+                  
+                },
                 data: startSquare,
                 childWhenDragging: Container(),
                 feedback: Container(

@@ -22,7 +22,6 @@ class BoardScreen extends StatefulWidget {
 }
 
 class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
-  final int _selectedIndex = 0;
   late Board board;
   late PrematchBoard prematchBoard;
   late ValueNotifier<GameState> gameStateNotifier;
@@ -56,7 +55,7 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
   @override
   void dispose() {
     // Remove the observer in dispose
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -91,10 +90,6 @@ void _onGameStateChanged() {
   @override
   Widget build(BuildContext context) {
     final gameController = Provider.of<GameController>(context, listen: false);
-    if(gameController.prematchBoard == null){
-
-    }
-
     var board = ValueListenableBuilder<GameState>(
         valueListenable: gameController.gameState,
         builder: (context, gameState, child) {
@@ -110,12 +105,6 @@ void _onGameStateChanged() {
                   child: BoardUI());
                   
         });
-
-      
-    
-        
-          
-        
         
     return Scaffold(
         appBar: null,

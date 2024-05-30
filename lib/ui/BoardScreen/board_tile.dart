@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:gog/backend/audio_manager.dart';
 import 'package:gog/ui/BoardScreen/piece_ui.dart';
 import 'package:provider/provider.dart';
 
@@ -46,9 +47,12 @@ class _BoardTileState extends State<BoardTile> {
           onTap: (){
             if(isPossibleMove) {
               board.movePiece(widget.index, board.getSelectedTileIndex);
+              AudioManager().playSfx('Sounds/piece-on-tap-sfx.mp3');
             }else if(isPossibleTakeMove){
               board.takePiece(widget.index, board.getSelectedTileIndex);
+              AudioManager().playSfx('Sounds/piece-on-tap-sfx.mp3');
             }
+            
           },
           child: DragTarget <int> (
             onWillAcceptWithDetails: (details){
@@ -61,14 +65,17 @@ class _BoardTileState extends State<BoardTile> {
             onAcceptWithDetails: (details){
               if(isPossibleMove){
                 board.movePiece(widget.index, details.data);
+                AudioManager().playSfx('Sounds/piece-on-tap-sfx.mp3');
               }else if(isPossibleTakeMove){
                 board.takePiece(widget.index, details.data);
+                AudioManager().playSfx('Sounds/piece-on-tap-sfx.mp3');
               }
             },
             builder: (BuildContext context, List<Object?> candidateData, List<dynamic> rejectedData) {
               return Container(
                 color: tileColor,
-                child: child,
+                child: child, 
+                
               );
             },
           ),

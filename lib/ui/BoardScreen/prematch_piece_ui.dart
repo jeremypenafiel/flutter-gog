@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gog/backend/audio_manager.dart';
 import 'package:provider/provider.dart';
 import '../../backend/piece.dart';
 import '../../backend/prematch_board.dart';
@@ -64,11 +65,15 @@ class PrematchPieceUI extends StatelessWidget{
             child: GestureDetector(
               onTap: () {
                 prematchBoard.onPieceSelected(startSquare);
+                AudioManager().playSfx('Sounds/piece-on-tap-sfx.mp3');
               },
 
               child: Draggable<int>(
                 dragAnchorStrategy: (_, __, ___) => const Offset(50, 50),
-                onDragStarted: () => onTileSelected?.call(startSquare),
+                onDragStarted: () {
+                  onTileSelected?.call(startSquare);
+                  AudioManager().playSfx('Sounds/piece-on-tap-sfx.mp3');
+                },
                 data: startSquare,
                 childWhenDragging: Container(),
                 feedback: Container(
