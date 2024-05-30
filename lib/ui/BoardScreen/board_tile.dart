@@ -51,6 +51,7 @@ class _BoardTileState extends State<BoardTile> {
             }else if(isPossibleTakeMove){
               board.takePiece(widget.index, board.getSelectedTileIndex);
               AudioManager().playSfx('Sounds/piece-on-drop-sfx.mp3');
+              AudioManager().playKillSfx();
             }
             
           },
@@ -69,6 +70,7 @@ class _BoardTileState extends State<BoardTile> {
               }else if(isPossibleTakeMove){
                 board.takePiece(widget.index, details.data);
                 AudioManager().playSfx('Sounds/piece-on-drop-sfx.mp3');
+                AudioManager().playKillSfx();
               }
             },
             builder: (BuildContext context, List<Object?> candidateData, List<dynamic> rejectedData) {

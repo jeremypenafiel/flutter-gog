@@ -77,6 +77,7 @@ flutter:
     - assets/Sounds/fifth-kill-sfx.mp3
     - assets/Sounds/piece-on-tap-sfx.mp3
     - assets/Sounds/piece-on-drop-sfx.mp3
+    - assets/Sounds/victory-sfx.mp3
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

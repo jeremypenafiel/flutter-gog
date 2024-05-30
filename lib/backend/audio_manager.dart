@@ -12,6 +12,15 @@ class AudioManager {
   late AudioPlayer _backgroundPlayer;
   late AudioPlayer _sfxPlayer;
 
+    final List<String> _killSfxFiles = [
+      'Sounds/first-kill-sfx.mp3',
+      'Sounds/second-kill-sfx.mp3',
+      'Sounds/third-kill-sfx.mp3',
+      'Sounds/fourth-kill-sfx.mp3',
+      'Sounds/fifth-kill-sfx.mp3'
+    ];
+    int _killSfxIndex = 0;
+
   Future<void> playBackgroundMusic(String filePath, {bool loop = true}) async {
     await _backgroundPlayer.setReleaseMode(loop ? ReleaseMode.loop : ReleaseMode.release);
     await _backgroundPlayer.play(AssetSource(filePath));
@@ -39,5 +48,10 @@ class AudioManager {
 
   Future<void> setSoundEffectsVolume(double volume) async {
     await _sfxPlayer.setVolume(volume);
+  }
+
+  Future<void> playKillSfx() async {
+    await _sfxPlayer.play(AssetSource(_killSfxFiles[_killSfxIndex]));
+    _killSfxIndex = (_killSfxIndex + 1) % _killSfxFiles.length;
   }
 }

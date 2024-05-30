@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:gog/backend/arbiter.dart';
+import 'package:gog/backend/audio_manager.dart';
 import 'package:gog/backend/piece.dart';
 
 class Board extends ChangeNotifier {
@@ -111,6 +112,7 @@ class Board extends ChangeNotifier {
     possibleMoves = List.empty(growable: true);
     possibleTakeMoves = List.empty(growable: true);
     if(isWin){
+      AudioManager().playSfx('Sounds/victory-sfx.mp3');
       notifyListeners();
       return;
     }
