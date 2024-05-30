@@ -47,10 +47,10 @@ class _BoardTileState extends State<BoardTile> {
           onTap: (){
             if(isPossibleMove) {
               board.movePiece(widget.index, board.getSelectedTileIndex);
-              AudioManager().playSfx('Sounds/piece-on-tap-sfx.mp3');
+              AudioManager().playSfx('Sounds/piece-on-drop-sfx.mp3');
             }else if(isPossibleTakeMove){
               board.takePiece(widget.index, board.getSelectedTileIndex);
-              AudioManager().playSfx('Sounds/piece-on-tap-sfx.mp3');
+              AudioManager().playSfx('Sounds/piece-on-drop-sfx.mp3');
             }
             
           },
@@ -65,10 +65,10 @@ class _BoardTileState extends State<BoardTile> {
             onAcceptWithDetails: (details){
               if(isPossibleMove){
                 board.movePiece(widget.index, details.data);
-                AudioManager().playSfx('Sounds/piece-on-tap-sfx.mp3');
+                AudioManager().playSfx('Sounds/piece-on-drop-sfx.mp3');
               }else if(isPossibleTakeMove){
                 board.takePiece(widget.index, details.data);
-                AudioManager().playSfx('Sounds/piece-on-tap-sfx.mp3');
+                AudioManager().playSfx('Sounds/piece-on-drop-sfx.mp3');
               }
             },
             builder: (BuildContext context, List<Object?> candidateData, List<dynamic> rejectedData) {

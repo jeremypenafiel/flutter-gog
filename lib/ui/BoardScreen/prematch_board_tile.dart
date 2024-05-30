@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:gog/backend/audio_manager.dart';
 import 'package:gog/backend/prematch_board.dart';
 import 'package:gog/ui/BoardScreen/prematch_piece_ui.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,10 @@ class _PrematchBoardTileState extends State<PrematchBoardTile>{
         );
 
         return GestureDetector(
-          onTap: () => isPlaceableTile ? prematchBoard.movePiece(widget.index) : null,
+          onTap: () {
+            AudioManager().playSfx('Sounds/piece-on-drop-sfx.mp3');
+            isPlaceableTile ? prematchBoard.movePiece(widget.index) : null;
+          },
           child:  DragTarget <int> (
             onWillAcceptWithDetails: (details){
               if(isPlaceableTile){ // will accept drag if valid tile
@@ -52,6 +56,7 @@ class _PrematchBoardTileState extends State<PrematchBoardTile>{
               return false;
             },
             onAcceptWithDetails: (details){
+              AudioManager().playSfx('Sounds/piece-on-drop-sfx.mp3');
               prematchBoard.movePiece(widget.index);
             },
             builder: (BuildContext context, List<Object?> candidateData, List<dynamic> rejectedData) {
