@@ -76,17 +76,74 @@ class _HomePageState extends State<HomePage> with RouteAware, WidgetsBindingObse
                   child: Text('EDIWOW ANG KADIPOTA MO GID'),
                 ),
                 SizedBox(height: 50),
-                RoundedButton(
+
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Color.fromARGB(255, 255, 255, 255),
+                    ),
+                    overlayColor: MaterialStateProperty.all<Color>(
+                    const Color.fromARGB(255, 212, 157, 75),
+                    ),
+                    fixedSize: MaterialStateProperty.all<Size>(
+                      const Size(120, 45),
+                    ),
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    ),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: const BorderSide(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  
                   onPressed: () {
-                    AudioManager().playSfx('Sounds/sfx-button.wav');
+                    AudioManager().playSfx('Sounds/button-sfx.mp3');
                     Navigator.pushNamed(context, '/board');
                   },
-                  text: 'PLAY',
+                  child:  const Text(
+                    'PLAY',
+                    style: TextStyle(
+                      color: Colors.black
+                    ),
+                  ),
                 ),
+
+                // RoundedButton(
+                //   onPressed: () {
+                //     AudioManager().playSfx('Sounds/button-sfx.mp3');
+                //     Navigator.pushNamed(context, '/board');
+                //   },
+                //   text: 'PLAY',
+                // ),
                 SizedBox(height: 20),
-                RoundedButton(
+
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Color.fromARGB(255, 255, 255, 255),
+                    ),
+                    overlayColor: MaterialStateProperty.all<Color>(
+                    const Color.fromARGB(255, 212, 157, 75),
+                    ),
+                    fixedSize: MaterialStateProperty.all<Size>(
+                      const Size(120, 45),
+                    ),
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    ),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: const BorderSide(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  
                   onPressed: () {
-                    AudioManager().playSfx('Sounds/sfx-button.wav');
+                    AudioManager().playSfx('Sounds/button-sfx.mp3');
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -94,10 +151,51 @@ class _HomePageState extends State<HomePage> with RouteAware, WidgetsBindingObse
                       },
                     );
                   },
-                  text: 'SETTINGS',
+                  child:  const Text(
+                    'SETTINGS',
+                    style: TextStyle(
+                      color: Colors.black
+                    ),
+                  ),
                 ),
+
+                // RoundedButton(
+                //   onPressed: () {
+                //     AudioManager().playSfx('Sounds/button-sfx.mp3');
+                //     showDialog(
+                //       context: context,
+                //       builder: (BuildContext context) {
+                //         return Popup(popup: 1);
+                //       },
+                //     );
+                //   },
+                //   text: 'SETTINGS',
+                // ),
+
                 SizedBox(height: 20),
-                RoundedButton(
+
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Color.fromARGB(255, 255, 255, 255),
+                    ),
+                    overlayColor: MaterialStateProperty.all<Color>(
+                    const Color.fromARGB(255, 212, 157, 75),
+                    ),
+                    fixedSize: MaterialStateProperty.all<Size>(
+                      const Size(120, 45),
+                    ),
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    ),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: const BorderSide(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  
                   onPressed: () {
                     // Action for button 3
                     showDialog(
@@ -106,10 +204,29 @@ class _HomePageState extends State<HomePage> with RouteAware, WidgetsBindingObse
                         return Popup(popup: 3);
                       },
                     );
-                    AudioManager().playSfx('Sounds/sfx-button.wav');
+                    AudioManager().playSfx('Sounds/button-sfx.mp3');
                   },
-                  text: 'GUIDE',
+                  child:  const Text(
+                    'GUIDE',
+                    style: TextStyle(
+                      color: Colors.black
+                    ),
+                  ),
                 ),
+
+                // RoundedButton(
+                //   onPressed: () {
+                //     // Action for button 3
+                //     showDialog(
+                //       context: context,
+                //       builder: (BuildContext context) {
+                //         return Popup(popup: 3);
+                //       },
+                //     );
+                //     AudioManager().playSfx('Sounds/button-sfx.mp3');
+                //   },
+                //   text: 'GUIDE',
+                // ),
               ],
             ),
           ),

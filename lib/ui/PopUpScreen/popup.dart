@@ -106,6 +106,7 @@ class _PopupState extends State<Popup> {
                     ),
                   ),
                   onPressed: () {
+                    AudioManager().playSfx('Sounds/button-sfx.mp3');
                     fontProvider.setSelectedFont('Roboto');
                     _saveSettings();
                   },
@@ -136,6 +137,7 @@ class _PopupState extends State<Popup> {
                     ),
                   ),
                   onPressed: () {
+                    AudioManager().playSfx('Sounds/button-sfx.mp3');
                     fontProvider.setSelectedFont('Lobster');
                     _saveSettings();
                   },
@@ -166,6 +168,7 @@ class _PopupState extends State<Popup> {
                     ),
                   ),
                   onPressed: () {
+                    AudioManager().playSfx('Sounds/button-sfx.mp3');
                     fontProvider.setSelectedFont('Oswald');
                     _saveSettings();
                   },
@@ -256,6 +259,7 @@ class _PopupState extends State<Popup> {
             ),
             
             onPressed: () {
+              AudioManager().playSfx('Sounds/button-sfx.mp3');
               setState(() {
                 // Reset volume sliders and variables to default values
                 _musicVolume = 50; // Assuming default volume is 50%
@@ -306,8 +310,10 @@ class _PopupState extends State<Popup> {
             const Expanded(child: SizedBox(width: 20,)),
             TextButton(style: TextButton.styleFrom(backgroundColor: const Color.fromARGB(255, 187, 1, 1)), child: const Text('Exit Game  '),
               onPressed: () {
-              Navigator.pushNamed(context, '/');
-          })
+                AudioManager().playSfx('Sounds/button-sfx.mp3');
+                Navigator.pushNamed(context, '/');
+              }
+            )
           ],));
         break;
 
@@ -371,6 +377,7 @@ class _PopupState extends State<Popup> {
             ),
           ),
           onPressed: () {
+            AudioManager().playSfx('Sounds/button-sfx.mp3');
             Navigator.of(context).pop();
           }));
 

@@ -46,7 +46,7 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
     
 
     AudioManager().stopBackgroundMusic().then((_) {
-      AudioManager().playBackgroundMusic('Sounds/game-bg-music.mp3');
+      AudioManager().playBackgroundMusic('Sounds/board-bg-music.mp3');
     });
 
 
