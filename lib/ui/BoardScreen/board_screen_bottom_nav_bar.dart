@@ -14,7 +14,7 @@ class BoardScreenBottomNavBar extends StatefulWidget {
 
 class _BoardScreenBottomNavBarState extends State<BoardScreenBottomNavBar> {
   int _selectedIndex = 0;
-  Widget drawer=Container();
+
   @override
   Widget build(BuildContext context) {
     var gameController = Provider.of<GameController>(context, listen: false);
@@ -22,37 +22,42 @@ class _BoardScreenBottomNavBarState extends State<BoardScreenBottomNavBar> {
       value: gameController.board,
       child: const GraveyardWidget(),
     );
-    return Column(
-      children: [
-        InkWell(child: ScoreWidget(),
-        onTap: (){
-          setState(() {
-            drawer=CustomBottomNavigationBar(
-              items: const [
-              CustomBottomNavigationBarItem(
-              icon: Icons.sick,
-              label: 'Graveyard',
-            ),
-            CustomBottomNavigationBarItem(
-              icon: Icons.reduce_capacity,
-              label: 'Hierarchy',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          onTap: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-        );
-            });
-        
-        } ,),
-        Expanded(
-          child: _selectedIndex == 0 ? graveyardWidget : const HierarchyWidget(),
-        ),
-        drawer,
-      ],
+    return InkWell(child: ScoreWidget(),
+    onTap: (){
+      showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context){
+          return Expanded(
+            child: Column(
+              children: [
+              Expanded(
+                child: _selectedIndex == 0 ? graveyardWidget : const HierarchyWidget(),
+              ),
+              CustomBottomNavigationBar(
+                    items: const [
+                    CustomBottomNavigationBarItem(
+                    icon: Icons.sick,
+                    label: 'Graveyard',
+                  ),
+                  CustomBottomNavigationBarItem(
+                    icon: Icons.reduce_capacity,
+                    label: 'Hierarchy',
+                  ),
+                ],
+                currentIndex: _selectedIndex,
+                onTap: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                    print("gwapo gid ya si job");
+                  });
+                },
+              ),  
+              ],
+            )
+          );
+        }
+      );
+    }
     );
   }
 }
