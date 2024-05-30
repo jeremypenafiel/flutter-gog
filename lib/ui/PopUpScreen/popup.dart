@@ -89,95 +89,106 @@ class _PopupState extends State<Popup> {
         list.add( Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                ElevatedButton(
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all<Size>(
-                      const Size(80, 35),
-                    ),
-                    overlayColor: MaterialStateProperty.all<Color>(
-                    const Color.fromARGB(255, 212, 157, 75),
-                    ),
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    ),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all<Size>(
+                        const Size(80, 35),
+                      ),
+                      overlayColor: MaterialStateProperty.all<Color>(
+                      const Color.fromARGB(255, 212, 157, 75),
+                      ),
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      ),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                       ),
                     ),
-                  ),
-                  onPressed: () {
-                    AudioManager().playSfx('Sounds/button-sfx.mp3');
-                    fontProvider.setSelectedFont('Roboto');
-                    _saveSettings();
-                  },
-                  child: Text(
-                    'Roboto',
-                    style: GoogleFonts.roboto(
-                      color: Colors.black
+                    onPressed: () {
+                      AudioManager().playSfx('Sounds/button-sfx.mp3');
+                      fontProvider.setSelectedFont('Roboto');
+                      _saveSettings();
+                    },
+                    child: Text(
+                      'Roboto',
+                      style: GoogleFonts.roboto(
+                        color: Colors.black
+                      ),
                     ),
                   ),
                 ),
 
                 const SizedBox(width: 7,),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all<Size>(
-                      const Size(80, 35),
-                    ),
-                    overlayColor: MaterialStateProperty.all<Color>(
-                    const Color.fromARGB(255, 212, 157, 75),
-                    ),
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    ),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
+                
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all<Size>(
+                        const Size(80, 35),
+                      ),
+                      overlayColor: MaterialStateProperty.all<Color>(
+                      const Color.fromARGB(255, 212, 157, 75),
+                      ),
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      ),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                       ),
                     ),
-                  ),
-                  onPressed: () {
-                    AudioManager().playSfx('Sounds/button-sfx.mp3');
-                    fontProvider.setSelectedFont('Lobster');
-                    _saveSettings();
-                  },
-                  child: Text(
-                    'Lobster',
-                    style: GoogleFonts.lobster(
-                      color: Colors.black
+                    onPressed: () {
+                      AudioManager().playSfx('Sounds/button-sfx.mp3');
+                      fontProvider.setSelectedFont('Lobster');
+                      _saveSettings();
+                    },
+                    child: Text(
+                      'Lobster',
+                      style: GoogleFonts.lobster(
+                        color: Colors.black
+                      ),
                     ),
                   ),
                 ),
 
                 const SizedBox(width: 7,),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all<Size>(
-                      const Size(80, 35),
-                    ),
-                    overlayColor: MaterialStateProperty.all<Color>(
-                    const Color.fromARGB(255, 212, 157, 75),
-                    ),
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    ),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
+                
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all<Size>(
+                        const Size(80, 35),
+                      ),
+                      overlayColor: MaterialStateProperty.all<Color>(
+                      const Color.fromARGB(255, 212, 157, 75),
+                      ),
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      ),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                       ),
                     ),
-                  ),
-                  onPressed: () {
-                    AudioManager().playSfx('Sounds/button-sfx.mp3');
-                    fontProvider.setSelectedFont('Oswald');
-                    _saveSettings();
-                  },
-                  child: Text(
-                    'Oswald',
-                    style: GoogleFonts.oswald(
-                      color: Colors.black),
-                    
+                    onPressed: () {
+                      AudioManager().playSfx('Sounds/button-sfx.mp3');
+                      fontProvider.setSelectedFont('Oswald');
+                      _saveSettings();
+                    },
+                    child: Text(
+                      'Oswald',
+                      style: GoogleFonts.oswald(
+                        color: Colors.black),
+                      
+                    ),
                   ),
                 ),
               ],
