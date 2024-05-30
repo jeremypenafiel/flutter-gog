@@ -102,7 +102,6 @@ class GameController extends ChangeNotifier{
     print("WIN");
     
     notifyListeners();
-    AudioManager().playSfx('Sounds/victory-sfx.mp3');
 
   }
 

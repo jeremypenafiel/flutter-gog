@@ -16,33 +16,69 @@ class BoardScreenButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ElevatedButton(
-          onPressed: onReadyPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.orange, // button background color 
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8), 
-              side: const BorderSide(color: Colors.white),
-            ),
-          ),
-          child: const Text(
-            'Ready',
-            style: TextStyle(color: Colors.white), // text color 
-          ),
-        ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Color.fromARGB(255, 230, 140, 5),
+                    ),
+                    overlayColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 228, 147, 26),
+                    ),
+                    fixedSize: MaterialStateProperty.all<Size>(
+                      const Size(120, 50),
+                    ),
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    ),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        side: const BorderSide(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  
+                  onPressed: onReadyPressed,
+
+                  child:  const Text(
+                    'READY',
+                    style: TextStyle(
+                      color: Colors.black
+                    ),
+                  ),
+                ),
+
         ElevatedButton(
-          onPressed: onExitPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.grey, // button background color
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-              side: const BorderSide(color: Colors.white), 
-            ),
-          ),
-          child: const Text(
-            'Exit',
-            style: TextStyle(color: Colors.white), // text color
-          ),
-        ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Color.fromARGB(255, 255, 255, 255),
+                    ),
+                    overlayColor: MaterialStateProperty.all<Color>(
+                    const Color.fromARGB(255, 212, 157, 75),
+                    ),
+                    fixedSize: MaterialStateProperty.all<Size>(
+                      const Size(120, 50),
+                    ),
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    ),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        side: const BorderSide(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  
+                  onPressed: onExitPressed,
+                  
+                  child:  const Text(
+                    'EXIT',
+                    style: TextStyle(
+                      color: Colors.black
+                    ),
+                  ),
+                ),
+
       ],
     );
   }

@@ -310,23 +310,84 @@ class _PopupState extends State<Popup> {
       //On finish game
       case 2:
         _popupName="Victory";
-        _forActions.add(Row(
-          children: [
-            TextButton(style: TextButton.styleFrom(backgroundColor: const Color.fromARGB(255, 250, 133, 9)), child: const Text('New Game'),
-              onPressed: () {
-              GameController gameController = Provider.of<GameController>(context, listen: false);
-              gameController.onReady();
-              Navigator.popUntil(context, ModalRoute.withName('/board'));
-              
-              }),
-            const Expanded(child: SizedBox(width: 20,)),
-            TextButton(style: TextButton.styleFrom(backgroundColor: const Color.fromARGB(255, 187, 1, 1)), child: const Text('Exit Game  '),
-              onPressed: () {
-                AudioManager().playSfx('Sounds/button-sfx.mp3');
-                Navigator.pushNamed(context, '/');
-              }
-            )
-          ],));
+        _forActions.add(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color.fromARGB(255, 250, 133, 9),
+                      ),
+                      overlayColor: MaterialStateProperty.all<Color>(
+                      Color.fromARGB(255, 223, 146, 30),
+                      ),
+                      fixedSize: MaterialStateProperty.all<Size>(
+                        const Size(100, 45),
+                      ),
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      ),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          side: const BorderSide(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                    
+                    onPressed: () {
+                      AudioManager().playSfx('Sounds/button-sfx.mp3');
+                      GameController gameController = Provider.of<GameController>(context, listen: false);
+                      gameController.onReady();
+                      Navigator.popUntil(context, ModalRoute.withName('/board'));
+                    },
+                    child:  const Text(
+                      'NEW GAME',
+                      style: TextStyle(
+                        color: Colors.black
+                      ),
+                    ),
+                  ),
+
+              SizedBox(width: 10,),
+
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 255, 255, 255),
+                  ),
+                  overlayColor: MaterialStateProperty.all<Color>(
+                  Color.fromARGB(255, 223, 146, 30),
+                  ),
+                  fixedSize: MaterialStateProperty.all<Size>(
+                    const Size(100, 45),
+                  ),
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  ),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      side: const BorderSide(color: Colors.black),
+                    ),
+                  ),
+                ),
+                
+                onPressed: () {
+                  AudioManager().playSfx('Sounds/button-sfx.mp3');
+                  Navigator.pushNamed(context, '/');
+                },
+                child:  const Text(
+                  'EXIT',
+                  style: TextStyle(
+                    color: Colors.black
+                  ),
+                ),
+              ),
+            ],
+          )
+        );
         break;
 
       //Guide
