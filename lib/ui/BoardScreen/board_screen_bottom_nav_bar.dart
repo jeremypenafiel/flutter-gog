@@ -14,7 +14,7 @@ class BoardScreenBottomNavBar extends StatefulWidget {
 
 class _BoardScreenBottomNavBarState extends State<BoardScreenBottomNavBar> {
   int _selectedIndex = 0;
-
+  Widget drawer=Container();
   @override
   Widget build(BuildContext context) {
     var gameController = Provider.of<GameController>(context, listen: false);
@@ -24,13 +24,12 @@ class _BoardScreenBottomNavBarState extends State<BoardScreenBottomNavBar> {
     );
     return Column(
       children: [
-        ScoreWidget(),
-        Expanded(
-          child: _selectedIndex == 0 ? graveyardWidget : const HierarchyWidget(),
-        ),
-        CustomBottomNavigationBar(
-          items: const [
-            CustomBottomNavigationBarItem(
+        ElevatedButton(child: ScoreWidget(),
+        onPressed: (){
+          setState(() {
+            drawer=CustomBottomNavigationBar(
+              items: const [
+              CustomBottomNavigationBarItem(
               icon: Icons.sick,
               label: 'Graveyard',
             ),
@@ -45,7 +44,14 @@ class _BoardScreenBottomNavBarState extends State<BoardScreenBottomNavBar> {
               _selectedIndex = index;
             });
           },
+        );
+            });
+        
+        } ,),
+        Expanded(
+          child: _selectedIndex == 0 ? graveyardWidget : const HierarchyWidget(),
         ),
+        drawer,
       ],
     );
   }
@@ -106,3 +112,5 @@ class CustomBottomNavigationBarItem {
     required this.label,
   });
 }
+
+
