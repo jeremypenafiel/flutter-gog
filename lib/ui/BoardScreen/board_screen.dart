@@ -149,7 +149,7 @@ void _onGameStateChanged() {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(18, 0, 18, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                     child: Stack(
                       children: [
                         board,  // Game board or prematch board UI
@@ -170,7 +170,7 @@ void _onGameStateChanged() {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                  padding: EdgeInsets.only( top: 10, left: 10, right: 10, bottom: MediaQuery.of(context).viewInsets.bottom + 100),
                   child: BoardScreenButtons(
                     onReadyPressed: () {
                       gameController.onReady();
