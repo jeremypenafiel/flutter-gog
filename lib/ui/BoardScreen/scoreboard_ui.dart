@@ -12,10 +12,12 @@ class ScoreWidget extends StatelessWidget {
     var score = ValueListenableBuilder(
         valueListenable: gameController.gameState,
         builder: (context, gameState, child) {
+          String playerOne = gameController.isSwapped ? 'Player Two' : 'Player One';
+          String playerTwo = gameController.isSwapped ? 'Player One' : 'Player Two';
           return Text(
-            'Player One ${gameController.whitePlayerScore} - ${gameController.blackPlayerScore} Player Two',
+            '$playerOne ${gameController.whitePlayerScore} - ${gameController.blackPlayerScore} $playerTwo',
             style: const TextStyle(
-              color: Colors.white, // Text color
+            color: Colors.white, // Text colorText color
             ),
           );
         },
