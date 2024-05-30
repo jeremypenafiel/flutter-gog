@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gog/backend/audio_manager.dart';
 import 'package:gog/backend/board.dart';
 import 'package:gog/backend/piece.dart';
 import 'package:gog/ui/PopUpScreen/popup.dart';
@@ -96,7 +97,9 @@ class GameController extends ChangeNotifier{
 
     
     print("WIN");
+    
     notifyListeners();
+    AudioManager().playSfx('Sounds/victory-sfx.mp3');
 
   }
 
