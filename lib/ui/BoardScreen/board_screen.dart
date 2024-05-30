@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gog/backend/game_controller.dart';
 import 'package:gog/main.dart';
 import 'package:gog/ui/BoardScreen/prematch_board_ui.dart';
@@ -13,6 +11,7 @@ import 'package:gog/ui/PopUpScreen/popup.dart';
 
 import '../../backend/board.dart';
 import 'package:gog/backend/audio_manager.dart';
+import 'package:gog/ui/BoardScreen/purgatory_ui.dart';
 
 
 class BoardScreen extends StatefulWidget {
@@ -31,7 +30,6 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     gameController = Provider.of<GameController>(context, listen: false);
     board = Board(setGameState: gameController.setGameState, onWin: gameController.win);
@@ -46,7 +44,7 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
     
 
     AudioManager().stopBackgroundMusic().then((_) {
-      AudioManager().playBackgroundMusic('Sounds/game-bg-music.mp3');
+      AudioManager().playBackgroundMusic('Sounds/board-bg-music.mp3');
     });
 
 
@@ -54,7 +52,6 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
     gameStateNotifier.addListener(_onGameStateChanged);
   }
 
-  
   @override
   void dispose() {
     // Remove the observer in dispose
@@ -106,7 +103,6 @@ void _onGameStateChanged() {
               ? ChangeNotifierProvider.value(
                   value: gameController.prematchBoard,
                   child: PrematchBoardUI(),
-                  //add two buttons here
                 )
               : ChangeNotifierProvider.value(
                   value: gameController.board,
@@ -124,10 +120,11 @@ void _onGameStateChanged() {
         appBar: null,
         body: Stack(children: [
           Positioned.fill(
-              child: Image.asset(
-            'assets/background.jpg',
-            fit: BoxFit.cover,
-          )),
+            child: Image.asset(
+              'assets/background.jpg',
+              fit: BoxFit.cover,
+            ),
+          ),
           Positioned.fill(
               child: Container(
             color: Colors.black.withOpacity(0.3),
@@ -140,7 +137,6 @@ void _onGameStateChanged() {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 18),
-
                   child: Row(
                     children: [
                       SizedBox(
@@ -149,30 +145,44 @@ void _onGameStateChanged() {
                       ),
                       Spacer(),
                       IconButton(icon: Icon(Icons.settings), 
-                      onPressed:() {
-                        showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Popup(popup: 1);
-                      },
-                      );
-                      }
+                        onPressed:() {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Popup(popup: 1);
+                            },
+                          );
+                        }
                       )
                     ]
                   ) ,
-
                 ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(18, 0, 18, 0),
-                    child: board,
+                    child: Stack(
+                      children: [
+                        board,  // Game board or prematch board UI
+                        // Purgatory UI (overlay)
+                        ValueListenableBuilder<GameState>(
+                          valueListenable: gameController.gameState,
+                          builder: (context, gameState, child) {
+                            return Visibility(
+                              visible: gameState == GameState.purgatory,
+                              child: IgnorePointer(
+                                child: PurgatoryUI(gameController: gameController),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: BoardScreenButtons(
                     onReadyPressed: () {
-                      //TODO: Handle ready button
                       gameController.onReady();
                     },
                     onExitPressed: () async {

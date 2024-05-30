@@ -50,7 +50,7 @@ final List<int> pieceList = [
 
   void changeTurn(){
     turn = turn == 0 ? 1: 0;
-    initBoard(blackPrematchBoard);
+    initBoard(blackPrematchBoard, 1);
   }
 
   int? getSelectedTileIndex(){
@@ -84,12 +84,12 @@ final List<int> pieceList = [
   }
 
   void whiteSetup(){
-    initBoard(whitePrematchBoard);
+    initBoard(whitePrematchBoard, 0);
     notifyListeners();
   }
 
-  void initBoard(List<int> board){
-    pieceColor = turn == 0 ? Piece.white: Piece.black;
+  void initBoard(List<int> board, int turn){
+    pieceColor = turn == 0 ? Piece.white: Piece.black; // turn 0 is white, turn 1 is black
     int j = 0;
 
     for(int i = 10; i < maxSquareNum; i++) {
@@ -110,13 +110,21 @@ final List<int> pieceList = [
   }
 
   void blackSetup() {
-    initBoard(blackPrematchBoard);
+    initBoard(blackPrematchBoard, 1);
     notifyListeners();
   }
 
   void resetTentativeBoard() {
     tentativeBoard = List<int>.filled(36, 0);
     notifyListeners();
+  }
+
+  void resetBoard() {
+    turn = 0;
+    whitePrematchBoard = List<int>.filled(36, 0);
+    blackPrematchBoard = List<int>.filled(36, 0);
+    resetTentativeBoard();
+    whiteSetup();
   }
 
 }
