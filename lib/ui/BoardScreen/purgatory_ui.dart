@@ -10,9 +10,9 @@ class PurgatoryUI extends StatelessWidget {
   Widget build(BuildContext context) {
     var turn = gameController.turn;
     bool isWhiteTurn = turn == 0; // turn == 0 is white's turn
-    String turnText = isWhiteTurn ? 'White' : 'Black';
-    Color textColor = isWhiteTurn ? Colors.white : Colors.black;
-    Color outlineColor = isWhiteTurn ? Colors.black : Colors.white;
+    String turnText = !isWhiteTurn ? 'White' : 'Black';
+    Color textColor = !isWhiteTurn ? Colors.white : Colors.black;
+    Color outlineColor = !isWhiteTurn ? Colors.black : Colors.white;
     return Center(
       child: Stack(
         children: [
