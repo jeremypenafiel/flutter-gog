@@ -26,7 +26,7 @@ class _BoardScreenBottomNavBarState extends State<BoardScreenBottomNavBar> {
       children: [
         ScoreWidget(),
         Expanded(
-          child: _selectedIndex == 0 ? graveyardWidget : HierarchyWidget(),
+          child: _selectedIndex == 0 ? graveyardWidget : const HierarchyWidget(),
         ),
         CustomBottomNavigationBar(
           items: const [
@@ -76,7 +76,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
             onTap: () => onTap(index),
             child: ClipRRect(
               child: Container(
-                color: isSelected ? const Color.fromARGB(255, 38, 38, 38) : Colors.black,
+                color: isSelected ? Colors.black : const Color.fromARGB(255, 38, 38, 38),
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
