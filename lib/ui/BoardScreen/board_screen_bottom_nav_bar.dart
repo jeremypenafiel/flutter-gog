@@ -24,8 +24,8 @@ class _BoardScreenBottomNavBarState extends State<BoardScreenBottomNavBar> {
     );
     return Column(
       children: [
-        ElevatedButton(child: ScoreWidget(),
-        onPressed: (){
+        InkWell(child: ScoreWidget(),
+        onTap: (){
           setState(() {
             drawer=CustomBottomNavigationBar(
               items: const [
