@@ -100,5 +100,10 @@ class GameController extends ChangeNotifier{
 
   }
 
+  void resetScore() {
+    whitePlayerScore = 0;
+    blackPlayerScore = 0;
+  }
+
 
 }
