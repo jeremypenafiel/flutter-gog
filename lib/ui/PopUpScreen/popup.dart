@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gog/backend/font_provider.dart';
+import 'package:gog/backend/game_controller.dart';
+
 
 class Popup extends StatefulWidget {
   final int popup;
@@ -296,6 +298,8 @@ class _PopupState extends State<Popup> {
           children: [
             TextButton(style: TextButton.styleFrom(backgroundColor: const Color.fromARGB(255, 250, 133, 9)), child: const Text('New Game'),
               onPressed: () {
+              GameController gameController = Provider.of<GameController>(context, listen: false);
+              gameController.onReady();
               Navigator.popUntil(context, ModalRoute.withName('/board'));
               
               }),

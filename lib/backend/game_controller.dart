@@ -38,6 +38,7 @@ class GameController extends ChangeNotifier{
     gameState.notifyListeners();
     board.resetBoard();
     turn = 0;
+    prematchBoard.turn = 0;
     prematchBoard.resetTentativeBoard();
     prematchBoard.whiteSetup();
 }
@@ -64,8 +65,9 @@ class GameController extends ChangeNotifier{
         print(board.board);
         break;
       case GameState.postGame:
-        board.resetBoard();
-        gameState.value=GameState.blackPrematch;
+        
+        resetBoard();
+        
         
         break;
       case GameState.purgatory:
