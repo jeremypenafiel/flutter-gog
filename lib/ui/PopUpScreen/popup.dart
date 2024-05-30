@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gog/backend/font_provider.dart';
 import 'package:gog/backend/game_controller.dart';
+import 'package:gog/ui/BoardScreen/hierarchy_ui.dart';
 
 
 class Popup extends StatefulWidget {
@@ -344,26 +345,7 @@ class _PopupState extends State<Popup> {
         );
         list.add(const Text("Each piece can challenge an opposing piece directly adjacent in front, behind or side of it. A challenge is initiated by placing the piece on the adjacent square where an opposing piece is located. Regardless of which piece initiated the challenge, the rank of the pieces determines which piece is to be removed from the board."));
         list.add(const Text("Pieces Rank/Hierarchy"));
-        list.add(Container(color: Colors.grey,
-          child: Column(children: [
-            Row(children: [Image.asset("assets/White Pieces/white_5star_general.png"),const Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_4star_general.png"),const Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_3star_general.png"),const Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_2star_general.png"),const Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_1star_general.png"),const Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_colonel.png"),const Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_lt_colonel.png"),const Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_major.png"),const Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_captain.png"),const Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_1st_lieut.png"),const Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_2nd_lieut.png"),const Expanded(child: Text("Eliminates any lower-ranking officer below it, the Private, and the Flag except the Spy."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_sergeant.png"),const Expanded(child: Text("Eliminates only the Private and the Flag."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_private.png"),const Expanded(child: Text("Eliminates only the Spy."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_spy.png"),const Expanded(child: Text("Eliminates any piece except the Private."))],),
-            Row(children: [Image.asset("assets/White Pieces/white_flag.png"),const Expanded(child: Text("Can not eliminate any piece. Losing this piece is instant loss and making it reach the other end of the board is instant win."))],),
-            
-            ],),
-        ));
+        list.add( const HierarchyWidget());
         _forActions.add(TextButton(
           style: ButtonStyle(
             overlayColor: MaterialStateProperty.all<Color>(
