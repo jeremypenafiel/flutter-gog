@@ -287,7 +287,8 @@ class _PopupState extends State<Popup> {
           onPressed: () {
             Navigator.of(context).pop();
           }));
-      
+      break;
+
       //On finish game
       case 2:
         _popupName="Victory";
@@ -295,7 +296,8 @@ class _PopupState extends State<Popup> {
           children: [
             TextButton(style: TextButton.styleFrom(backgroundColor: const Color.fromARGB(255, 250, 133, 9)), child: const Text('New Game'),
               onPressed: () {
-              Navigator.pushNamed(context, '/board');
+              Navigator.popUntil(context, ModalRoute.withName('/board'));
+              
               }),
             const Expanded(child: SizedBox(width: 20,)),
             TextButton(style: TextButton.styleFrom(backgroundColor: const Color.fromARGB(255, 187, 1, 1)), child: const Text('Exit Game  '),
@@ -303,7 +305,7 @@ class _PopupState extends State<Popup> {
               Navigator.pushNamed(context, '/');
           })
           ],));
-        
+        break;
 
       //Guide
       case 3:

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gog/backend/board.dart';
 import 'package:gog/backend/piece.dart';
+import 'package:gog/ui/PopUpScreen/popup.dart';
 // import change notifier
 
 import 'package:gog/backend/prematch_board.dart';
@@ -63,6 +64,9 @@ class GameController extends ChangeNotifier{
         print(board.board);
         break;
       case GameState.postGame:
+        board.resetBoard();
+        gameState.value=GameState.blackPrematch;
+        
         break;
       case GameState.purgatory:
         gameState.value = turn == 0 ? GameState.blackTurn : GameState.whiteTurn;
@@ -92,6 +96,7 @@ class GameController extends ChangeNotifier{
       blackPlayerScore++;
     }
 
+    
     print("WIN");
     notifyListeners();
 
