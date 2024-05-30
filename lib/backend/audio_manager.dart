@@ -1,10 +1,10 @@
 import 'package:audioplayers/audioplayers.dart';
 
 class AudioManager {
-  static final AudioManager _instance = AudioManager._internal();
+  static final AudioManager _instance = AudioManager._internal(PlayerMode.lowLatency);
   factory AudioManager() => _instance;
 
-  AudioManager._internal() {
+  AudioManager._internal(PlayerMode lowLatency) {
     _backgroundPlayer = AudioPlayer();
     _sfxPlayer = AudioPlayer();
   }
