@@ -8,41 +8,38 @@ class PurgatoryUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var turn = gameController.turn;
+    bool isWhiteTurn = turn == 0; // turn == 0 is white's turn
+    String turnText = isWhiteTurn ? 'White' : 'Black';
+    Color textColor = isWhiteTurn ? Colors.white : Colors.black;
+    Color outlineColor = isWhiteTurn ? Colors.black : Colors.white;
     return Center(
-      child: ValueListenableBuilder<GameState>(
-        valueListenable: gameController.gameState,
-        builder: (context, gameState, child) {
-          bool isWhiteTurn = gameState == GameState.whiteTurn;
-          String turnText = isWhiteTurn ? 'White' : 'Black';
-          Color textColor = isWhiteTurn ? Colors.white : Colors.black;
-          Color outlineColor = isWhiteTurn ? Colors.black : Colors.white;
-          return Stack(
-            children: [
-              // Outline text
-              Text(
-                '$turnText Player\'s Turn',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  foreground: Paint()
-                    ..style = PaintingStyle.stroke
-                    ..strokeWidth = 3
-                    ..color = outlineColor,
-                ),
-              ),
-              // Main text
-              Text(
-                '$turnText Player\'s Turn',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: textColor,
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+      child: Stack(
+        children: [
+          // Outline text
+          Text(
+            '$turnText Player\'s Turn',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 3
+                ..color = outlineColor,
+            ),
+          ),
+          // Main text
+          Text(
+            '$turnText Player\'s Turn',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: textColor,
+            ),
+          ),
+        ],
+      )
+      ,
     );
   }
 }
