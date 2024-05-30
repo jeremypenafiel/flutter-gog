@@ -181,9 +181,7 @@ void _onGameStateChanged() {
                     },
                   ),
                 ),
-                const Expanded(
-                  child: BoardScreenBottomNavBar(),
-                ),
+                BoardScreenBottomNavBar(),
               ],
             ),
           ),
