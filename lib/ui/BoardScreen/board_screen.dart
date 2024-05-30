@@ -36,6 +36,7 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     prematchBoard = PrematchBoard();
     gameController.connect(board, prematchBoard);
+    gameController.resetScore();
 
     gameController.resetBoard();
     gameController.startPrematch();

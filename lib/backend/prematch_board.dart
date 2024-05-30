@@ -84,6 +84,7 @@ final List<int> pieceList = [
   }
 
   void whiteSetup(){
+    selectedTileIndex = null;
     initBoard(whitePrematchBoard, 0);
     notifyListeners();
   }
@@ -110,6 +111,7 @@ final List<int> pieceList = [
   }
 
   void blackSetup() {
+    selectedTileIndex = null;
     initBoard(blackPrematchBoard, 1);
     notifyListeners();
   }
