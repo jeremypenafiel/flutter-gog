@@ -23,6 +23,8 @@ class GameController extends ChangeNotifier{
   int whitePlayerScore = 0;
   int blackPlayerScore = 0;
 
+  bool isSwapped = false;
+
 
   int turn = 0; // turn = 0 means white turn, turn = 1 means black turn
   var gameState = ValueNotifier<GameState>(GameState.whitePrematch);
@@ -65,6 +67,7 @@ class GameController extends ChangeNotifier{
         print(board.board);
         break;
       case GameState.postGame:
+        swapPlayers();
         resetBoard();
         break;
       case GameState.purgatory:
@@ -106,6 +109,13 @@ class GameController extends ChangeNotifier{
   void resetScore() {
     whitePlayerScore = 0;
     blackPlayerScore = 0;
+  }
+
+  void swapPlayers() {
+    int tempScore = whitePlayerScore;
+    whitePlayerScore = blackPlayerScore;
+    blackPlayerScore = tempScore;
+    isSwapped = !isSwapped;
   }
 
 
