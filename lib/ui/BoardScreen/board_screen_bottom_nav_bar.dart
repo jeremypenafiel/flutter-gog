@@ -13,6 +13,8 @@ class BoardScreenBottomNavBar extends StatefulWidget {
 }
 
 class _BoardScreenBottomNavBarState extends State<BoardScreenBottomNavBar> {
+  int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     var gameController = Provider.of<GameController>(context, listen: false);
@@ -20,64 +22,31 @@ class _BoardScreenBottomNavBarState extends State<BoardScreenBottomNavBar> {
       value: gameController.board,
       child: const GraveyardWidget(),
     );
-
-    return InkWell(
-      child: ScoreWidget(),
-      onTap: () {
-        showModalBottomSheet<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return BottomDrawerContent(
-              graveyardWidget: graveyardWidget,
-            );
+    return Column(
+      children: [
+        ScoreWidget(),
+        Expanded(
+          child: _selectedIndex == 0 ? graveyardWidget : const HierarchyWidget(),
+        ),
+        CustomBottomNavigationBar(
+          items: const [
+            CustomBottomNavigationBarItem(
+              icon: Icons.sick,
+              label: 'Graveyard',
+            ),
+            CustomBottomNavigationBarItem(
+              icon: Icons.reduce_capacity,
+              label: 'Hierarchy',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          onTap: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
           },
-        );
-      },
-    );
-  }
-}
-
-class BottomDrawerContent extends StatefulWidget {
-  final Widget graveyardWidget;
-
-  const BottomDrawerContent({required this.graveyardWidget, super.key});
-
-  @override
-  _BottomDrawerContentState createState() => _BottomDrawerContentState();
-}
-
-class _BottomDrawerContentState extends State<BottomDrawerContent> {
-  int _selectedIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 400, // Adjust height as needed
-      child: Column(
-        children: [
-          Expanded(
-            child: _selectedIndex == 0 ? widget.graveyardWidget : const HierarchyWidget(),
-          ),
-          CustomBottomNavigationBar(
-            items: const [
-              CustomBottomNavigationBarItem(
-                icon: Icons.sick,
-                label: 'Graveyard',
-              ),
-              CustomBottomNavigationBarItem(
-                icon: Icons.reduce_capacity,
-                label: 'Hierarchy',
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            onTap: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
