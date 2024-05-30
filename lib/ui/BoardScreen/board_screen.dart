@@ -87,8 +87,8 @@ class _BoardScreenState extends State<BoardScreen> with WidgetsBindingObserver {
                   child: PrematchBoardUI(),
                   //add two buttons here
                 )
-              : ChangeNotifierProvider(
-                  create: (BuildContext context) => gameController.board,
+              : ChangeNotifierProvider.value(
+                  value: gameController.board,
                   child: BoardUI());
         });
 
