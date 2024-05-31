@@ -64,6 +64,8 @@ class GameController extends ChangeNotifier{
         gameState.notifyListeners();
         prematchBoard.mergeBoards();
         board.setBoard(prematchBoard.getBoard);
+        gameState.value = GameState.purgatory;
+        turn = 1;
         print(board.board);
         break;
       case GameState.postGame:
@@ -73,7 +75,7 @@ class GameController extends ChangeNotifier{
       case GameState.purgatory:
         gameState.value = turn == 0 ? GameState.blackTurn : GameState.whiteTurn;
         turn = turn == 0 ? 1 : 0;
-        int pieceColor = gameState.value == GameState.whiteTurn ? Piece.white : Piece.black;
+        // int pieceColor = gameState.value == GameState.whiteTurn ? Piece.white : Piece.black;
         //board.revealPieces(pieceColor);
 
         break;
