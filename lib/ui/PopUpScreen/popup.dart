@@ -377,7 +377,7 @@ class _PopupState extends State<Popup> {
                 
                 onPressed: () {
                   AudioManager().playSfx('Sounds/button-sfx.mp3');
-                  Navigator.pushNamed(context, '/');
+                  Navigator.popUntil(context, ModalRoute.withName('/'));
                 },
                 child:  const Text(
                   'EXIT',
