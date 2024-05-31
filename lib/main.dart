@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
             Widget? child) {
           //AudioManager().playBackgroundMusic('Sounds/home-bg-music.mp3');
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
               title: 'Flutter Demo',
               initialRoute: '/',
               navigatorObservers: [routeObserver],

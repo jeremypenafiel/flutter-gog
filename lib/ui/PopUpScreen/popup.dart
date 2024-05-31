@@ -418,7 +418,7 @@ class _PopupState extends State<Popup> {
         );
         list.add(const Text("Each piece can challenge an opposing piece directly adjacent in front, behind or side of it. A challenge is initiated by placing the piece on the adjacent square where an opposing piece is located. Regardless of which piece initiated the challenge, the rank of the pieces determines which piece is to be removed from the board."));
         list.add(const Text("Pieces Rank/Hierarchy"));
-        list.add( const HierarchyWidget());
+        list.add(const HierarchyWidget(backgroundColor: Color.fromARGB(255, 38, 38, 38),));
         _forActions.add(TextButton(
           style: ButtonStyle(
             overlayColor: MaterialStateProperty.all<Color>(

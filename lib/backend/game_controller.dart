@@ -45,7 +45,6 @@ class GameController extends ChangeNotifier{
 
 }
 
-
   void startPrematch(){
     gameState = ValueNotifier<GameState>(GameState.whitePrematch);
     prematchBoard.whiteSetup();
