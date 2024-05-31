@@ -13,7 +13,6 @@ class _HomePageState extends State<HomePage> with RouteAware, WidgetsBindingObse
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
-    // Play background music when the home page is opened
     AudioManager().playBackgroundMusic('Sounds/home-bg-music.mp3');
   }
 
@@ -21,7 +20,6 @@ class _HomePageState extends State<HomePage> with RouteAware, WidgetsBindingObse
   void dispose() {
     WidgetsBinding.instance?.removeObserver(this);
     routeObserver.unsubscribe(this);
-    // Stop background music when the home page is disposed
     AudioManager().stopBackgroundMusic();
     super.dispose();
   }
@@ -39,19 +37,28 @@ class _HomePageState extends State<HomePage> with RouteAware, WidgetsBindingObse
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.paused) {
-      // Pause background music when the app is sent to the background
       AudioManager().pauseBackgroundMusic();
     } else if (state == AppLifecycleState.resumed) {
-      // Resume background music when the app is brought to the foreground
       AudioManager().resumeBackgroundMusic();
     }
   }
 
   @override
   void didPopNext() {
-    // Resume background music when returning to the home page from another route
+    setState(() {
+      _messageIndex = (_messageIndex + 1) % _messages.length;
+    });
     AudioManager().playBackgroundMusic('Sounds/home-bg-music.mp3');
   }
+
+  final List<String> _messages = [
+    'All warfare is based on deception.',
+    'The skillful soldier does not raise a second levy, neither are his supply-wagons loaded more than twice.',
+    'He will win who knows when to fight and when not to fight.',
+    'Making no mistakes is what establishes the certainty of victory, for it means conquering an enemy that is already defeated.',
+    'If the enemy leaves a door open, you must rush in.'
+  ];
+  int _messageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +79,14 @@ class _HomePageState extends State<HomePage> with RouteAware, WidgetsBindingObse
                   child: Image.asset('assets/Title.png'),
                 ),
                 SizedBox(height: 20),
-                Container(
-                  child: Text('EDIWOW ANG KADIPOTA MO GID'),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(_messages[_messageIndex],
+                    style: const TextStyle(fontWeight: FontWeight.bold),),
+                  ),
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 80),
 
                 ElevatedButton(
                   style: ButtonStyle(
