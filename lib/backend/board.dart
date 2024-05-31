@@ -99,10 +99,10 @@ class Board extends ChangeNotifier {
     if(Piece.pieceType(board[startSquare]) == Piece.flag){
       if(Piece.isColor(board[startSquare], Piece.white) && targetSquare ~/ 9 == 0 ){
         onWin(Piece.color(board[startSquare]));
-        isWin = true;
+        isWin = true; 
       }else if(Piece.isColor(board[startSquare], Piece.black) && targetSquare ~/ 9 == 7){
         onWin(Piece.color(board[startSquare]));
-        isWin = true;
+        isWin = true;       
       }
 
     }
@@ -112,7 +112,6 @@ class Board extends ChangeNotifier {
     possibleMoves = List.empty(growable: true);
     possibleTakeMoves = List.empty(growable: true);
     if(isWin){
-      AudioManager().playSfx('Sounds/victory-sfx.mp3');
       notifyListeners();
       return;
     }

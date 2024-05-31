@@ -309,6 +309,7 @@ class _PopupState extends State<Popup> {
 
       //On finish game
       case 2:
+      AudioManager().playSfx('Sounds/victory-sfx.mp3');
         _popupName="Victory";
         _forActions.add(
           Row(

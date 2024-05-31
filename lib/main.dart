@@ -3,6 +3,7 @@ import 'package:gog/ui/PopUpScreen/popup.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gog/backend/font_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'backend/game_controller.dart';
 import 'ui/HomeScreen/home.dart';
 import 'backend/board.dart';
@@ -16,7 +17,7 @@ import 'package:gog/backend/route_observer.dart';
 
 
 GameController? gameController;
-void main() {
+Future<void> main() async {
   gameController = GameController();
   // Board board = Board(setGameState: gameController!.setGameState);
   // PrematchBoard prematchBoard = PrematchBoard();
@@ -33,6 +34,9 @@ void main() {
       child: const MyApp(),
     ),
   );
+
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  await preferences.clear();
 }
 
 class MyApp extends StatelessWidget {
