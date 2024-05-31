@@ -83,7 +83,8 @@ class _HomePageState extends State<HomePage> with RouteAware, WidgetsBindingObse
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(_messages[_messageIndex],
-                    style: const TextStyle(fontWeight: FontWeight.bold),),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontWeight: FontWeight.bold, ),),
                   ),
                 ),
                 SizedBox(height: 80),
