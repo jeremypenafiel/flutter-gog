@@ -52,11 +52,11 @@ class _BottomDrawerContentState extends State<BottomDrawerContent> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 400, // Adjust height as needed
+      height: 400, /**/
       child: Column(
         children: [
           Expanded(
-            child: _selectedIndex == 0 ? widget.graveyardWidget : const HierarchyWidget(),
+            child: _selectedIndex == 0 ? widget.graveyardWidget : const HierarchyWidget(backgroundColor: Color.fromARGB(255, 38, 38, 38),),
           ),
           CustomBottomNavigationBar(
             items: const [

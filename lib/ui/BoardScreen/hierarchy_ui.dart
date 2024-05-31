@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HierarchyWidget extends StatelessWidget {
-  const HierarchyWidget({super.key});
+  final Color backgroundColor;
+  const HierarchyWidget({super.key, required this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class HierarchyWidget extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Container(
-        color: const Color.fromARGB(255, 38, 38, 38),
+        color: backgroundColor,
         child: Center(
           child: Padding(
             padding: EdgeInsets.all(padding),
@@ -35,6 +36,7 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_4star_general.png"),
@@ -48,6 +50,8 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_3star_general.png"),
@@ -61,6 +65,8 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_2star_general.png"),
@@ -74,6 +80,8 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_1star_general.png"),
@@ -87,6 +95,8 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_colonel.png"),
@@ -100,6 +110,8 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_lt_colonel.png"),
@@ -113,6 +125,8 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_major.png"),
@@ -126,6 +140,8 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_captain.png"),
@@ -139,6 +155,8 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_1st_lieut.png"),
@@ -152,6 +170,8 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_2nd_lieut.png"),
@@ -165,6 +185,8 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_sergeant.png"),
@@ -178,6 +200,8 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_private.png"),
@@ -191,6 +215,8 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_spy.png"),
@@ -204,6 +230,8 @@ class HierarchyWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                Divider(),
                 Row(
                   children: [
                     Image.asset("assets/White Pieces/white_flag.png"),
